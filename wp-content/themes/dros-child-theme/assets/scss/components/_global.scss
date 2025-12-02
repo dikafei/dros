@@ -1,0 +1,228 @@
+@use "sass:list";
+@use "sass:map";
+/*
+ * Variables 
+ * Mixins
+ */
+
+/* Variables */        
+    :root {
+        --wp--style--block-gap: 25px;
+
+        --accent: #bb4d09; /* Primary */
+        --accent-2: #c2a390; /* Secondary */
+        --accent-3: #53301B; /* Tertiary */
+        
+        --contrast: #000000; /* Foreground */
+        --contrast-2: #222222; 
+        --contrast-3: #888888;
+
+        --base: #dddddd; /* Border Color */
+        --base-2: #f4f4f4; /* Close to base of all base */
+        --base-3: #ffffff; /* Base of all base */
+
+        --primary:#bb4d09;
+        --secondary:#c2a390;
+        --tertiary: #53301B;
+        --foreground:#333333;
+
+        --content-width:1440px;
+        --wp-admin-theme-color: #2271b1;
+        --wp-admin-theme-color-darker-10:#006ba1;        
+        --wp-components-color-accent:#2271b1;  
+        --wp-components-color-accent-darker-10:#006ba1;
+    }
+
+    body {
+        --vw: calc( 100vw - ( 100vw - 100% ) );
+    } 
+
+    $quarter-spacing:8px;
+    $half-spacing: 16px;
+    $spacing: 25px;
+    $double-spacing: 50px;
+
+    $xl: 1439px;
+    $lg: 1199px;
+    $md: 991px;
+    $sml: 781px;
+    $sm: 767px;
+    $xs: 576px;
+
+    $default-container-width: 1440px;
+
+    $slimmer-width: min( calc( var(--vw) - 2 * $spacing ), 620px );
+    $slim-width: min(calc( var(--vw) - 2 * $spacing ), 900px );
+    $default-width: min(calc( var(--vw) - 2 * $spacing ), 1440px );
+    $wide-width: calc( var(--vw) - 60px );    
+
+    $tablet-max-width: calc( var(--vw) - 50px );
+
+    $mobile-slimmer-width: min(calc( var(--vw) - 2 * $half-spacing ), 620px );
+    $mobile-slim-width: min(calc( var(--vw) - 2 * $half-spacing ), 900px );
+    $mobile-default-width: min(calc( var(--vw) - 2 * $half-spacing ), 1440px );
+    $mobile-wide-width: calc( var(--vw) - 32px );    
+
+    $primary:#bb4d09; // --accent
+    $secondary: #c2a390; //--accent-2
+    $tertiary: #53301B; // --accent-3    
+    $dark: #888888; // --contrast-3
+    $heading: #222222; // --contrast-2
+    $foreground: #333333; // --base
+    $background: #ece5d5;  // --base-2  
+    $border: #dddddd;    
+    $black: #000000; // --contrast
+    $white: #ffffff; // --base-3
+
+    $success: #7fb34d;
+    $info: #1e85be;
+    $warning: gold;
+    $error: #E4203F;
+
+    $brownier: #663B20;
+
+    $primary-font:'Gazpacho';
+    $secondary-font: 'Playwrite DE SAS';
+
+    $link: $primary;
+
+    /* Desktop Font Size */
+    $h0: 120px;
+    $h1: 80px;
+    $h2: 60px;
+    $h3: 40px;
+    $h4: 24px;
+    $h5: 18px;
+    $pjumbo: 48px;
+    $pbig: 38px;
+    $p: 28px;    
+    $h6: 16px;
+    $span: 14px;
+
+    $lh: 1.3;
+    $lh0: 1.3;
+    $lh1: 1.3;
+    $lh2: 1.3;
+    $lh3: 1.3;
+    $lh4: 34px;
+    $lh5: 28px;
+    $lpjumbo: 1.6;
+    $lpbig: 1.6;
+    $lp: 1.8;    
+    $lh6: 26px;
+    $lspan: 24px;
+
+    /* Mobile Font Size */
+    $mh1: 32px;
+    $mh2: 28px;
+    $mh3: 24px;
+    $mh4: 20px;
+    $mh5: 16px;
+    $mp: 16px;
+    $mspan: 14px;
+    $mh6: 14px;
+    
+    $mlh1: 42px;
+    $mlh2: 38px;
+    $mlh3: 34px;
+    $mlh4: 30px;
+    $mlh5: 26px;
+    $mlp: 26px;
+    $mlspan: 24px;
+    $mlh6: 24px;
+
+    $font: ( 'h0' : $h0, 'h1' : $h1, 'h2' : $h2, 'h3' : $h3, 'h4' : $h4, 'h5' : $h5, 'pjumbo' : $pjumbo, 'pbig' : $pbig, 'p' : $p, 'span' : $span, 'h6' : $h6 );
+    $lineheight: ( 'h0' : $lh0, 'h1' : $lh1, 'h2' : $lh2, 'h3' : $lh3, 'h4' : $lh4, 'h5' : $lh5, 'pjumbo' : $lpjumbo, 'pbig' : $lpbig, 'p' : $lp, 'span' : $lspan, 'h6' : $lh6 );
+
+    $mobilefont: ( 'h1' : $mh1, 'h2' : $mh2, 'h3' : $mh3, 'h4' : $mh4, 'h5' : $mh5, 'p' : $mp, 'span' : $mspan, 'h6' : $mh6 );
+    $mobilelineheight: ( 'h1' : $mlh1, 'h2' : $mlh2, 'h3' : $mlh3, 'h4' : $mlh4, 'h5' : $mlh5, 'p' : $mlp, 'span' : $mlspan, 'h6' : $mlh6 );
+
+    $transition: all 0.2s ease 0s;
+    $border-radius:0px;
+
+/* Mixins */
+    @mixin font( $size ) {
+        font-size: map.get( $font, $size );    
+        line-height: map.get( $lineheight, $size );
+
+        @media( max-width:$sm ) {
+            font-size: map.get( $mobilefont, $size );    
+            line-height: map.get( $mobilelineheight, $size );
+        }
+    }
+
+    @mixin slimmer-width {
+        max-width: $slimmer-width;
+        margin-left: auto;
+        margin-right: auto;
+
+        @media( max-width:$sm ) {
+            max-width:$mobile-slimmer-width;
+        }
+    }
+
+    @mixin slim-width {
+        max-width: $slim-width;
+        margin-left: auto;
+        margin-right: auto;
+
+        @media( max-width:$sm ) {
+            max-width:$mobile-slim-width;
+        }
+    }
+
+    @mixin default-width {
+        max-width: $default-width;
+        margin-left: auto;
+        margin-right: auto;
+
+        @media( max-width:$sm ) {
+            max-width:$mobile-default-width;
+        }
+    }
+
+    @mixin wide-width {
+        max-width: $wide-width;
+        margin-left: auto;
+        margin-right: auto;
+
+        @media( max-width:$sm ) {
+            max-width:$mobile-wide-width;
+        }
+    }
+
+    @mixin button {
+        background-color: $primary;
+        color:$white;
+        border:1px solid $primary;
+        padding:8px 24px;
+
+        @media( max-width:$sm ) {
+            padding:4px 12px;
+        }
+
+        &:hover,
+        &:focus {
+            background-color: $secondary;
+            color:$white;
+            border-color:$secondary;
+        }
+    }
+
+    @mixin button-outline {
+        background-color: transparent;
+        color:$primary;
+        border:1px solid $primary;
+        padding:8px 24px;
+
+        @media( max-width:$sm ) {
+            padding:4px 12px;
+        }
+
+        &:hover,
+        &:focus {
+            background-color: $secondary;
+            color:$white;
+            border-color:$secondary;
+        }
+    }

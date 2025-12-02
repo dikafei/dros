@@ -1,0 +1,217 @@
+@use "global" as *;
+
+/* Import */
+    .editor-styles-wrapper,
+    .block-editor .editor-styles-wrapper {
+
+        @import "global.scss";
+        @import "general.scss";
+        @import "blocks.scss";
+        @import "acf_blocks.scss";
+
+
+        .backend-placeholder {
+            padding:$double-spacing $spacing;
+            background-color: #eeeeee;
+        }
+
+        /* Heading */
+        .h0, .h00, h1, h2, h3, h4, h5, h6 {
+            font-family: $secondary-font;
+        }
+
+        /* Extra Class - Hide */
+        .hide {
+            opacity: 0.5;
+        }
+
+        /* Extra Class - Deskto/Mobile Only */
+        .mobile-only,
+        .desktop-only {
+            display: block !important;
+        }
+
+        /* CF7 - Fix Combobox */
+        .wp-block-contact-form-7-contact-form-selector {
+
+            input[type=text] {
+                padding:2px;
+            }
+        }
+    }
+
+/* Block - Fix Group/Vertical */
+    .editor-styles-wrapper {
+    
+        .wp-block-group.is-vertical {
+        
+            .block-list-appender {
+                width:100%;
+            }
+        }
+    }
+
+/* Block - Fix Button */
+    /*.editor-styles-wrapper {
+
+        .block-editor-block-list__layout {
+
+            .wp-block-button .wp-block-button__link,
+            .button {
+                padding:12px 24px !important;
+
+                @media( max-width:$sm ) {
+                    padding:12px 15px !important;
+                }                
+            }
+        }
+    }*/
+
+/* Block - Accordion */
+    .editor-styles-wrapper {
+
+        .wp-block-acf-accordion-group {
+            padding:$spacing;
+            border:1px solid #ccc;
+            position: relative;
+
+            &:before {
+                content:'Accordion';
+                position: absolute;
+                top:-15px;
+                left:10px;
+                border:1px solid #ccc;
+                background-color: #f4f4f4;
+                padding:2px 10px;
+                @include font(h6);
+            }
+        }
+
+        .wp-block-acf-accordion-item {
+            padding:$spacing;
+            border:1px solid #ccc;
+            position: relative;
+
+            & + .block-list-appender {
+                bottom:-25px;
+            }
+
+            .accordion-item-content {
+                display: block !important;
+            }
+        }
+    }
+
+/* Block - Slider */
+    .editor-styles-wrapper {
+
+        .wp-block-acf-slider {
+            padding:$spacing;
+            border:1px solid #ccc;
+            position: relative;
+
+            &:before {
+                content:'Slider';
+                position: absolute;
+                top:-15px;
+                left:10px;
+                border:1px solid #ccc;
+                background-color: #f4f4f4;
+                padding:2px 10px;
+                @include font(h6);
+            }
+        }
+
+        .wp-block-acf-slide {
+            padding:$spacing;
+            border:1px solid #ccc;
+            position: relative;
+
+            & + .block-list-appender {
+                bottom:-25px;
+            }
+
+            /*.accordion-item-content {
+                display: block !important;
+            }*/
+        }
+    }
+
+/* Block - Testimonial */
+    .editor-styles-wrapper {
+
+        .wp-block-acf-testimonial-group {
+            padding:$spacing;
+            border:1px solid #ccc;
+            position: relative;
+
+            &:before {
+                content:'Testimonial';
+                position: absolute;
+                top:-15px;
+                left:10px;
+                border:1px solid #ccc;
+                background-color: #f4f4f4;
+                padding:2px 10px;
+                @include font(h6);
+            }
+
+            .navigation-wrapper {
+                display: none;
+            }
+        }
+
+        .wp-block-acf-testimonial-item {
+            padding:$spacing;
+            border:1px solid #ccc;
+            position: relative;
+
+            & + .block-list-appender {
+                bottom:-25px;
+            }
+
+            .testimonial-item-content {
+                display: block !important;
+            }
+        }
+    }
+
+/* Block - Tab */
+    .editor-styles-wrapper {
+
+        .wp-block-acf-tab-group {
+            padding:$spacing;
+            border:1px solid #ccc;
+            position: relative;
+
+            &:before {
+                content:'Tab';
+                position: absolute;
+                top:0;
+                left:10px;
+                border:1px solid #ccc;
+                background-color: #f4f4f4;
+                padding:2px 10px;
+                @include font(h6);
+            }
+        }
+
+        .wp-block-acf-tab-item {
+            padding:$spacing;
+            border:1px solid #ccc;
+            position: relative;
+
+            & + .block-list-appender {
+                bottom:-25px;
+            }
+
+            .tab-item-wrapper {
+                display: block !important;
+                opacity: 1 !important;
+            }
+
+            a {
+                pointer-events: none;
+            }
+        }
+    }

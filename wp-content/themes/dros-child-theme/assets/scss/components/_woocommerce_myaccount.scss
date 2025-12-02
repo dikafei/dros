@@ -1,0 +1,184 @@
+@use "global" as *;
+
+/* My Account - General */
+    .woocommerce-account {
+
+        .myaccount-wrapper {
+            border:1px solid $border;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-wrap: wrap;
+
+            .woocommerce-MyAccount-navigation {
+                float:none;
+                width:auto;
+                border-right:1px solid $border;            
+            
+                & > ul {
+                    list-style-type:none;
+                    margin:0 !important;
+
+                    li {                    
+
+                        &:first-child,
+                        &.is-active:first-child {
+                            border-top: none;
+
+                            
+                        }
+
+                        &.is-active {
+                            margin-right:-1px;
+                            border-top: 1px solid $border;
+                            border-bottom: 1px solid $border;                            
+
+                            a {
+                                color:$primary;
+                                background-color: $white;
+
+                                &:hover,
+                                &:focus {
+                                    color:$primary;
+                                    background-color: $white;
+                                }
+                            }
+                        }
+
+                        a {
+                            padding: 12px $spacing;
+                            display: block;
+                            background-color: #f4f4f4;
+                            color:$black;
+                            text-transform: uppercase;
+                            font-size: $h6;
+                            line-height: $lh6;
+
+                            @media( max-width:$sm ) {
+                                font-size: $mh6;
+                                line-height: $mlh6;
+                            }
+
+                            &:hover,
+                            &:focus {
+                                background-color: $primary;
+                                color:$white;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .woocommerce-MyAccount-content {
+                float:none;
+                width:auto;
+                flex:1;
+                padding:$spacing;
+                background-color: $white;
+                font-size: $h6;
+                line-height: $lh6;
+
+                @media( max-width:$sm ) {
+                    font-size: $mh6;
+                    line-height: $mlh6;
+                    padding:$half-spacing;
+                }
+
+                p {
+                    font-size: $h6;
+                    line-height: $lh6;
+
+                    @media( max-width:$sm ) {
+                        font-size: $mh6;
+                        line-height: $mlh6;
+                    }
+                }            
+            }
+        }
+    }
+
+/* My Account - Addresses */
+    .woocommerce-account {
+        
+        .addresses {
+            display: flex;
+            gap:$double-spacing;
+
+            @media( max-width:$md ) {
+                gap:$spacing;
+            }
+
+            @media( max-width:$sm ) {
+                gap:$half-spacing;
+            }
+            
+            .title {
+                
+                .edit {
+                    padding:2px 8px;
+                    border-radius: 4px;
+                    background-color: $primary;
+                    color:$white;
+
+                    &:hover,
+                    &:focus {
+                        background-color: $secondary;                        
+                    }
+                }
+            }
+
+            .woocommerce-Address {
+                flex:1;
+            }
+        }
+    }
+
+/* My Account - Login / Register Lost / Reset Password */
+    .myaccount-action-wrapper {
+        background-color: $white;
+        padding:$spacing;
+
+        @media( max-width:$sm ) {
+            padding:$half-spacing;
+        }
+    }
+
+    .woocommerce form.checkout_coupon, 
+    .woocommerce form.login, 
+    .woocommerce form.register  {
+        margin:0;    
+        padding:0;
+        border:none;
+        border-radius: $border-radius;
+    }
+
+    /* Login */
+        .registerlogin-subaction {
+            font-size: $h6;
+            line-height: $lh6;
+            margin-bottom: $half-spacing;
+            display: flex;
+            gap:$spacing;
+            align-items: center;
+
+            @media( max-width:$sm ) {
+                font-size: $mh6;
+                line-height: $mlh6;
+            }
+        }
+
+        .registerlogin-action {            
+            display: flex;
+            gap:$spacing;
+            align-items: center;
+
+            .woocommerce-form-login__submit {                
+                float:none !important;
+                margin:0 !important;
+            }
+
+            .register-link {
+        
+            }
+        }
+
+        

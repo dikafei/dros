@@ -1,0 +1,115 @@
+@use "global" as *;
+/* Checkout */
+    .woocommerce-checkout {
+
+        .page-heading-wrapper {
+
+            .container {
+                @include wide-width;
+            }
+        }
+    
+        .woocommerce {
+            background-color: $white;
+            padding:$spacing;
+
+            @media( max-width:$sm ) {
+                padding:$half-spacing;
+            }
+
+            .checkout_coupon {
+                background-color: #f4f4f4;
+                padding:$spacing;
+
+                @media( max-width:$sm ) {
+                    padding:$half-spacing;
+                }
+
+                p {
+                    margin:0;
+
+                    &:first-child {
+                        margin-bottom: $half-spacing;
+                    }
+                }
+            }
+
+            .woocommerce-checkout {
+                margin-top:$spacing;
+
+                @media( max-width:$sm ) {
+                    margin-top:$half-spacing;
+                }
+                
+                #customer_details {
+                    display: flex;
+                    gap:$double-spacing;
+                    margin-top:$spacing;
+                    margin-bottom: $double-spacing;
+
+                    @media( max-width:$md ) {
+                        gap:$spacing;
+                        margin-bottom: $spacing;
+                    }
+
+                    @media( max-width:$sm ) {
+                        gap:$half-spacing;
+                        margin-top:$half-spacing;
+                    }
+
+                    &:before,
+                    &:after {
+                        display: none !important;
+                    }
+
+                
+                    .col-1,
+                    .col-2 {
+                        padding:0;                        
+                        width:calc( ( 100% - $double-spacing ) / 2 );
+
+                        @media( max-width:$md ) {
+                            width:calc( ( 100% - $spacing ) / 2 );
+                        }
+
+                        @media( max-width:$sm ) {
+                            width:100%;
+                        }
+                    }
+
+                    textarea {
+                        min-height: 200px;
+                    }
+                }
+
+                #order_review_heading {                               
+                
+                }
+
+                #order_review {
+                
+                }
+            }
+        }
+    }
+
+/* Payment Methods */
+    #add_payment_method #payment, 
+    .woocommerce-cart #payment, 
+    .woocommerce-checkout #payment {
+        border-radius: 0;
+        background-color: $border;
+    
+        ul.payment_methods {
+            padding:$spacing;
+
+            @media( max-width:$sm ) {
+                padding:$half-spacing;
+            }
+
+            &:before,
+            &:after {
+                display: none !important;
+            }
+        }
+    }

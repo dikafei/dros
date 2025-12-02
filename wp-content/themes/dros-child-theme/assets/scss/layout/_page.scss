@@ -1,0 +1,184 @@
+@use "../components/global" as *;
+
+/* Featured Image */
+    .no-featured-image-padding {
+
+        .featured-image {
+            margin-left:0 !important;
+            margin-right:0 !important;
+        }
+    }
+
+/* Page Heading */
+    .page-heading-wrapper {
+        padding:$double-spacing 0 0 0;
+
+        h1.page-title,
+        .woocommerce-products-header__title {                    
+            @include font(h1);
+            margin-bottom: 0;
+        }   
+
+        .yoast-breadcrumbs {
+            margin-top:10px;
+        }
+    }
+
+/* Breadcrumb - General */
+    .yoast-breadcrumbs,
+    .woocommerce .woocommerce-breadcrumb {        
+        font-size: $h6;
+        line-height: $lh6;
+        color:$dark;
+        margin:0;
+
+        @media( max-width:$sm ) {
+            font-size: $mh6;
+            line-height: $mlh6;
+        }
+
+        a {
+            text-decoration: none;
+            color:$dark;
+
+            &:hover,
+            &:focus {
+                color:$primary;
+            }
+        }
+
+        .breadcrumb-arrow {
+            width:8px;
+            height:12px;
+            position: relative;
+            display: inline-block;
+            margin:0 6px 0 6px;
+
+            &:before {
+                content:'';
+                border-right:1px solid $dark;
+                border-bottom:1px solid $dark;
+                width:7px;
+                height:7px;
+                transform: rotate(-45deg);
+                display: inline-block;
+                position: absolute;
+                top:3px;
+                left:-2px;
+            }
+        }
+
+        .breadcrumb_last {
+            color:$foreground;
+            font-weight: 700;
+        }    
+    }
+    
+    .yoast-breadcrumbs {
+    
+        & > span {
+            display: flex;
+            align-items: center;
+        }
+    }
+
+/* Breadcrumb - Woocommerce */
+
+    .woocommerce {
+    
+        .page-heading-wrapper {
+        
+            .woocommerce-breadcrumb {
+                margin-top:10px;
+            }
+        }
+
+        .woocommerce-breadcrumb {
+            font-weight: 700;
+            color:$foreground;
+
+            a {
+                font-weight: 400;
+            }
+
+            .breadcrumb-arrow  {
+            
+                &:before {
+                    top:4px;
+                }
+            }
+        }
+    }
+    
+/* Archive Header */
+    .archive-type {
+        @include font(h5);
+        color:$heading;
+    }
+
+    .archive {        
+
+        .page-title {
+            @include font(h5);
+
+            span:not(.archive-type) {                
+                @include font(h1);
+            }
+        }
+    }
+
+/* Paging */
+    .paging-numbered {
+        text-align:center;	
+        margin: 100px 0 100px 0;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+
+        .page-numbers {
+            padding:8px;
+            min-width:43px;
+            height:43px;            
+            border:1px solid $primary;
+            margin-left:2px;	
+            margin-right:2px;
+            line-height:25px;
+
+            &.current {
+                background-color:$primary;
+                border:1px solid $primary;
+                color:$white;
+                cursor:default;			
+                transition:all 0.2s ease 0s;
+            }
+
+            &.next,
+            &.prev {                
+
+                svg {
+                    width:10px;
+
+                    path {
+                        fill:$primary !important;
+                    }
+                }
+
+                &:hover,
+                &:focus {
+                
+                    svg {
+
+                        path {
+                            fill:$white !important;
+                        }
+                    }
+                }
+            }
+
+            &:hover {
+                background-color:$primary;
+                border:1px solid $primary;
+                color:$white;	
+            }
+        }
+    }

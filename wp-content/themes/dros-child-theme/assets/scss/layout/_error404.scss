@@ -1,0 +1,21 @@
+@use "../components/global" as *;
+
+.error-404.not-found {
+    text-align: center;
+    padding:100px 0;
+
+    .error-404-content {
+        margin-bottom: $double-spacing;
+    
+        h1 {
+            margin-bottom: 0;
+        }
+    }
+
+    .error-404-thumb {
+
+        img {
+            max-width: 400px;
+        }
+    }
+}

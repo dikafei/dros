@@ -1,0 +1,118 @@
+@use "global" as *;
+/* Cart */
+    .woocommerce-cart {
+
+        .page-heading-wrapper {
+
+            .container {
+                @include wide-width;
+            }
+        }
+    
+        .woocommerce {
+            background-color: $white;
+            padding:$spacing;
+
+            @media( max-width:$sm ) {
+                padding:$half-spacing;
+            }            
+        }
+    }    
+
+/* Coupon */
+    #add_payment_method, 
+    .woocommerce-cart,
+    .woocommerce-checkout {
+
+        table.cart {
+
+            td.actions {
+            
+                .coupon {
+                
+                    .input-text {
+                        width:170px !important;
+                        padding:10px 16px;       
+                    }
+                }
+            }
+        }
+    }
+
+/* Table Action */
+    .woocommerce #content, 
+    .woocommerce, 
+    .woocommerce-page #content, 
+    .woocommerce-page {
+        
+        table.cart {
+
+            td.actions {
+                background-color: #f4f4f4;
+                padding:9px 16px;
+                line-height: $lh5;
+            }        
+        }
+    }
+
+/* Cart Total */
+    .woocommerce,
+    .woocommerce-page,
+    #add_payment_method,
+    .woocommerce-cart, 
+    .woocommerce-checkout {
+
+        .cart-collaterals {
+            display: flex;
+            justify-content: flex-end;
+        
+            .cart_totals {
+                float:none;
+                width:100%;
+                max-width: 400px;    
+                padding:$spacing;
+                border:1px solid $border;
+
+                @media( max-width:$sm ) {
+                    padding:$half-spacing;
+                }
+            
+                table {
+                    margin-bottom: $spacing;
+
+                    @media( max-width:$sm ) {
+                        margin-bottom: $half-spacing;
+                    }
+                }
+            }
+        }
+    }
+    
+
+/* Proceed to Checkout */
+    #add_payment_method, 
+    .woocommerce-cart, 
+    .woocommerce-checkout {
+    
+        .wc-proceed-to-checkout {
+            padding:0;
+
+            .checkout-button  {
+                margin:0 !important;
+            }
+        }
+    }
+
+/* Block - Submit */
+    .wc-block-cart {
+
+        .wc-block-cart__submit-container {
+            padding:$spacing 0 0 0 !important;
+        
+            a {
+                @include button;
+            }
+        }
+    }
+
+    

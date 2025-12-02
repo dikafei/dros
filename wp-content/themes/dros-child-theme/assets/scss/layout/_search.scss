@@ -1,0 +1,84 @@
+@use "../components/global" as *;
+
+.search-results {
+
+    .page-heading-wrapper {
+       
+        .page-title {
+            @include font(h5);
+
+            span {
+                @include font(h1);
+                color:$primary;
+            }
+        }
+    }
+
+    article {
+        margin-bottom: $double-spacing;
+    
+        &.course {
+            margin:0;
+            padding:0;
+            border:none;
+        }        
+
+        .inside-article {
+            max-width:$slim-width;           
+            margin-left:auto;
+            margin-right:auto;
+        }
+    }
+
+    .blog-wrapper {        
+    
+        .blog-post {
+            width:100%;
+            display: flex;
+            gap:$spacing;
+
+            @media( max-width:$sm ) {
+                gap:$half-spacing;
+            }
+
+            .blog-thumb {
+                width:120px;
+                height: 120px;
+
+                @media( max-width:$sm ) {
+                    width:80px;
+                    height: 80px;
+                }
+            
+                a {
+                
+                    img {
+                        
+                    }
+                }
+            }
+
+            .blog-content {
+                flex:1;
+
+                .blog-title {
+                
+                    a {
+                    
+                        h3 {
+                        
+                        }
+                    }
+                }
+
+                .blog-meta {
+                    display: none;                
+                }
+
+                .blog-excerpt {
+                    
+                }
+            }
+        }
+    }
+}
