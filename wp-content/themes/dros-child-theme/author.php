@@ -13,7 +13,7 @@
     $display_author = $gp_blog_settings['author'];
     $display_categories = $gp_blog_settings['categories'];
     $display_tags = $gp_blog_settings['tags'];
-    $display_comments_count = $gp_blog_settings['comments'];
+    $display_comments_count = $gp_blog_settings['comments']; 
 
     // Single Post
     $display_single_post_thumb = $gp_blog_settings['single_post_image'];
