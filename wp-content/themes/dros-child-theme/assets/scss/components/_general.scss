@@ -22,6 +22,15 @@
 
     @font-face {
         font-family: 'Gazpacho';
+        src: url("../fonts/Gazpacho-Medium.woff2") format("woff2"),
+            url("../fonts/Gazpacho-Medium.otf") format("opentype");        
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'Gazpacho';
         src: url("../fonts/Gazpacho-Bold.woff2") format("woff2"),
             url("../fonts/Gazpacho-Bold.otf") format("opentype");        
         font-weight: 700;
@@ -47,6 +56,40 @@
         font-display: swap;
     }
 
+    *:not(.editor-styles-wrapper) {
+
+        .home-section1,
+        .home-section2,
+        .home-section3,
+        .home-section4,
+        .home-section5,
+        .home-section6,
+        .home-section7,
+        .home-section8,
+        .home-section9,
+        .home-section10,
+        .home-section11,
+        .home-section12,
+        .home-section13,
+        .home-section14,
+        .home-section15,
+        .home-section16,
+        .home-section17,
+        .home-section18,
+        .home-section19,
+        .home-section20,
+        .home-section21,
+        .home-section22,
+        .home-section23,
+        .home-section24,
+        .home-section25 {
+
+            /*&:not(.unit-head) {*/
+                //display: none !important;
+            //}
+        }
+    }
+
 /* General */
     body:not(.wp-admin) {
         font-family: $primary-font;
@@ -70,6 +113,7 @@
         font-family: $primary-font;        
         font-weight: bold;
         color:$heading;
+        margin-bottom: 30px;
     }
 
     .has-h-0-font-size {
@@ -140,23 +184,33 @@
         }
     }
 
+     .has-body-small-font-size {
+        @include font(psmall);
+        margin-bottom:25px;
+
+        @media( max-width:$sm ) {
+            margin-bottom: 8px;
+        }
+    }
+
     .has-span-font-size {
         @include font(span);
     }
 
     a {
-        color:$primary;
+        color:$foreground;
         text-decoration: none;
         transition:$transition;
         
         &:hover, &:focus {
-            color:$secondary;
+            color:$brownier;
         }        
     }
 
     .link {
         
         a {
+            color:$foreground;
             position: relative;
             padding-right: 70px;
         
@@ -183,9 +237,10 @@
 
             &:hover,
             &:focus {
+                color:$brownier;
             
                 &::before {
-                    background-color: $primary;
+                    background-color: $brownier;
                 }
             }         
         }       
@@ -264,8 +319,8 @@
         &:hover,
         &:focus {                   
             color:$white;                 
-            background-color:$secondary;   
-            border-color:$secondary;             
+            background-color:$brownier;   
+            border-color:$brownier;             
         }
     }    
     
@@ -523,6 +578,7 @@
     .has-border-color { color:$border; }
     .has-black-color { color:$black; }
     .has-white-color { color:$white; }
+    .has-omah-tanah-color { color:$unit_omahtanah; }
 
     .has-primary-background-color { background-color:$primary; }
     .has-secondary-background-color { background-color:$secondary; }
@@ -533,7 +589,8 @@
     .has-background-background-color { background-color:$background; }
     .has-border-background-color { background-color:$border; }
     .has-black-background-color { background-color:$black; }
-    .has-white-background-color { background-color:$white; }    
+    .has-white-background-color { background-color:$white; }   
+    .has-omah-tanah-background-color { background-color:$unit_omahtanah; } 
 
 /* Search Modal */
     .search-modal-form {

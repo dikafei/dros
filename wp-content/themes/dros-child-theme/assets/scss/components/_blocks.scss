@@ -333,3 +333,49 @@
         }
     }
 
+/* Social */
+    .wp-block-social-links {
+
+        .wp-social-link-instagram,
+        .wp-social-link-tiktok {
+
+            a {
+                width: 40px;
+                height: 40px;
+                position: relative;
+            
+                &:before {
+                    content:'';
+                    -webkit-mask-repeat: no-repeat;
+                    mask-repeat: no-repeat; 
+                    -webkit-mask-position:center;
+                    mask-position: center;
+                    -webkit-mask-size:40px 40px;
+                    mask-size:40px 40px;            
+                    width:40px;
+                    height:40px;
+                    background-color:$foreground;            
+                    position:absolute;
+                    right:0;
+                    top:50%;
+                    transform: translateY(-50%);            
+                    display: block;
+                    transition: $transition;
+                }
+
+                svg {
+                    display: none;
+                }
+            }
+        }
+    
+        .wp-social-link-instagram a:before {
+            -webkit-mask-image:url(../../assets/img/instagram.svg);
+            mask-image:url(../../assets/img/instagram.svg);
+        }
+
+        .wp-social-link-tiktok a:before {
+            -webkit-mask-image:url(../../assets/img/tiktok.svg);
+            mask-image:url(../../assets/img/tiktok.svg);
+        }
+    }

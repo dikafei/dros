@@ -42,6 +42,7 @@
 				// Style											
 					wp_enqueue_style( 'swiper-css',  THEMEURI . ( $css_path = 'assets/vendor/swiper/swiper-bundle.min.css' ) );					
 					wp_enqueue_style( 'font-playwrite', 'https://fonts.googleapis.com/css2?family=Playwrite+DE+SAS:wght@100..400&display=swap' );					
+					wp_enqueue_style( 'font-oooh-baby', 'https://fonts.googleapis.com/css2?family=Oooh+Baby&display=swap' );										
 					wp_enqueue_style( 'default-css',  THEMEURI . ( $css_path = '/assets/scss/style.min.css' ), array( 'generate-style' ), get_version( $css_path ) );					
 					
 				// Script			
@@ -62,7 +63,8 @@
 			
 			function admin_enqueue_list( $hook_suffix ) 
 			{		
-				wp_enqueue_style( 'font-playwrite', 'https://fonts.googleapis.com/css2?family=Playwrite+DE+SAS:wght@100..400&display=swap' );					
+				wp_enqueue_style( 'font-playwrite', 'https://fonts.googleapis.com/css2?family=Playwrite+DE+SAS:wght@100..400&display=swap' );		
+				wp_enqueue_style( 'font-oooh-baby', 'https://fonts.googleapis.com/css2?family=Oooh+Baby&display=swap' );			
 				wp_enqueue_style( 'admin-css', THEMEURI . ( $css_path_admin = '/assets/scss/style-admin.min.css' ), array(), get_version( $css_path_admin ) );
 
 				if( 'post.php' == $hook_suffix || 'post-new.php' == $hook_suffix || 'widgets.php' == $hook_suffix ) 
@@ -90,7 +92,7 @@
 		add_filter( 'style_loader_tag', 'add_google_font_stylesheet_attributes', 10, 2 );
 		
 		function add_google_font_stylesheet_attributes( $html, $handle ) {
-			if ( 'font-playwrite' === $handle || 'font-gazpacho' === $handle ) 
+			if ( 'font-playwrite' === $handle || 'font-gazpacho' === $handle || 'font-oooh-baby' === $handle ) 
 			{
 				return str_replace( "rel='stylesheet'", "rel='stylesheet' media='print' onload=\"this.media='all'\"", $html );
 			}
@@ -203,12 +205,17 @@
 								'name' => __( 'Tertiary', 'generatepress' ),
 								'slug' => 'tertiary',
 								'color' => '#53301B',
-							),									
+							),				
+							array(
+								'name' => __( 'Omah Tanah', 'generatepress' ),
+								'slug' => 'omah-tanah',
+								'color' => '#553924',
+							),							
 							array(
 								'name' => __( 'Foreground', 'generatepress' ),
 								'slug' => 'foreground',
 								'color' => '#333333',
-							),
+							),							
 							array(
 								'name' => __( 'Background', 'generatepress' ),
 								'slug' => 'background',
@@ -317,6 +324,12 @@
 								'shortName' => __( 'H4', 'generatepress' ),
 								'size'      => 24,
 								'slug'      => 'H4',
+							),
+							array(
+								'name'      => __( 'Body Small', 'generatepress' ),
+								'shortName' => __( 'body-small', 'generatepress' ),
+								'size'      => 20,
+								'slug'      => 'body-small',
 							),
 							array(
 								'name'      => __( 'Body', 'generatepress' ),

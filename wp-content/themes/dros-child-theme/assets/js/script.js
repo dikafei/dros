@@ -15,12 +15,6 @@ $j(function(){
 
 		let homeSection2Left = $j( '.home-section2' ).position().left;
 		let homeSection2Width = $j( '.home-section2' ).width();
-
-		let homeWidth = 0;
-		$j( '.home .entry-content > *').each(function() {
-			homeWidth += $j(this).width();
-		});
-
 		
 		// Calculate total scroll width from children
 		function calculateMaxScroll() {
@@ -46,15 +40,16 @@ $j(function(){
 			// Start smooth scrolling animation if not already running
 			if ( !animationId ) {
 				animationId = requestAnimationFrame( smoothScroll );
-			}
+			}			
 
-			
-
-			
+			// Progress Bar
+			var scrollProgress = targetScroll / maxScroll * 100;
+			$j( '.progress-bar' ).css({ 'width' : scrollProgress + '%' });
+			//console.log( 'target: ' + targetScroll + ' of ' + maxScroll );
 		});
 		
 		// Smooth scrolling with easing
-		function smoothScroll() {
+		function smoothScroll() {			
 			// Easing factor: lower = smoother but slower (0.05-0.15 recommended)
 			currentScroll += ( targetScroll - currentScroll ) * 0.05;
 			
@@ -72,34 +67,25 @@ $j(function(){
 				animationId = null;
 			}
 
-			// Home Section 2 Transition
-			let imgScrollPost = ( currentScroll - homeSection2Left );
+			// Home Section 2 Transition			
+			let imgScrollPost = currentScroll;
 			if ( imgScrollPost < 0 ) { imgScrollPost = 0; }
-			if ( imgScrollPost > homeSection2Left + homeSection2Width ) { imgScrollPost = homeSection2Left + homeSection2Width; }
+			if ( imgScrollPost > ( homeSection2Left + ( homeSection2Width / 4 ) ) ) { imgScrollPost = ( homeSection2Left + ( homeSection2Width / 4 ) ) }
 			
-			$j( '.home-section2 .wp-block-image:nth-child(2)' ).css({ 'opacity' : imgScrollPost / homeSection2Width });
-
-			// Progress Bar
-			$j( '.progress-bar' ).stop().animate({ 'width' : currentScroll / homeWidth });
-
+			let opacity = imgScrollPost / ( homeSection2Left + ( homeSection2Width / 4 ) );
+			$j( '.home-section2 .wp-block-image:nth-child(2)' ).css({ 'opacity' : opacity });			
 		}
 		
 		// Update maxScroll on window resize
 		$j( window ).on( 'resize', function() {
-			maxScroll = $container.outerWidth() - $j( window ).width();
+			maxScroll = calculateMaxScroll(); //$container.outerWidth() - $j( window ).width();
 			targetScroll = Math.min( targetScroll, maxScroll );
 			currentScroll = Math.min( currentScroll, maxScroll );
 			$container.css( 'transform', `translateX(-${currentScroll}px)`);
 
 			homeSection2Left = $j( '.home-section2' ).position().left;
 			homeSection2Width = $j( '.home-section2' ).width();
-
-			$j( '.home .entry-content > *').each(function() {
-				homeWidth += $j(this).width();
-			});
 		});
-
-
 
 	// Search
 		$j( '.search-field' ).attr( 'placeholder', 'Search...' );
