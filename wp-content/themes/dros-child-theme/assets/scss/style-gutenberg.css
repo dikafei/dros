@@ -59,6 +59,7 @@ body {
    * Search Modal
    * Sidebar & Widget 
    * Custom Class
+   * Anim
    */
   /* Fonts */
   /* General */
@@ -96,6 +97,7 @@ body {
   /* Search Modal */
   /* Sidebar & Widget */
   /* Custom Class */
+  /* Animation */
   /*
    * Variables 
    * Mixins
@@ -1453,6 +1455,30 @@ body {
   .block-editor .editor-styles-wrapper .mobile-gap-24 {
     gap: 24px !important;
   }
+}
+.editor-styles-wrapper .anim,
+.block-editor .editor-styles-wrapper .anim {
+  opacity: 0;
+}
+.editor-styles-wrapper .anim.is-visible,
+.block-editor .editor-styles-wrapper .anim.is-visible {
+  opacity: 1;
+}
+.editor-styles-wrapper .fadetotop,
+.block-editor .editor-styles-wrapper .fadetotop {
+  -webkit-transform: translateY(24px);
+          transform: translateY(24px);
+  -webkit-transition: opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
+  transition: opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out, -webkit-transform 0.6s ease-out;
+  will-change: opacity, transform;
+}
+.editor-styles-wrapper .fadetotop.is-visible,
+.block-editor .editor-styles-wrapper .fadetotop.is-visible {
+  opacity: 1;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
 }
 .editor-styles-wrapper :root,
 .block-editor .editor-styles-wrapper :root {

@@ -8,6 +8,7 @@
  * Search Modal
  * Sidebar & Widget 
  * Custom Class
+ * Anim
  */
 
 /* Fonts */
@@ -819,3 +820,24 @@
             gap:24px !important;
         }
     }    
+
+/* Animation */
+    .anim {
+        opacity: 0;
+    }
+
+    .anim.is-visible {
+        opacity: 1;
+    }
+
+    .fadetotop {  
+        transform: translateY(24px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        will-change: opacity, transform;
+
+        &.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+

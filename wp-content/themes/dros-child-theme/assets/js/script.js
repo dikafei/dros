@@ -45,7 +45,11 @@ $j(function(){
 			// Progress Bar
 			var scrollProgress = targetScroll / maxScroll * 100;
 			$j( '.progress-bar' ).css({ 'width' : scrollProgress + '%' });
-			//console.log( 'target: ' + targetScroll + ' of ' + maxScroll );
+
+			// Animation
+			var currentSection = Math.floor( targetScroll / 1920 ) + 1;
+			
+			$j( '.home-section' + currentSection ).find( '.anim' ).addClass( 'is-visible' );
 		});
 		
 		// Smooth scrolling with easing

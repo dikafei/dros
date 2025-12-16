@@ -41,6 +41,7 @@ body {
  * Search Modal
  * Sidebar & Widget 
  * Custom Class
+ * Anim
  */
 /* Fonts */
 @font-face {
@@ -1050,6 +1051,30 @@ body:not(.home) .site-content .entry-summary > :not(.alignwide):not(.alignfull):
     gap: 24px !important;
   }
 }
+/* Animation */
+.anim {
+  opacity: 0;
+}
+
+.anim.is-visible {
+  opacity: 1;
+}
+
+.fadetotop {
+  -webkit-transform: translateY(24px);
+          transform: translateY(24px);
+  -webkit-transition: opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
+  transition: opacity 0.6s ease-out, -webkit-transform 0.6s ease-out;
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out, -webkit-transform 0.6s ease-out;
+  will-change: opacity, transform;
+}
+.fadetotop.is-visible {
+  opacity: 1;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+}
+
 /* Transparent Header */
 body.transparent-header .site-header {
   position: absolute;
