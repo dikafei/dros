@@ -3,13 +3,33 @@ var $j = jQuery.noConflict();
 var vpHeight = $j( window ).height();
 var headerHeight = 0;
 var headerEl;
-var flexslider = { vars:{} };
+//var flexslider = { vars:{} };
+
+const animItems = [];
+let ticking = false;
 
 $j(function(){	
+	// Animation - Element positions array
+		$j( '.anim' ).each(function () {
+			const animatedEl = $j( this );
+			const sectionEl = animatedEl.closest( '[class*="home-section"]' );
+
+			const sectionIndex = sectionEl.index( '[class*="home-section"]' );
+			const xInSection   = animatedEl.position().left;
+
+			animItems.push({
+				el: this,
+				x: sectionIndex * 1920 + xInSection,
+				width: animatedEl.width(),
+				triggered: false
+			});
+		});
+
 	// GSAP
 		const $container = $j( '.home .entry-content' );
 		let currentScroll = 0;
 		let targetScroll = 0;
+		let windowWidth = $j( window ).width();
 		let maxScroll = 0;
 		let animationId = null;
 
@@ -20,7 +40,7 @@ $j(function(){
 		function calculateMaxScroll() {
 			let totalWidth = 0;
 			$container.children().each(function() {
-			totalWidth += $j(this).outerWidth(true); // includes margins
+				totalWidth += $j(this).outerWidth(true); // includes margins
 			});
 			return totalWidth - $j(window).width();
 		}
@@ -47,11 +67,27 @@ $j(function(){
 			$j( '.progress-bar' ).css({ 'width' : scrollProgress + '%' });
 
 			// Animation
-			var currentSection = Math.floor( targetScroll / 1920 ) + 1;
-			
-			$j( '.home-section' + currentSection ).find( '.anim' ).addClass( 'is-visible' );
+			//var currentSection = Math.floor( targetScroll / 1920 ) + 1; // Based on left most viewport. ini asumsi semua section 1920px, section 1 dan 2 actually kagak.
+			//var incomingSection = currentSection + 1;
+			if ( !ticking ) {
+				requestAnimationFrame(() => {
+					checkAnimTriggers();
+					ticking = false;
+				});
+				ticking = true;
+			}
 		});
-		
+
+		function checkAnimTriggers() {
+			animItems.forEach(item => {
+				console.log( targetScroll + ' >= ' + item.x );
+				if ( !item.triggered && targetScroll + windowWidth >= item.x + item.width ) {
+					$j( item.el ).addClass('is-visible'); // or trigger animation
+					item.triggered = true;
+				}
+			});
+		}
+
 		// Smooth scrolling with easing
 		function smoothScroll() {			
 			// Easing factor: lower = smoother but slower (0.05-0.15 recommended)
@@ -84,6 +120,7 @@ $j(function(){
 		$j( window ).on( 'resize', function() {
 			maxScroll = calculateMaxScroll(); //$container.outerWidth() - $j( window ).width();
 			targetScroll = Math.min( targetScroll, maxScroll );
+			windowWidth = $j( window ).width();
 			currentScroll = Math.min( currentScroll, maxScroll );
 			$container.css( 'transform', `translateX(-${currentScroll}px)`);
 

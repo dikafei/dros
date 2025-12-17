@@ -57,6 +57,10 @@ body.home::-webkit-scrollbar {
             }
         }
 
+        [class^="home-section"] {
+            position: relative;
+        }
+
         .home-section1 {
             flex:0 0 960px;
             position: relative;
