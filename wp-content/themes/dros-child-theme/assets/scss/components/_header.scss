@@ -28,6 +28,29 @@
                 @media( max-width:$sml ) {
                     padding-top:126px;
                 }
+
+                @media( max-width:$sm ) {
+                    padding-top:86px;
+                }
+
+                #site-navigation.main-navigation {
+                    top:32px;
+
+                    @media( max-width:$sml ) {
+                        padding-top:46px;
+                    }
+                }
+            }
+        }
+    }
+
+    .mobile-menu-open {
+    
+        .site-header {
+            left:-100px;
+
+            @media( max-width:767px ) {
+                padding-left: 80px;
             }
         }
     }
@@ -35,15 +58,28 @@
     .site-header {     
         background-color: transparent;
         position: absolute;
-        width: 100px;
+        width: min( calc( 100vw + 100px - 40px  ), 600px );
         height:100vh;
         top:0;
-        left:0;
+        left: calc( ( min( calc( 100vw - 40px  ), 600px ) - 100px ) * -1 );
+        padding-left: 100px;
         border-right:1px solid $border;
         z-index: 1000;
-
         background-image: url(../../assets/img/halftone.png);
-    background-repeat: repeat;
+        background-repeat: repeat;
+        display: flex;
+        justify-content: flex-end;
+        box-shadow:0 5px 10px rgba(102, 59, 32, 0.9);
+        transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0s;
+
+        @media( max-width:$sm ) {
+            width: min( calc( 100vw + 80px - 40px  ), 600px );
+            left: calc( ( min( calc( 100vw - 40px  ), 600px ) - 80px ) * -1 );
+        }
+
+        @media( max-width:640px ) {
+            left: calc( min( calc( 100vw - 40px  ), 600px ) * -1 );
+        }
 
 
         .inside-header {
@@ -54,25 +90,33 @@
             flex-direction: column;
             max-width: 100%;
             height: 100%;
+            width: 100px;
+            border-left:1px solid $secondary;
 
-            @media( max-width:$md ) {
+            /*@media( max-width:$md ) {
                 flex-direction: row;
+            }*/
+
+            @media( max-width:$sm ) {
+                padding:40px 5px;
+                width:80px;
             }
 
             // Logo
                 .site-logo {
                     max-width: 400px;
 
-                    @media( max-width:$md ) {
+                    /*@media( max-width:$md ) {
                         margin:0;
                         flex:1;
-                    }
+                    }*/
                 }
 
             // Burger
                 #mobile-menu-control-wrapper {
                     background-color: transparent;
                     margin:0;
+                    display: flex;
 
                     @media( max-width:$md ) {
                         display: flex;
@@ -113,14 +157,14 @@
                             width:21px;
                             height:21px;                
                             top:0;                        
-                            fill:$primary; 
+                            fill:$heading; 
                             transition: $transition;    
                         }
 
                         &:hover,
                         &:focus {
                             .gp-icon svg {
-                                fill:$secondary;
+                                fill:$brownier;
                             } 
                         }
 
@@ -128,8 +172,7 @@
                         background-color: transparent;    
                         line-height: 21px;                        
                         display: flex;
-                        margin-left:24px;
-                        padding:0;
+                        padding:15px;
                         border:none;
                         border-radius: 0;
 
@@ -140,7 +183,7 @@
                         svg {                                                                                                                
 
                             rect {
-                                fill:$primary;
+                                fill:$heading;
                                 transition: $transition;    
                             }
                         }
@@ -151,11 +194,11 @@
                             svg {
                                 
                                 rect {
-                                    fill:$secondary;
+                                    fill:$brownier;
                                 }
 
                                 line {
-                                    stroke:$primary;
+                                    stroke:$brownier;
                                 }
                             }
                         }                        
@@ -166,9 +209,15 @@
                 #site-navigation.main-navigation {
                     background-color: transparent;
                     margin-left:0;
-                    display: none;
+                    display: flex;
+                    position: absolute;
+                    left:100px;
+                    top:0;  
+                    margin:0;
+                    max-width: 400px;
+                    padding:$spacing;
 
-                    &:not(.toggled) {
+                    /*&:not(.toggled) {
                     
                         .main-nav {
                         
@@ -190,32 +239,34 @@
 
                     @media( max-width:$md ) {
                         flex-basis: 100%;
-                    }
+                    }*/
 
                     .inside-navigation {
                         max-width: 100%;
                 
                         #primary-menu.main-nav {
+
+                            & > ul {
+                                display: flex !important;
+                                flex-direction: column;
+                            }
                         
                             ul {
                             
                                 li {
+                                    width: 100%;
 
                                     a {
                                         text-transform: uppercase;
                                         color:$primary;
-                                        padding:7px 16px 7px 15px;
-                                        font-size:16px;
-                                        line-height: $lh6;                                        
+                                        padding:12px 0;
+                                        @include font(p);                                   
                                         
                                         &:hover,
                                         &:focus {
                                             color:$secondary;
-                                        }                  
+                                        }                 
 
-                                        @media( max-width:$md ) {
-                                            padding:7px 0;
-                                        }
                                     }
 
                                     &.current-menu-item {
@@ -362,6 +413,12 @@
                         }
                     }          
                 }
+
+            // Book
+            & > a {
+                @include font(psmall);
+                font-weight:bold;
+            }
         }   
 
         &.transparentheader {

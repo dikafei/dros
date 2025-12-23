@@ -59,16 +59,16 @@
 
     *:not(.editor-styles-wrapper) {
 
-        .home-section1,
-        .home-section2,
-        .home-section3,
-        .home-section4,
-        .home-section5,
-        .home-section6,
-        .home-section7,
-        .home-section8,
-        .home-section9,
-        .home-section10,
+        .home-section1x,
+        .home-section2x,
+        .home-section3x,
+        .home-section4x,
+        .home-section5x,
+        .home-section6x,
+        .home-section7x,
+        .home-section8x,
+        .home-section9x,
+        .home-section10x,
         .home-section11,
         .home-section12,
         .home-section13,
@@ -85,9 +85,9 @@
         .home-section24,
         .home-section25 {
 
-            /*&:not(.unit-head) {*/
-                //display: none !important;
-            //}
+            &:not(.unit-head) {
+                display: none !important;
+            }
         }
     }
 
@@ -824,6 +824,8 @@
 /* Animation */
     .anim {
         opacity: 0;
+        transition: opacity 1.2s ease-out, transform 0.8s ease-out;
+        will-change: opacity, transform;
     }
 
     .anim.is-visible {
@@ -831,10 +833,35 @@
     }
 
     .fadetotop {  
-        transform: translateY(200px);
-        transition: opacity 1.2s ease-out, transform 0.8s ease-out;
-        will-change: opacity, transform;
+        transform: translateY(200px);        
 
+        &.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .fadetoleft {  
+        transform: translateX(200px);
+
+        &.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .fadetoright {  
+        transform: translateX(-200px);
+
+        &.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .totheright {
+        transform: translateX(-200px);
+    
         &.is-visible {
             opacity: 1;
             transform: translateY(0);

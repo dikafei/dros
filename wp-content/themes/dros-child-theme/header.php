@@ -55,7 +55,36 @@ if ( ! defined( 'ABSPATH' ) ) {
 	 *
 	 * @hooked generate_construct_header - 10
 	 */
-	do_action( 'generate_header' );
+	//do_action( 'generate_header' );
+	?>
+		<header <?php generate_do_attr( 'header' ); ?>>
+			<div <?php generate_do_attr( 'inside-header' ); ?>>
+				<?php
+					/**
+					* generate_before_header_content hook.
+					*
+					* @since 0.1
+					*/
+					do_action( 'generate_before_header_content' );
+
+					if ( ! generate_is_using_flexbox() ) {
+						// Add our main header items.
+						generate_header_items();
+					}
+
+					/**
+					* generate_after_header_content hook.
+					*
+					* @since 0.1
+					*
+					* @hooked generate_add_navigation_float_right - 5
+					*/
+					do_action( 'generate_after_header_content' );
+				?>
+				<a href="#">Book</a>
+			</div>
+		</header>
+	<?php
 
 	/**
 	 * generate_after_header hook.

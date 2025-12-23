@@ -57,7 +57,7 @@ body.home::-webkit-scrollbar {
             }
         }
 
-        [class^="home-section"] {
+        [class*="home-section"] {
             position: relative;
         }
 
@@ -437,6 +437,15 @@ body.home::-webkit-scrollbar {
 
         .home-section14 {
             flex:0 0 1920px;
+
+            .wp-block-image {
+                height: 100%;
+
+                img {
+                    height:100%;
+                    object-fit: cover;
+                }
+            }
         }
 
         .home-section15 {
@@ -567,7 +576,16 @@ body.home::-webkit-scrollbar {
         }
 
         .home-section19 {
-            flex:0 0 1920px;               
+            flex:0 0 1920px;      
+
+            .wp-block-image {
+                height: 100%;
+
+                img {
+                    height:100%;
+                    object-fit: cover;
+                }
+            }         
         }
 
         .home-section20 {
@@ -854,8 +872,8 @@ body.home::-webkit-scrollbar {
 .progress-bar-wrapper {
     position: fixed;
     bottom:0;
-    left:0;
-    width: 100%;
+    left:100px;
+    width: calc( 100% - 100px );
 
     .progress-bar {
         height:10px;
@@ -876,6 +894,7 @@ body.home::-webkit-scrollbar {
         flex: 0 0 920px;
         height: 100%;
         color:$secondary;        
+        padding:25px 50px;
 
         .wp-block-cover__image-background {
             object-fit: contain;
@@ -885,7 +904,8 @@ body.home::-webkit-scrollbar {
         .wp-block-cover__inner-container {
             display: inline-flex;
             flex-direction: column;
-            width: auto;
+            //width: auto;
+            width: 100%;
         }
 
         .wp-block-heading {
@@ -897,12 +917,14 @@ body.home::-webkit-scrollbar {
 
             &:first-child {
                 font-weight: 300;
-                font-style: italic;            
+                font-style: italic;         
+                align-self: flex-start;                   
             }
 
             &:nth-child(2) {
                 font-weight: 500;
-                padding-left: 124px;
+                /*padding-left: 124px;*/
+                align-self: flex-end;
             }
         }
     }
@@ -913,12 +935,16 @@ body.home::-webkit-scrollbar {
 
     .wp-block-group {            
         flex:1;
+        display: flex;
+        flex-direction: column;
 
         .wp-block-group__inner-container  {
             display: flex;
             align-items: center;
             justify-content: center;
+            justify-content: flex-start;
             flex-direction: column;
+            padding-top: clamp(3.75rem, -12.2845rem + 25.8621vw, 18.75rem) !important;
         
             & > * {
                 max-width: 600px;

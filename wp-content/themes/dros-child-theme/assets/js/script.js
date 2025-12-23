@@ -3,29 +3,22 @@ var $j = jQuery.noConflict();
 var vpHeight = $j( window ).height();
 var headerHeight = 0;
 var headerEl;
-//var flexslider = { vars:{} };
 
 const animItems = [];
+const unitHeads = [];
+
+const SECTION_WIDTH = 1920;
+const ANIM_TRIGGER_OFFSET = 0.3;
+const ANIM_UNITHEAD_OFFSET = 0.2;
+const ANIM_UNITHEAD_FASTER_SCROLL = Math.min(
+	0.6,
+	1200 / window.innerWidth
+); 
+
 let ticking = false;
 
 $j(function(){	
-	// Animation - Element positions array
-		$j( '.anim' ).each(function () {
-			const animatedEl = $j( this );
-			const sectionEl = animatedEl.closest( '[class*="home-section"]' );
-
-			const sectionIndex = sectionEl.index( '[class*="home-section"]' );
-			const xInSection   = animatedEl.position().left;
-
-			animItems.push({
-				el: this,
-				x: sectionIndex * 1920 + xInSection,
-				width: animatedEl.width(),
-				triggered: false
-			});
-		});
-
-	// GSAP
+	// Animation 
 		const $container = $j( '.home .entry-content' );
 		let currentScroll = 0;
 		let targetScroll = 0;
@@ -35,98 +28,274 @@ $j(function(){
 
 		let homeSection2Left = $j( '.home-section2' ).position().left;
 		let homeSection2Width = $j( '.home-section2' ).width();
-		
-		// Calculate total scroll width from children
-		function calculateMaxScroll() {
-			let totalWidth = 0;
-			$container.children().each(function() {
-				totalWidth += $j(this).outerWidth(true); // includes margins
+
+		const $sections = $j('[class*="home-section"]');
+
+		// Animation Type Fade: Collect animated elements into array
+			$j( '.anim' ).each(function () {
+				const $animatedEl = $j( this );
+				const $sectionEl = $animatedEl.closest( '[class*="home-section"]' );
+
+				if ( !$sectionEl.length ) return;
+
+				const sectionIndex = $sections.index( $sectionEl );
+				if ( sectionIndex === -1 ) return;
+
+				const sectionLeft = $sectionEl.position().left;
+				const xInSection = $animatedEl.position().left;
+
+				/*animItems.push({
+					el: this,
+					x: sectionIndex * window.innerWidth + xInSection,
+					width: $animatedEl.width(),
+					triggered: false
+				});*/
+
+				animItems.push({
+					el: this,
+					x: sectionLeft + xInSection,
+					width: $animatedEl.outerWidth(),
+					triggered: false
+				});
 			});
-			return totalWidth - $j(window).width();
-		}
-		
-		maxScroll = calculateMaxScroll();
+
+		// Animation Type Unit Head
+			buildUnitHeads();
+
+			function buildUnitHeads() {
+				unitHeads.length = 0;
+
+				const $sections = $j('[class*="home-section"]');
+
+				$j('.unit-head').each(function () {
+					/*const $section = $j(this);
+					const sectionIndex = $sections.index($section);
+					if (sectionIndex === -1) return;
+
+					//const startX = $section.position().left - window.innerWidth;
+					const startX = $section.position().left - window.innerWidth * ( 1 - ANIM_UNITHEAD_OFFSET );					
+
+					const $cover = $section.find('.wp-block-cover');
+					const coverWidth = $cover.outerWidth(); 
+
+					const maxMove = coverWidth; 
+					// left goes from 0 → coverWidth
+					// right goes from 0 → -coverWidth
+
+					const $inner = $cover.find(
+						'.wp-block-cover__inner-container'
+					);
+
+					const leftEl  = $inner.children().first()[0];
+					const rightEl = $inner.children().last()[0];
+
+					unitHeads.push({
+						startX,
+						maxMove,
+						leftEl,
+						rightEl
+					});*/
+
+					const $section = $j(this);
+
+					const startX = $section.position().left - window.innerWidth * ( 1 - ANIM_UNITHEAD_OFFSET );
+
+					const $cover = $section.find('.wp-block-cover');
+					const $inner = $cover.find('.wp-block-cover__inner-container');
+
+					const innerWidth = $inner.outerWidth();
+
+					const $left  = $inner.children().first();
+					const $right = $inner.children().last();
+
+					const leftWidth  = $left.outerWidth();
+					const rightWidth = $right.outerWidth();
+
+					const maxMove =
+						innerWidth - Math.max(leftWidth, rightWidth);
+
+					unitHeads.push({
+						startX,
+						maxMove,
+						leftEl:  $left[0],
+						rightEl: $right[0]
+					});
+				});
+			}
+
+			function updateUnitHeadAnimations(scrollX) {
+				/*const viewportWidth = window.innerWidth;
+
+				unitHeads.forEach(item => {
+					const localScroll = scrollX - item.startX;				
+
+					const progress = Math.max(
+						0,
+						Math.min(1, localScroll / viewportWidth)
+					);
+
+					const move = progress * item.maxMove;
+
+					item.leftEl.style.transform  = `translateX(${ move }px)`;
+					item.rightEl.style.transform = `translateX(${ -move }px)`;
+				});*/
+
+				const viewportWidth = window.innerWidth;
+
+				unitHeads.forEach(item => {
+					const localScroll = scrollX - item.startX;
+
+					/*const progress = Math.max(
+						0,
+						Math.min(1, localScroll / viewportWidth)
+					);*/
+
+					const progress = Math.max(
+						0,
+						Math.min( 1, localScroll / ( viewportWidth * ANIM_UNITHEAD_FASTER_SCROLL ) )
+					);
+
+					const move = Math.min(
+						item.maxMove,
+						progress * item.maxMove
+					);
+
+					item.leftEl.style.transform  = `translateX(${ move }px)`;
+					item.rightEl.style.transform = `translateX(${ -move }px)`;
+				});
+			}
+
+		// Initial call on animation
+			checkAnimTriggers(0);
+			updateUnitHeadAnimations(0);
+
+		// Calculate total scroll width from children
+			function calculateMaxScroll() {
+				let totalWidth = 0;
+				$container.children().each(function() {
+					totalWidth += $j(this).outerWidth(true); // includes margins
+				});
+				return totalWidth - $j(window).width();
+			}
+			
+			maxScroll = calculateMaxScroll();
 		
 		// Handle mouse wheel
-		$j( window ).on( 'wheel', function(e) {
-			e.preventDefault();
-			
-			// Adjust target scroll position
-			targetScroll += e.originalEvent.deltaY;
-			
-			// Clamp to boundaries
-			targetScroll = Math.max( 0, Math.min( targetScroll, maxScroll ) );
-			
-			// Start smooth scrolling animation if not already running
-			if ( !animationId ) {
-				animationId = requestAnimationFrame( smoothScroll );
-			}			
+			$j( window ).on( 'wheel', function(e) {
+				e.preventDefault();
+				
+				// Adjust target scroll position
+				targetScroll += e.originalEvent.deltaY;
+				targetScroll = Math.max( 0, Math.min( targetScroll, maxScroll ) );
+				
+				// Start smooth scrolling animation if not already running
+				if ( !animationId ) {
+					animationId = requestAnimationFrame( smoothScroll );
+				}			
 
-			// Progress Bar
-			var scrollProgress = targetScroll / maxScroll * 100;
-			$j( '.progress-bar' ).css({ 'width' : scrollProgress + '%' });
+				// Progress Bar
+				var scrollProgress = targetScroll / maxScroll * 100;
+				$j( '.progress-bar' ).css({ 'width' : scrollProgress + '%' });
 
-			// Animation
-			//var currentSection = Math.floor( targetScroll / 1920 ) + 1; // Based on left most viewport. ini asumsi semua section 1920px, section 1 dan 2 actually kagak.
-			//var incomingSection = currentSection + 1;
-			if ( !ticking ) {
-				requestAnimationFrame(() => {
-					checkAnimTriggers();
-					ticking = false;
-				});
-				ticking = true;
-			}
-		});
-
-		function checkAnimTriggers() {
-			animItems.forEach(item => {
-				console.log( targetScroll + ' >= ' + item.x );
-				if ( !item.triggered && targetScroll + windowWidth >= item.x + item.width ) {
-					$j( item.el ).addClass('is-visible'); // or trigger animation
-					item.triggered = true;
-				}
+				// Trigger Animation
+				/*if ( !ticking ) {
+					requestAnimationFrame(() => {
+						checkAnimTriggers();
+						updateUnitHeadAnimations();
+						ticking = false;
+					});
+					ticking = true;
+				}*/
 			});
-		}
+
+		// Animation executor
+			//checkAnimTriggers();
+		
+			function checkAnimTriggers( scrollX ) {				
+				//const triggerX = scrollX + windowWidth * ( 1 - ANIM_TRIGGER_OFFSET ); // Trigger based on % of viewport seen (ANIM_TRIGGER_OFFSET)
+				const viewportRight = scrollX + windowWidth; // Trigger based on element must be fully in viewport
+
+				animItems.forEach(item => {					
+					//console.log( targetScroll + ' + ' + windowWidth + ' >= ' + item.x + ' + ' + item.width );					
+
+					/*if ( !item.triggered && targetScroll + windowWidth >= item.x + item.width ) {
+						$j( item.el ).addClass('is-visible'); // or trigger animation
+						item.triggered = true;
+					}*/
+
+								 
+					// Trigger based on % of viewport seen (ANIM_TRIGGER_OFFSET)
+					/*if (
+						!item.triggered &&
+						item.x <= triggerX
+					) {
+						$j( item.el ).addClass( 'is-visible' );
+						item.triggered = true;
+					}*/
+
+					// Trigger based on element must be fully in viewport
+					if (
+						!item.triggered &&
+						item.x + item.width <= viewportRight
+					) {
+						$j( item.el ).addClass( 'is-visible' );
+						item.triggered = true;
+					}
+				});
+			}
 
 		// Smooth scrolling with easing
-		function smoothScroll() {			
-			// Easing factor: lower = smoother but slower (0.05-0.15 recommended)
-			currentScroll += ( targetScroll - currentScroll ) * 0.05;
-			
-			// Continue animation if still moving
-			if ( Math.abs( targetScroll - currentScroll ) > 0.5 ) 
-			{
-				$container.css( 'transform', `translateX(-${currentScroll}px)`);
-				animationId = requestAnimationFrame(smoothScroll);
-			} 
-			else 
-			{
-				// Snap to final position
-				currentScroll = targetScroll;
-				$container.css( 'transform', `translateX(-${currentScroll}px)`);
-				animationId = null;
+			function smoothScroll() {			
+				// Easing factor: lower = smoother but slower (0.05-0.15 recommended)
+				currentScroll += ( targetScroll - currentScroll ) * 0.05;
+
+				// Apply transform
+				$container.css(
+					'transform',
+					`translateX(-${currentScroll}px)`
+				);
+
+				// All animations
+				checkAnimTriggers(currentScroll);
+    			updateUnitHeadAnimations(currentScroll);
+				
+				// Continue animation if still moving
+				if (Math.abs(targetScroll - currentScroll) > 0.5) {
+					animationId = requestAnimationFrame(smoothScroll);
+				} else {
+					currentScroll = targetScroll;
+					$container.css(
+						'transform',
+						`translateX(-${currentScroll}px)`
+					);
+					animationId = null;
+				}
+
+				// Home Section 2 Transition			
+				let imgScrollPost = currentScroll;
+				if ( imgScrollPost < 0 ) { imgScrollPost = 0; }
+				if ( imgScrollPost > ( homeSection2Left + ( homeSection2Width / 4 ) ) ) { imgScrollPost = ( homeSection2Left + ( homeSection2Width / 4 ) ) }
+				
+				let opacity = imgScrollPost / ( homeSection2Left + ( homeSection2Width / 4 ) );
+				$j( '.home-section2 .wp-block-image:nth-child(2)' ).css({ 'opacity' : opacity });			
 			}
-
-			// Home Section 2 Transition			
-			let imgScrollPost = currentScroll;
-			if ( imgScrollPost < 0 ) { imgScrollPost = 0; }
-			if ( imgScrollPost > ( homeSection2Left + ( homeSection2Width / 4 ) ) ) { imgScrollPost = ( homeSection2Left + ( homeSection2Width / 4 ) ) }
-			
-			let opacity = imgScrollPost / ( homeSection2Left + ( homeSection2Width / 4 ) );
-			$j( '.home-section2 .wp-block-image:nth-child(2)' ).css({ 'opacity' : opacity });			
-		}
 		
-		// Update maxScroll on window resize
-		$j( window ).on( 'resize', function() {
-			maxScroll = calculateMaxScroll(); //$container.outerWidth() - $j( window ).width();
-			targetScroll = Math.min( targetScroll, maxScroll );
-			windowWidth = $j( window ).width();
-			currentScroll = Math.min( currentScroll, maxScroll );
-			$container.css( 'transform', `translateX(-${currentScroll}px)`);
+		// Update variables on window resize
+			$j( window ).on( 'resize', function() {
+				maxScroll = calculateMaxScroll(); //$container.outerWidth() - $j( window ).width();
+				targetScroll = Math.min( targetScroll, maxScroll );
+				windowWidth = $j( window ).width();
+				currentScroll = Math.min( currentScroll, maxScroll );
+				$container.css( 'transform', `translateX(-${currentScroll}px)`);
+				VIEWPORT_WIDTH = window.innerWidth;
 
-			homeSection2Left = $j( '.home-section2' ).position().left;
-			homeSection2Width = $j( '.home-section2' ).width();
-		});
+    			buildUnitHeads();
+
+				homeSection2Left = $j( '.home-section2' ).position().left;
+				homeSection2Width = $j( '.home-section2' ).width();
+			});
+
+			
 
 	// Search
 		$j( '.search-field' ).attr( 'placeholder', 'Search...' );

@@ -252,10 +252,10 @@
 		add_filter( 'generate_svg_icon', function( $output, $icon ) {
 			if ( 'menu-bars' === $icon ) {
 				//$output = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>';
-				$output = '<svg width="55" height="30" viewBox="0 0 55 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<rect width="55" height="30" fill="white"/>
-								<line x1="15" y1="9.5" x2="40" y2="9.5" stroke="#222222"/>
-								<line x1="15" y1="19.5" x2="40" y2="19.5" stroke="#222222"/>
+				$output =  '<svg width="30" height="25" viewBox="0 0 30 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<rect width="30" height="3" fill="#222222"/>
+								<rect y="11" width="30" height="3" fill="#222222"/>
+								<rect y="22" width="30" height="3" fill="#222222"/>
 							</svg>';
 			}
 			else if ( 'search' === $icon ) {

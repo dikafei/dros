@@ -243,57 +243,57 @@ body {
   font-style: italic;
   font-display: swap;
 }
-.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section1,
-.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section2,
-.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section3,
-.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section4,
-.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section5,
-.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section6,
-.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section7,
-.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section8,
-.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section9,
-.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section10,
-.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section11,
-.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section12,
-.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section13,
-.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section14,
-.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section15,
-.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section16,
-.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section17,
-.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section18,
-.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section19,
-.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section20,
-.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section21,
-.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section22,
-.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section23,
-.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section24,
-.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section25,
-.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section1,
-.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section2,
-.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section3,
-.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section4,
-.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section5,
-.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section6,
-.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section7,
-.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section8,
-.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section9,
-.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section10,
-.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section11,
-.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section12,
-.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section13,
-.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section14,
-.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section15,
-.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section16,
-.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section17,
-.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section18,
-.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section19,
-.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section20,
-.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section21,
-.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section22,
-.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section23,
-.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section24,
-.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section25 {
-  /*&:not(.unit-head) {*/
+.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section1x:not(.unit-head),
+.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section2x:not(.unit-head),
+.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section3x:not(.unit-head),
+.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section4x:not(.unit-head),
+.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section5x:not(.unit-head),
+.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section6x:not(.unit-head),
+.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section7x:not(.unit-head),
+.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section8x:not(.unit-head),
+.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section9x:not(.unit-head),
+.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section10x:not(.unit-head),
+.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section11:not(.unit-head),
+.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section12:not(.unit-head),
+.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section13:not(.unit-head),
+.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section14:not(.unit-head),
+.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section15:not(.unit-head),
+.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section16:not(.unit-head),
+.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section17:not(.unit-head),
+.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section18:not(.unit-head),
+.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section19:not(.unit-head),
+.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section20:not(.unit-head),
+.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section21:not(.unit-head),
+.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section22:not(.unit-head),
+.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section23:not(.unit-head),
+.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section24:not(.unit-head),
+.editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section25:not(.unit-head),
+.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section1x:not(.unit-head),
+.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section2x:not(.unit-head),
+.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section3x:not(.unit-head),
+.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section4x:not(.unit-head),
+.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section5x:not(.unit-head),
+.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section6x:not(.unit-head),
+.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section7x:not(.unit-head),
+.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section8x:not(.unit-head),
+.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section9x:not(.unit-head),
+.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section10x:not(.unit-head),
+.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section11:not(.unit-head),
+.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section12:not(.unit-head),
+.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section13:not(.unit-head),
+.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section14:not(.unit-head),
+.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section15:not(.unit-head),
+.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section16:not(.unit-head),
+.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section17:not(.unit-head),
+.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section18:not(.unit-head),
+.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section19:not(.unit-head),
+.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section20:not(.unit-head),
+.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section21:not(.unit-head),
+.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section22:not(.unit-head),
+.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section23:not(.unit-head),
+.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section24:not(.unit-head),
+.block-editor .editor-styles-wrapper *:not(.editor-styles-wrapper) .home-section25:not(.unit-head) {
+  display: none !important;
 }
 .editor-styles-wrapper body:not(.wp-admin),
 .block-editor .editor-styles-wrapper body:not(.wp-admin) {
@@ -1459,6 +1459,11 @@ body {
 .editor-styles-wrapper .anim,
 .block-editor .editor-styles-wrapper .anim {
   opacity: 0;
+  -webkit-transition: opacity 1.2s ease-out, -webkit-transform 0.8s ease-out;
+  transition: opacity 1.2s ease-out, -webkit-transform 0.8s ease-out;
+  transition: opacity 1.2s ease-out, transform 0.8s ease-out;
+  transition: opacity 1.2s ease-out, transform 0.8s ease-out, -webkit-transform 0.8s ease-out;
+  will-change: opacity, transform;
 }
 .editor-styles-wrapper .anim.is-visible,
 .block-editor .editor-styles-wrapper .anim.is-visible {
@@ -1468,14 +1473,42 @@ body {
 .block-editor .editor-styles-wrapper .fadetotop {
   -webkit-transform: translateY(200px);
           transform: translateY(200px);
-  -webkit-transition: opacity 1.2s ease-out, -webkit-transform 0.8s ease-out;
-  transition: opacity 1.2s ease-out, -webkit-transform 0.8s ease-out;
-  transition: opacity 1.2s ease-out, transform 0.8s ease-out;
-  transition: opacity 1.2s ease-out, transform 0.8s ease-out, -webkit-transform 0.8s ease-out;
-  will-change: opacity, transform;
 }
 .editor-styles-wrapper .fadetotop.is-visible,
 .block-editor .editor-styles-wrapper .fadetotop.is-visible {
+  opacity: 1;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+}
+.editor-styles-wrapper .fadetoleft,
+.block-editor .editor-styles-wrapper .fadetoleft {
+  -webkit-transform: translateX(200px);
+          transform: translateX(200px);
+}
+.editor-styles-wrapper .fadetoleft.is-visible,
+.block-editor .editor-styles-wrapper .fadetoleft.is-visible {
+  opacity: 1;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+}
+.editor-styles-wrapper .fadetoright,
+.block-editor .editor-styles-wrapper .fadetoright {
+  -webkit-transform: translateX(-200px);
+          transform: translateX(-200px);
+}
+.editor-styles-wrapper .fadetoright.is-visible,
+.block-editor .editor-styles-wrapper .fadetoright.is-visible {
+  opacity: 1;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+}
+.editor-styles-wrapper .totheright,
+.block-editor .editor-styles-wrapper .totheright {
+  -webkit-transform: translateX(-200px);
+          transform: translateX(-200px);
+}
+.editor-styles-wrapper .totheright.is-visible,
+.block-editor .editor-styles-wrapper .totheright.is-visible {
   opacity: 1;
   -webkit-transform: translateY(0);
           transform: translateY(0);
