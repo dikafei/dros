@@ -6,6 +6,7 @@ var headerEl;
 
 const animItems = [];
 const unitHeads = [];
+const imageScales = [];
 
 const SECTION_WIDTH = 1920;
 const ANIM_TRIGGER_OFFSET = 0.3;
@@ -18,6 +19,30 @@ const ANIM_UNITHEAD_FASTER_SCROLL = Math.min(
 let ticking = false;
 
 $j(function(){	
+	// Unit Head Texts - Make them same size
+		//syncUnitHeadTextWidth();
+
+		function syncUnitHeadTextWidth() {
+			$j( '.unit-head' ).each( function() {
+				var topText = $j( this ).find( '.wp-block-cover__inner-container .wp-block-heading:first-child' );
+				var bottomText = $j( this ).find( '.wp-block-cover__inner-container .wp-block-heading:last-child' );
+
+				var maxWidth = Math.max(
+					topText.outerWidth(),
+					bottomText.outerWidth()
+				);
+
+				topText.width(maxWidth);
+				bottomText.width(maxWidth);
+			});	
+
+			// reset first (important if content changes)
+			//$top.css('width', 'auto');
+			//$bottom.css('width', 'auto');
+
+			
+		}
+
 	// Animation 
 		const $container = $j( '.home .entry-content' );
 		let currentScroll = 0;
@@ -164,6 +189,139 @@ $j(function(){
 					item.rightEl.style.transform = `translateX(${ -move }px)`;
 				});
 			}
+			
+		// Animation Type Image
+			buildImageScales();
+
+			function buildImageScales() {
+				/*imageScales.length = 0;
+
+				const $sections = $j('[class*="home-section"]');
+
+				$j('[class*="home-section"] .wp-block-image:not(.noscaling)').each(function () {
+					const $block = $j(this);
+					const $section = $block.closest('[class*="home-section"]');
+					const sectionIndex = $sections.index($section);
+					if (sectionIndex === -1) return;
+
+					const sectionX = sectionIndex * SECTION_WIDTH;
+
+					// offset INSIDE the section (static)
+					const blockX = sectionX + $block.offset().left - $section.offset().left;
+					const blockWidth = $block.outerWidth();
+
+					const img = $block.find('img')[0];
+					if (!img) return;
+
+					img.style.transform = 'scale(1.2)';
+					img.style.willChange = 'transform';
+
+					const isHero = img.classList.contains('hero-stack');
+
+					let startX, endX;
+
+					if (isHero) {
+						const HERO_SCROLL_WIDTH = 2880; // home-section2 width
+
+						// Start when hero section starts entering viewport
+						startX = blockX - window.innerWidth;
+
+						// End after the full hero scroll distance
+						endX = startX + HERO_SCROLL_WIDTH;
+					} else {
+						// Normal images
+						startX = blockX - window.innerWidth;
+						endX   = blockX + blockWidth - window.innerWidth;
+					}
+
+					imageScales.push({
+						el: img,
+
+						// viewport-right touching block-left → start
+						startX,
+
+						// viewport-right touching block-right → end
+						endX
+					});
+				});*/
+
+				const $sections = $j('[class*="home-section"]');
+
+				$j('[class*="home-section"] .wp-block-image:not(.noscaling) img').each(function () {
+					const img = this;
+					const $img = $j(img);
+					const $block = $img.closest('.wp-block-image');
+					const $section = $img.closest('[class*="home-section"]');
+
+					const sectionIndex = $sections.index($section);
+					if (sectionIndex === -1) return;
+
+					// --- WORLD POSITION (no DOM reads after transform)
+					const sectionX = sectionIndex * SECTION_WIDTH;
+					const blockX = sectionX + $block.position().left;
+					const blockWidth = $block.outerWidth();
+
+					const isHero = $img.parent( '.wp-block-image' ).hasClass('hero-stack');
+
+					let startX, endX;
+
+					if (isHero) {
+						// HERO IMAGES (special case)
+						const HERO_SCROLL_WIDTH = 2880;
+
+						// Animation starts only after scrolling begins
+						startX = blockX - window.innerWidth;
+						endX   = startX + HERO_SCROLL_WIDTH;
+					} else {
+						// NORMAL IMAGES
+						startX = blockX - window.innerWidth;
+						endX   = blockX + blockWidth - window.innerWidth;
+					}
+
+					imageScales.push({
+						el: img,
+						startX,
+						endX,
+						range: endX - startX,
+						isHero
+					});
+				});
+			}
+
+			function updateImageScales(scrollX) {
+				/*imageScales.forEach(item => {
+					const progress = Math.max(
+						0,
+						Math.min(1, (scrollX - item.startX) / (item.endX - item.startX))
+					);
+
+					// scale from 1.2 → 1
+					const scale = 1.2 - 0.2 * progress;
+
+					item.el.style.transform = `scale(${scale})`;
+				});*/
+
+				imageScales.forEach(item => {
+					let local;
+
+					if (item.isHero) {
+						// Prevent progress before scroll starts
+						local = Math.max(0, scrollX - item.startX);
+					} else {
+						local = scrollX - item.startX;
+					}
+
+					const progress = Math.max(
+						0,
+						Math.min(1, local / item.range)
+					);
+
+					const scale = 1.2 - progress * 0.2;
+
+					item.el.style.transform = `scale(${scale})`;
+				});
+			}
+	
 
 		// Initial call on animation
 			checkAnimTriggers(0);
@@ -256,8 +414,9 @@ $j(function(){
 				);
 
 				// All animations
-				checkAnimTriggers(currentScroll);
-    			updateUnitHeadAnimations(currentScroll);
+				//checkAnimTriggers(currentScroll);
+    			//updateUnitHeadAnimations(currentScroll);
+				updateImageScales(currentScroll);
 				
 				// Continue animation if still moving
 				if (Math.abs(targetScroll - currentScroll) > 0.5) {
@@ -290,6 +449,7 @@ $j(function(){
 				VIEWPORT_WIDTH = window.innerWidth;
 
     			buildUnitHeads();
+				buildImageScales();
 
 				homeSection2Left = $j( '.home-section2' ).position().left;
 				homeSection2Width = $j( '.home-section2' ).width();
