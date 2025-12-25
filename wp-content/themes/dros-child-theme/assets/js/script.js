@@ -7,8 +7,10 @@ var headerEl;
 const animItems = [];
 const unitHeads = [];
 const imageScales = [];
+let sectionPositions = [];
 
 const SECTION_WIDTH = 1920;
+const ARROW_SCROLL_STEP = 120;
 const ANIM_TRIGGER_OFFSET = 0.3;
 const ANIM_UNITHEAD_OFFSET = 0.2;
 const ANIM_UNITHEAD_FASTER_SCROLL = Math.min(
@@ -20,7 +22,7 @@ let ticking = false;
 
 $j(function(){	
 	// Unit Head Texts - Make them same size
-		//syncUnitHeadTextWidth();
+		syncUnitHeadTextWidth();
 
 		function syncUnitHeadTextWidth() {
 			$j( '.unit-head' ).each( function() {
@@ -38,10 +40,103 @@ $j(function(){
 
 			// reset first (important if content changes)
 			//$top.css('width', 'auto');
-			//$bottom.css('width', 'auto');
-
-			
+			//$bottom.css('width', 'auto');			
 		}
+
+	// Keyboard Shortcut
+		buildSectionPositions();
+
+		function buildSectionPositions() {
+			sectionPositions = [];
+			const $sections = $j('[class*="home-section"]');
+
+			$sections.each(function (index) {
+				sectionPositions.push(index * SECTION_WIDTH);
+			});
+		}
+
+		function clampTargetScroll(x) {
+			const maxScroll =
+				$container[0].scrollWidth - window.innerWidth;
+
+			return Math.max(0, Math.min(x, maxScroll));
+		}
+
+		function startSmoothScroll() {
+			if (!animationId) {
+				animationId = requestAnimationFrame(smoothScroll);
+			}
+		}
+
+		function getCurrentSectionIndex() {
+			let closestIndex = 0;
+			let minDist = Infinity;
+
+			sectionPositions.forEach((pos, i) => {
+				const dist = Math.abs(pos - currentScroll);
+				if (dist < minDist) {
+					minDist = dist;
+					closestIndex = i;
+				}
+			});
+
+			return closestIndex;
+		}
+
+		$j(window).on('keydown', function (e) {
+			const keys = [
+				'PageDown',
+				'PageUp',
+				'Home',
+				'End',
+				'ArrowLeft',
+				'ArrowRight'
+			];
+
+			if (keys.includes(e.code)) {
+				e.preventDefault();
+			} else {
+				return;
+			}
+
+			const currentIndex = getCurrentSectionIndex();
+
+			switch (e.code) {
+
+				case 'PageUp': {
+					const targetIndex = Math.max(0, currentIndex - 1);
+					targetScroll = sectionPositions[targetIndex];
+					break;
+				}
+
+				case 'PageDown': {
+					const targetIndex = Math.min(
+						sectionPositions.length - 1,
+						currentIndex + 1
+					);
+					targetScroll = sectionPositions[targetIndex];
+					break;
+				}
+
+				case 'Home':
+					targetScroll = 0;
+					break;
+
+				case 'End':
+					targetScroll = clampTargetScroll(Infinity);
+					break;
+
+				case 'ArrowLeft':
+					targetScroll = clampTargetScroll(targetScroll - ARROW_SCROLL_STEP);
+					break;
+
+				case 'ArrowRight':
+					targetScroll = clampTargetScroll(targetScroll + ARROW_SCROLL_STEP);
+					break;
+			}
+
+			startSmoothScroll();
+		});
 
 	// Animation 
 		const $container = $j( '.home .entry-content' );
@@ -266,14 +361,12 @@ $j(function(){
 					let startX, endX;
 
 					if (isHero) {
-						// HERO IMAGES (special case)
 						const HERO_SCROLL_WIDTH = 2880;
 
-						// Animation starts only after scrolling begins
-						startX = blockX - window.innerWidth;
-						endX   = startX + HERO_SCROLL_WIDTH;
+						// Anchor hero animation to scroll origin
+						startX = 0;
+						endX   = HERO_SCROLL_WIDTH;
 					} else {
-						// NORMAL IMAGES
 						startX = blockX - window.innerWidth;
 						endX   = blockX + blockWidth - window.innerWidth;
 					}
@@ -302,14 +395,7 @@ $j(function(){
 				});*/
 
 				imageScales.forEach(item => {
-					let local;
-
-					if (item.isHero) {
-						// Prevent progress before scroll starts
-						local = Math.max(0, scrollX - item.startX);
-					} else {
-						local = scrollX - item.startX;
-					}
+					const local = scrollX - item.startX;
 
 					const progress = Math.max(
 						0,
@@ -317,7 +403,6 @@ $j(function(){
 					);
 
 					const scale = 1.2 - progress * 0.2;
-
 					item.el.style.transform = `scale(${scale})`;
 				});
 			}
@@ -402,6 +487,8 @@ $j(function(){
 				});
 			}
 
+			console.log( animItems );
+
 		// Smooth scrolling with easing
 			function smoothScroll() {			
 				// Easing factor: lower = smoother but slower (0.05-0.15 recommended)
@@ -414,8 +501,8 @@ $j(function(){
 				);
 
 				// All animations
-				//checkAnimTriggers(currentScroll);
-    			//updateUnitHeadAnimations(currentScroll);
+				checkAnimTriggers(currentScroll);
+    			updateUnitHeadAnimations(currentScroll);
 				updateImageScales(currentScroll);
 				
 				// Continue animation if still moving

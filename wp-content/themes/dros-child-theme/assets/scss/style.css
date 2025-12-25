@@ -79,32 +79,37 @@ body {
   font-style: italic;
   font-display: swap;
 }
-*:not(.editor-styles-wrapper) .home-section1x:not(.unit-head),
-*:not(.editor-styles-wrapper) .home-section2x:not(.unit-head),
-*:not(.editor-styles-wrapper) .home-section3x:not(.unit-head),
-*:not(.editor-styles-wrapper) .home-section4x:not(.unit-head),
-*:not(.editor-styles-wrapper) .home-section5x:not(.unit-head),
-*:not(.editor-styles-wrapper) .home-section6x:not(.unit-head),
-*:not(.editor-styles-wrapper) .home-section7x:not(.unit-head),
-*:not(.editor-styles-wrapper) .home-section8x:not(.unit-head),
-*:not(.editor-styles-wrapper) .home-section9x:not(.unit-head),
-*:not(.editor-styles-wrapper) .home-section10x:not(.unit-head),
-*:not(.editor-styles-wrapper) .home-section11:not(.unit-head),
-*:not(.editor-styles-wrapper) .home-section12:not(.unit-head),
-*:not(.editor-styles-wrapper) .home-section13:not(.unit-head),
-*:not(.editor-styles-wrapper) .home-section14:not(.unit-head),
-*:not(.editor-styles-wrapper) .home-section15:not(.unit-head),
-*:not(.editor-styles-wrapper) .home-section16:not(.unit-head),
-*:not(.editor-styles-wrapper) .home-section17:not(.unit-head),
-*:not(.editor-styles-wrapper) .home-section18:not(.unit-head),
-*:not(.editor-styles-wrapper) .home-section19:not(.unit-head),
-*:not(.editor-styles-wrapper) .home-section20:not(.unit-head),
-*:not(.editor-styles-wrapper) .home-section21:not(.unit-head),
-*:not(.editor-styles-wrapper) .home-section22:not(.unit-head),
-*:not(.editor-styles-wrapper) .home-section23:not(.unit-head),
-*:not(.editor-styles-wrapper) .home-section24:not(.unit-head),
-*:not(.editor-styles-wrapper) .home-section25:not(.unit-head) {
-  display: none !important;
+*:not(.editor-styles-wrapper) {
+  /*.home-section1,
+  .home-section2,
+  .home-section3,
+  .home-section4,
+  .home-section5,
+  .home-section6,
+  .home-section7,
+  .home-section8,
+  .home-section9,
+  .home-section10,
+  .home-section11,
+  .home-section12,
+  .home-section13,
+  .home-section14,
+  .home-section15,
+  .home-section16,
+  .home-section17,
+  .home-section18,
+  .home-section19,
+  .home-section20,
+  .home-section21,
+  .home-section22,
+  .home-section23,
+  .home-section24,
+  .home-section25 {
+
+      &:not(.unit-head) {
+          display: none !important;
+      }
+  }*/
 }
 
 /* General */
@@ -6766,4 +6771,4 @@ body.home::-webkit-scrollbar {
 }
 .error-404.not-found .error-404-thumb img {
   max-width: 400px;
-}/*# sourceMappingURL=style.css.map */
+}
