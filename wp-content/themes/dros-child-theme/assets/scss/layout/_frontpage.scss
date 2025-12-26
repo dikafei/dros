@@ -279,6 +279,16 @@ body.home::-webkit-scrollbar {
 
         .home-section8 {
             flex:0 0 1920px;
+
+            .wp-block-image {
+                height: 100%;
+
+                img {
+                    height: 100%;
+                    object-fit: cover;
+                    object-position: center;
+                }
+            }
         }
 
         .home-section9 {
@@ -925,6 +935,7 @@ body.home::-webkit-scrollbar {
             line-height: 1;
             width: auto;
             color:rgba(255,255,255,0.4);
+            white-space: nowrap;
 
             &:first-child {
                 font-weight: 300;

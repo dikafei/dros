@@ -4905,6 +4905,16 @@ body.home::-webkit-scrollbar {
       -ms-flex: 0 0 1920px;
           flex: 0 0 1920px;
 }
+.home .entry-content .home-section8 .wp-block-image {
+  height: 100%;
+}
+.home .entry-content .home-section8 .wp-block-image img {
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
 .home .entry-content .home-section9 {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 1920px;
@@ -5598,6 +5608,7 @@ body.home::-webkit-scrollbar {
   line-height: 1;
   width: auto;
   color: rgba(255, 255, 255, 0.4);
+  white-space: nowrap;
 }
 .unit-head .wp-block-cover .wp-block-heading:not(.alignwide):not(.alignfull):first-child {
   font-weight: 300;
@@ -6771,4 +6782,4 @@ body.home::-webkit-scrollbar {
 }
 .error-404.not-found .error-404-thumb img {
   max-width: 400px;
-}
+}/*# sourceMappingURL=style.css.map */
