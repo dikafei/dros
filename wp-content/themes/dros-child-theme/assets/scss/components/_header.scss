@@ -23,14 +23,17 @@
         .site-header {
         
             .inside-header {
-                padding-top:112px;
 
-                @media( max-width:$sml ) {
-                    padding-top:126px;
-                }
+                .floating-header {
+                    padding-top:112px;
 
-                @media( max-width:$sm ) {
-                    padding-top:86px;
+                    @media( max-width:$sml ) {
+                        padding-top:126px;
+                    }
+
+                    @media( max-width:$sm ) {
+                        padding-top:86px;
+                    }
                 }
 
                 #site-navigation.main-navigation {
@@ -46,11 +49,21 @@
 
     .mobile-menu-open {
     
-        .site-header {
+        /*.site-header {
             left:-100px;
 
             @media( max-width:767px ) {
                 padding-left: 80px;
+            }
+        } */
+
+        .site-header {
+        
+            .inside-header {
+            
+                #site-navigation.main-navigation {
+                    left:-200px;
+                }
             }
         }
     }
@@ -58,51 +71,59 @@
     .site-header {     
         background-color: transparent;
         position: absolute;
-        width: min( calc( 100vw + 100px - 40px  ), 600px );
+        /*width: min( calc( 100vw + 100px - 40px  ), 600px );*/
+        width: 100px;
         height:100vh;
         top:0;
-        left: calc( ( min( calc( 100vw - 40px  ), 600px ) - 100px ) * -1 );
-        padding-left: 100px;
-        border-right:1px solid $border;
-        z-index: 1000;
-        background-image: url(../../assets/img/halftone.png);
-        background-repeat: repeat;
+        left:0;
+        /*left: calc( ( min( calc( 100vw - 40px  ), 600px ) - 100px ) * -1 );*/
+        z-index: 1000;        
         display: flex;
         justify-content: flex-end;
-        box-shadow:0 5px 10px rgba(102, 59, 32, 0.9);
-        transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0s;
+        /*box-shadow:0 5px 10px rgba(102, 59, 32, 0.9);*/
+        
 
-        @media( max-width:$sm ) {
+        /*@media( max-width:$sm ) {
             width: min( calc( 100vw + 80px - 40px  ), 600px );
             left: calc( ( min( calc( 100vw - 40px  ), 600px ) - 80px ) * -1 );
         }
 
         @media( max-width:640px ) {
             left: calc( min( calc( 100vw - 40px  ), 600px ) * -1 );
-        }
+        }*/
 
 
-        .inside-header {
-            padding:80px 15px;
-            justify-content: space-between;            
+        .inside-header {     
             flex-wrap: wrap;
-            margin:0;
-            flex-direction: column;
+            margin:0;            
             max-width: 100%;
             height: 100%;
             width: 100px;
-            border-left:1px solid $secondary;
+            background-image: url(../../assets/img/halftone.png);
+            background-repeat: repeat;
+            padding:0;
 
-            /*@media( max-width:$md ) {
-                flex-direction: row;
-            }*/
-
-            @media( max-width:$sm ) {
-                padding:40px 5px;
+            @media( max-width:$sm ) {                
                 width:80px;
-            }
+            }            
 
-            // Logo
+            .floating-header {
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;   
+                padding:80px 15px;
+                position: relative;
+                z-index: 1000;
+                border-right:1px solid $border;
+                background-image: url(../../assets/img/halftone.png);
+                background-repeat: repeat;
+
+                @media( max-width:$sm ) {
+                    padding:40px 5px;
+                }
+
+                // Logo
                 .site-logo {
                     max-width: 400px;
 
@@ -112,7 +133,7 @@
                     }*/
                 }
 
-            // Burger
+                // Burger
                 #mobile-menu-control-wrapper {
                     background-color: transparent;
                     margin:0;
@@ -148,11 +169,12 @@
                     .menu-toggle {   
                         background-color: transparent;    
                         line-height: 21px;
+                        justify-content: center;
 
                         @media( max-width:$md ) {
                             display: block;
                         }
-                                                 
+                                                
                         .gp-icon svg {                            
                             width:21px;
                             height:21px;                
@@ -179,7 +201,7 @@
                         @media( max-width:$sm ) {
                             margin-left:0; 
                         }
-                                                 
+                                                
                         svg {                                                                                                                
 
                             rect {
@@ -205,220 +227,257 @@
                     }
                 }
 
+                // Book
+                & > a {
+                    @include font(psmall);
+                    font-weight:bold;
+                    text-align: center;
+                }
+            }            
+
             // Main Menu
-                #site-navigation.main-navigation {
-                    background-color: transparent;
-                    margin-left:0;
-                    display: flex;
-                    position: absolute;
-                    left:100px;
-                    top:0;  
-                    margin:0;
-                    max-width: 400px;
-                    padding:$spacing;
-
-                    /*&:not(.toggled) {
-                    
-                        .main-nav {
-                        
-                            ul {
-                            
-                                @media( max-width:$md ) {
-                                    display: none;
-                                }
-                            }
-                        }
-                    }
-
-                    &.toggled {
-
-                        @media( max-width:$md ) {
-                            margin-top:$half-spacing;                                                        
-                        }
-                    }
-
-                    @media( max-width:$md ) {
-                        flex-basis: 100%;
-                    }*/
-
-                    .inside-navigation {
-                        max-width: 100%;
+            #site-navigation.main-navigation {
+                background-image: url(../../assets/img/halftone.png);
+                background-repeat: repeat;
+                /*border-right:1px solid $border;*/
+                margin-left:0;
+                display: flex;
+                position: absolute;
+                left:calc( ( 100vw + 200px ) * -1 );
+                top:0;  
+                margin:0;
+                max-width: none;
+                padding:$spacing $spacing $spacing 300px;
+                width: calc( 100vw + 200px );
+                height: 100vh;
+                transition: all 1s cubic-bezier(.07,.41,.65,1.18) 0s;
+                z-index: 900;
+                box-shadow:0 5px 10px rgba(102, 59, 32, 0.9);
                 
-                        #primary-menu.main-nav {
 
-                            & > ul {
-                                display: flex !important;
-                                flex-direction: column;
-                            }
+                /*&:not(.toggled) {
+                
+                    .main-nav {
+                    
+                        ul {
                         
-                            ul {
-                            
-                                li {
-                                    width: 100%;
-
-                                    a {
-                                        text-transform: uppercase;
-                                        color:$primary;
-                                        padding:12px 0;
-                                        @include font(p);                                   
-                                        
-                                        &:hover,
-                                        &:focus {
-                                            color:$secondary;
-                                        }                 
-
-                                    }
-
-                                    &.current-menu-item {
-                                    
-                                        a {                                            
-                                            color:$primary;
-                                        }
-                                    }
-
-                                    &.menu-item-has-children {                                        
-
-                                        a {
-                                            padding-right:21px;
-                                            position: relative;                                            
-                                    
-                                            .dropdown-menu-toggle {                                                
-                                                position: absolute;
-                                                padding:0;
-                                                top:50%;
-                                                transform: translateY(-50%);
-                                                right:0;
-                                                width:15px;
-                                                height:15px;
-                                                margin-top:-2px;
-                                                display: flex;
-
-                                                .gp-icon svg {
-                                                    width:100%;
-                                                    height:100%;
-                                                }
-                                            }
-                                        }
-
-                                        .sub-menu {
-                                            padding:16px 0;
-                                            pointer-events: auto;
-                                            background-color: $background;
-                                            box-shadow:0 0 1px #aaa;
-                                            display: flex;
-                                            flex-direction: column;
-                                            gap:10px;
-
-                                            li {
-                                            
-                                                a {
-                                                    color:$primary;
-                                                    padding:0 16px;
-
-                                                    &:hover,
-                                                    &:focus {
-                                                        color:$secondary;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                    &.menu-cart,
-                                    &.menu-myaccount {
-
-                                        a {
-                                            font-size: 0;
-                                            display: flex;
-
-                                            &:hover,
-                                            &:focus {
-
-                                                &:after {
-                                                    background-color: $primary;
-                                                }
-                                            }
-
-                                            &:after {
-                                                content:'';
-                                                @include font(h5);
-                                                -webkit-mask-repeat: no-repeat;
-                                                mask-repeat: no-repeat; 
-                                                -webkit-mask-position:center;
-                                                mask-position: center;
-                                                -webkit-mask-size:30px 30px;
-                                                mask-size:30px 30px;
-                                                width:30px;
-                                                height:30px;
-                                                display: block;
-                                                background-color: $heading;
-                                            }
-                                        }
-                                    }
-
-                                    &.menu-cart {
-                                        
-                                        a:after {
-                                            -webkit-mask-image:url(../../assets/img/cart.svg);
-                                            mask-image:url(../../assets/img/cart.svg);
-                                        }
-                                    }
-
-                                    &.menu-myaccount {                                        
-                                        
-                                        a:after {                                            
-                                            -webkit-mask-image:url(../../assets/img/user.svg);
-                                            mask-image:url(../../assets/img/user.svg);
-                                        }
-                                    }
-                                }
-                            }
-                        }  
-
-                        .menu-bar-items {
-
                             @media( max-width:$md ) {
                                 display: none;
                             }
+                        }
+                    }
+                }
 
-                            .menu-bar-item {
+                &.toggled {
 
-                                &:last-child {
-                                
-                                    a {
-                                        padding-right: 0;
+                    @media( max-width:$md ) {
+                        margin-top:$half-spacing;                                                        
+                    }
+                }
+
+                @media( max-width:$md ) {
+                    flex-basis: 100%;
+                }*/
+
+                .inside-navigation {
+                    max-width: 100%;
+            
+                    #primary-menu.main-nav {
+                        flex-basis: 100%;
+
+                        & > ul {
+                            display: flex !important;
+                            justify-content: space-around;
+                            flex-direction: row;
+                            gap:120px;
+
+                            li {
+
+                                a {
+                            
+                                    &:before {
+                                        content:'';
+                                        width:400px;
+                                        height: 300px;
+                                        background-repeat: no-repeat;
+                                        background-size: contain;
+                                        background-position: center;
+                                        display: block;        
+                                        margin-bottom: 30px;                            
+                                        transition: $transition;
                                     }
-                                }
-                        
-                                a {                 
-                                    line-height: $lh6;
-                                    display: flex;
-
-                                    .gp-icon svg {
-                                        width:21px;
-                                        height:21px;                
-                                        top:0;                        
-                                        fill:$primary; 
-                                        transition: $transition;                                   
-                                    } 
 
                                     &:hover,
                                     &:focus {
-                                        .gp-icon svg {
-                                            fill:$secondary;
-                                        } 
+                                    
+                                        &:before {
+                                            opacity: 0.6;
+                                        }
+                                    }
+                                }
+
+                                &:nth-child(1) a:before { background-image: url(../../assets/img/menu-home-bg.webp); }
+                                &:nth-child(2) a:before { background-image: url(../../assets/img/menu-about-bg.webp); }
+                                &:nth-child(3) a:before { background-image: url(../../assets/img/menu-the-rooms-bg.webp); }
+                            }
+                        }
+                    
+                        ul {
+                        
+                            li {
+                                width: auto;
+
+                                a {
+                                    text-transform: lowercase;
+                                    color:$heading;
+                                    padding:0;
+                                    @include font(h4);       
+                                    font-weight: bold;    
+                                    text-align: center;                        
+                                    
+                                    &:hover,
+                                    &:focus {
+                                        color:$primary;
+                                    }                 
+                                }
+
+                                &.menu-item-has-children {                                        
+
+                                    a {
+                                        padding-right:21px;
+                                        position: relative;                                            
+                                
+                                        .dropdown-menu-toggle {                                                
+                                            position: absolute;
+                                            padding:0;
+                                            top:50%;
+                                            transform: translateY(-50%);
+                                            right:0;
+                                            width:15px;
+                                            height:15px;
+                                            margin-top:-2px;
+                                            display: flex;
+
+                                            .gp-icon svg {
+                                                width:100%;
+                                                height:100%;
+                                            }
+                                        }
+                                    }
+
+                                    .sub-menu {
+                                        padding:16px 0;
+                                        pointer-events: auto;
+                                        background-color: $background;
+                                        box-shadow:0 0 1px #aaa;
+                                        display: flex;
+                                        flex-direction: column;
+                                        gap:10px;
+
+                                        li {
+                                        
+                                            a {
+                                                color:$primary;
+                                                padding:0 16px;
+
+                                                &:hover,
+                                                &:focus {
+                                                    color:$secondary;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                &.menu-cart,
+                                &.menu-myaccount {
+
+                                    a {
+                                        font-size: 0;
+                                        display: flex;
+
+                                        &:hover,
+                                        &:focus {
+
+                                            &:after {
+                                                background-color: $primary;
+                                            }
+                                        }
+
+                                        &:after {
+                                            content:'';
+                                            @include font(h5);
+                                            -webkit-mask-repeat: no-repeat;
+                                            mask-repeat: no-repeat; 
+                                            -webkit-mask-position:center;
+                                            mask-position: center;
+                                            -webkit-mask-size:30px 30px;
+                                            mask-size:30px 30px;
+                                            width:30px;
+                                            height:30px;
+                                            display: block;
+                                            background-color: $heading;
+                                        }
+                                    }
+                                }
+
+                                &.menu-cart {
+                                    
+                                    a:after {
+                                        -webkit-mask-image:url(../../assets/img/cart.svg);
+                                        mask-image:url(../../assets/img/cart.svg);
+                                    }
+                                }
+
+                                &.menu-myaccount {                                        
+                                    
+                                    a:after {                                            
+                                        -webkit-mask-image:url(../../assets/img/user.svg);
+                                        mask-image:url(../../assets/img/user.svg);
                                     }
                                 }
                             }
                         }
-                    }          
-                }
+                    }  
 
-            // Book
-            & > a {
-                @include font(psmall);
-                font-weight:bold;
-            }
+                    .menu-bar-items {
+
+                        @media( max-width:$md ) {
+                            display: none;
+                        }
+
+                        .menu-bar-item {
+
+                            &:last-child {
+                            
+                                a {
+                                    padding-right: 0;
+                                }
+                            }
+                    
+                            a {                 
+                                line-height: $lh6;
+                                display: flex;
+
+                                .gp-icon svg {
+                                    width:21px;
+                                    height:21px;                
+                                    top:0;                        
+                                    fill:$primary; 
+                                    transition: $transition;                                   
+                                } 
+
+                                &:hover,
+                                &:focus {
+                                    .gp-icon svg {
+                                        fill:$secondary;
+                                    } 
+                                }
+                            }
+                        }
+                    }
+                }          
+            }            
         }   
 
         &.transparentheader {

@@ -1,0 +1,349 @@
+@use "../components/" as *;
+
+.home-section-rooms1x,
+.home-section-rooms2x,
+.home-section-rooms3x,
+.home-section-rooms4x,
+.home-section-rooms5x,
+.home-section-rooms6x,
+.home-section-rooms7x,
+.home-section-rooms8x,
+.home-section-rooms9x,
+.home-section-rooms10x,
+.home-section-rooms11x,
+.home-section-rooms12x,
+.home-section-rooms13x,
+.home-section-rooms14x,
+.home-section-rooms15x {
+    display: none;
+}
+
+
+.home-section-rooms3 {
+    padding-left: 300px;
+    padding-right: 300px;
+
+    .wp-block-group__inner-container {
+        display: flex;        
+        justify-content: center;
+        align-items: center;
+
+        & > .wp-block-columns {
+            gap:120px;
+
+            & > .wp-block-column {
+            
+                & > p {
+                    margin-bottom: 40px;
+                }
+            }
+        }
+    }
+}
+
+.symbol-of-stillness1,
+.symbol-of-stillness2,
+.symbol-of-stillness3 {
+    position: absolute;
+}
+
+.symbol-of-stillness1 {
+    top:354px;
+    left:296px;
+}
+
+.symbol-of-stillness2 {
+    top:80px;
+    left:1136px;
+}
+
+.symbol-of-stillness3 {
+    top:732px;
+    left:1024px;
+}
+
+.symbol-of-stillness-caption1,
+.symbol-of-stillness-caption2,
+.symbol-of-stillness-caption3,
+.symbol-of-stillness-slogan{
+    @include font(h0);
+    position: absolute;
+    color:$secondary;
+}
+
+.symbol-of-stillness-caption1 {
+    font-weight: bold;
+    top:256px;
+    left:730px;
+}
+
+.symbol-of-stillness-caption2 {
+    font-weight: bold;
+    top:472px;
+    left:1136px;
+}
+
+.symbol-of-stillness-caption3 {
+    font-style: italic;
+    top:668px;
+    left:621px;
+}
+
+.symbol-of-stillness-slogan {
+    top:520px;
+    left:639px;
+    color:$primary;
+    @include font(psmall);
+    width: 352px;
+    text-align: right;
+}
+
+.home-section-rooms7,
+.home-section-rooms9,
+.home-section-rooms12,
+.home-section-rooms14 {
+    padding-left: 200px;
+    padding-right: 200px;
+
+    .wp-block-group__inner-container {
+        display: flex;                
+    
+        .wp-block-columns {
+            margin:0;
+            gap:200px;
+            height: 100%;                    
+
+            .wp-block-column {
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                justify-content: center;
+            
+                .wp-block-image {
+                    width: 660px;
+                    margin-bottom: 100px;
+                }
+
+                &:nth-child(2) {
+                
+                    .wp-block-image {
+                        width:660px;
+                    }
+                }
+            }
+        }
+    }          
+}
+
+.home-section-rooms8,
+.home-section-rooms13 {
+
+    .wp-block-group__inner-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .wp-block-image {
+            margin-bottom: 40px;
+        }
+    }
+}
+
+.home-section-rooms17 {
+    flex:0 0 1920px;       
+    padding-left:200px;
+    padding-right: 200px;
+    font-family: $tertiary-font;
+    font-size: 50px;
+    line-height: 1.2;
+
+    .wp-block-group__inner-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap:150px;
+
+        .wp-block-columns {
+            margin:0;
+            width: 100%;
+            justify-content: space-between;
+            gap:200px;
+
+            .wp-block-column {
+                flex:initial;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                .wp-block-image {
+                    display: flex;
+
+                    img {
+                        width: 100%;
+                    }
+                }
+
+                &:first-child {  
+
+                    .wp-block-image {
+                        width: 680px;
+                    }                  
+                                           
+                }
+            
+                &:last-child {
+                    position: relative;
+
+                    .wp-block-image {
+                        width: 640px;
+                    }
+
+                    p {
+                        position: absolute;
+                        top:calc(50% + 250px + 55px );
+                        left:-51px;
+                        white-space: nowrap;
+                        font-family: $tertiary-font;
+                        font-size: 50px;
+                        line-height: 1.2;
+                        margin:0;
+                    } 
+                }
+            }
+        }
+    }
+}
+
+.home-section-rooms18 {
+
+    .wp-block-group__inner-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .wp-block-columns {
+            margin:0;
+
+            .wp-block-column {
+                display: flex;
+                flex-direction: column;
+                gap:40px;
+
+                &:nth-child(1) {
+                
+                    p {
+                        &:nth-child(1)::before { background-image: url(../../assets/img/icons/icon-ac.webp); }
+                        &:nth-child(2)::before { background-image: url(../../assets/img/icons/icon-tv.webp); }
+                        &:nth-child(3)::before { background-image: url(../../assets/img/icons/icon-refrigerator.webp); }
+                        &:nth-child(4)::before { background-image: url(../../assets/img/icons/icon-stove.webp); }
+                        &:nth-child(5)::before { background-image: url(../../assets/img/icons/icon-coffee.webp); }
+                    }
+                }
+
+                &:nth-child(2) {
+                
+                    p {
+                        &:nth-child(1)::before { background-image: url(../../assets/img/icons/icon-bed.webp); }
+                        &:nth-child(2)::before { background-image: url(../../assets/img/icons/icon-nosmoking.webp); }
+                        &:nth-child(3)::before { background-image: url(../../assets/img/icons/icon-key.webp); }
+                        &:nth-child(4)::before { background-image: url(../../assets/img/icons/icon-wifi.webp); }
+                    }
+                }
+
+                .wp-block-group {
+
+                    .wp-block-group__inner-container {
+
+                        p {
+                            padding-bottom: 24px;
+                            margin-bottom: 24px;
+                            border-bottom: 1px solid $separator;
+                            display: flex;
+                            flex-direction: column;
+                            gap:30px;
+
+                            &:last-child {
+                                margin:0;
+                                padding:0;
+                            }
+
+                            &::before {
+                                content:'';
+                                width: 40px;
+                                height: 40px;
+                                display: block;
+                                background-position: center;
+                                background-repeat: no-repeat;
+                                background-size: contain;
+                            }                        
+                        }
+                    }
+                }
+            }
+        }   
+    }
+}
+
+.home-section-rooms19 {
+    padding-left: 200px;
+    padding-right: 200px;
+
+    .wp-block-group__inner-container {
+        display: flex;                
+    
+        .wp-block-columns {
+            margin:0;
+            gap:200px;
+            height: 100%;                    
+
+            .wp-block-column {
+                display: flex;
+                align-items: center;
+
+                &:nth-child(1) {
+                    flex: 0 0 720px;
+
+                    .wp-block-image {
+                        width: 100%;
+                    }
+                }
+               
+                &:nth-child(2) {
+                    flex:0 0 600px;
+                
+                    .wp-block-image {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }          
+}
+
+.unit-bookyourstay {
+
+    .wp-block-cover {
+        height:100%;
+    }
+
+    .wp-block-buttons {
+
+        .wp-block-button {
+            width: 100%;
+        
+            .wp-block-button__link {
+                padding:30px 50px;
+                width: 100%;
+                border:1px solid $secondary;
+                background-color: transparent;
+                color:$secondary;
+
+                &:hover,
+                &:focus {
+                    background-color: $secondary;
+                    color:$white;
+                }
+            }
+        }
+    }
+}

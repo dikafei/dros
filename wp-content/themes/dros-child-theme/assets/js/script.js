@@ -139,15 +139,15 @@ $j(function(){
 		});
 
 	// Animation 
-		const $container = $j( '.home .entry-content' );
+		const $container = $j( '#page .entry-content' );
 		let currentScroll = 0;
 		let targetScroll = 0;
 		let windowWidth = $j( window ).width();
 		let maxScroll = 0;
 		let animationId = null;
 
-		let homeSection2Left = $j( '.home-section2' ).position().left;
-		let homeSection2Width = $j( '.home-section2' ).width();
+		let heroLeft = $j( '.hero' ).position().left;
+		let heroWidth = $j( '.hero' ).width();
 
 		const $sections = $j('[class*="home-section"]');
 
@@ -487,8 +487,6 @@ $j(function(){
 				});
 			}
 
-			console.log( animItems );
-
 		// Smooth scrolling with easing
 			function smoothScroll() {			
 				// Easing factor: lower = smoother but slower (0.05-0.15 recommended)
@@ -520,10 +518,10 @@ $j(function(){
 				// Home Section 2 Transition			
 				let imgScrollPost = currentScroll;
 				if ( imgScrollPost < 0 ) { imgScrollPost = 0; }
-				if ( imgScrollPost > ( homeSection2Left + ( homeSection2Width / 4 ) ) ) { imgScrollPost = ( homeSection2Left + ( homeSection2Width / 4 ) ) }
+				if ( imgScrollPost > ( heroLeft + ( heroWidth / 4 ) ) ) { imgScrollPost = ( heroLeft + ( heroWidth / 4 ) ) }
 				
-				let opacity = imgScrollPost / ( homeSection2Left + ( homeSection2Width / 4 ) );
-				$j( '.home-section2 .wp-block-image:nth-child(2)' ).css({ 'opacity' : opacity });			
+				let opacity = imgScrollPost / ( heroLeft + ( heroWidth / 4 ) );
+				$j( '.hero .wp-block-image:nth-child(2)' ).css({ 'opacity' : opacity });			
 			}
 		
 		// Update variables on window resize
@@ -538,8 +536,8 @@ $j(function(){
     			buildUnitHeads();
 				buildImageScales();
 
-				homeSection2Left = $j( '.home-section2' ).position().left;
-				homeSection2Width = $j( '.home-section2' ).width();
+				heroLeft = $j( '.hero' ).position().left;
+				heroWidth = $j( '.hero' ).width();
 			});
 
 			

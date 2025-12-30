@@ -38,9 +38,20 @@
                 padding:2px;
             }
         }
+
+        .anim {
+            opacity:1 !important;
+        }
+
+        .fadetotop,
+        .fadetoleft,
+        .fadetoright,
+        .totheright {
+            transform: none !important;
+        }
     }
 
-/* Block - Fix Group/Vertical */
+/* Block - Fix Group */
     .editor-styles-wrapper {
     
         .wp-block-group.is-vertical {
@@ -48,6 +59,10 @@
             .block-list-appender {
                 width:100%;
             }
+        }
+
+        .wp-block-group__inner-container {
+            max-width: 1440px;
         }
     }
 

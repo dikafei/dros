@@ -92,6 +92,38 @@ body {
       background-color: $primary;
   }*/
   /* Layout & Container */
+  /*body:not(.home) {
+
+      .site-content {
+          flex-direction: column;
+
+          #primary {
+              padding:$double-spacing 0;
+          }
+
+          .entry-content,
+          .entry-summary {                
+              flex-direction: column;
+              overflow-x: hidden;
+
+              & > :not(.alignwide) {
+                  &:not(.alignfull) {
+                      &:not(.alignslim) {
+                          &:not(.alignleft) {
+                              &:not(.alignright) {                                
+                                  &:not(.entry-attachment) {
+                                      &:not(.is-style-slim) {                                        
+                                          @include default-width;                                                                                   
+                                      }                    
+                                  }                                
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      }
+  }*/
   /* Container */
   /* Gutenberg Colors */
   /* Search Modal */
@@ -1017,43 +1049,6 @@ body {
 .block-editor .editor-styles-wrapper #page .site-content .entry-content .alignfull,
 .block-editor .editor-styles-wrapper #page .site-content .entry-summary .alignfull {
   margin: 0;
-}
-.editor-styles-wrapper body:not(.home) .site-content,
-.block-editor .editor-styles-wrapper body:not(.home) .site-content {
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-.editor-styles-wrapper body:not(.home) .site-content #primary,
-.block-editor .editor-styles-wrapper body:not(.home) .site-content #primary {
-  padding: 50px 0;
-}
-.editor-styles-wrapper body:not(.home) .site-content .entry-content,
-.editor-styles-wrapper body:not(.home) .site-content .entry-summary,
-.block-editor .editor-styles-wrapper body:not(.home) .site-content .entry-content,
-.block-editor .editor-styles-wrapper body:not(.home) .site-content .entry-summary {
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  overflow-x: hidden;
-}
-.editor-styles-wrapper body:not(.home) .site-content .entry-content > :not(.alignwide):not(.alignfull):not(.alignslim):not(.alignleft):not(.alignright):not(.entry-attachment):not(.is-style-slim),
-.editor-styles-wrapper body:not(.home) .site-content .entry-summary > :not(.alignwide):not(.alignfull):not(.alignslim):not(.alignleft):not(.alignright):not(.entry-attachment):not(.is-style-slim),
-.block-editor .editor-styles-wrapper body:not(.home) .site-content .entry-content > :not(.alignwide):not(.alignfull):not(.alignslim):not(.alignleft):not(.alignright):not(.entry-attachment):not(.is-style-slim),
-.block-editor .editor-styles-wrapper body:not(.home) .site-content .entry-summary > :not(.alignwide):not(.alignfull):not(.alignslim):not(.alignleft):not(.alignright):not(.entry-attachment):not(.is-style-slim) {
-  max-width: min(var(--vw) - 50px, 1440px);
-  margin-left: auto;
-  margin-right: auto;
-}
-@media (max-width: 767px) {
-  .editor-styles-wrapper body:not(.home) .site-content .entry-content > :not(.alignwide):not(.alignfull):not(.alignslim):not(.alignleft):not(.alignright):not(.entry-attachment):not(.is-style-slim),
-  .editor-styles-wrapper body:not(.home) .site-content .entry-summary > :not(.alignwide):not(.alignfull):not(.alignslim):not(.alignleft):not(.alignright):not(.entry-attachment):not(.is-style-slim),
-  .block-editor .editor-styles-wrapper body:not(.home) .site-content .entry-content > :not(.alignwide):not(.alignfull):not(.alignslim):not(.alignleft):not(.alignright):not(.entry-attachment):not(.is-style-slim),
-  .block-editor .editor-styles-wrapper body:not(.home) .site-content .entry-summary > :not(.alignwide):not(.alignfull):not(.alignslim):not(.alignleft):not(.alignright):not(.entry-attachment):not(.is-style-slim) {
-    max-width: min(var(--vw) - 32px, 1440px);
-  }
 }
 .editor-styles-wrapper #content,
 .block-editor .editor-styles-wrapper #content {
@@ -2838,10 +2833,28 @@ body {
 .block-editor .editor-styles-wrapper .wp-block-contact-form-7-contact-form-selector input[type=text] {
   padding: 2px;
 }
+.editor-styles-wrapper .anim,
+.block-editor .editor-styles-wrapper .anim {
+  opacity: 1 !important;
+}
+.editor-styles-wrapper .fadetotop,
+.editor-styles-wrapper .fadetoleft,
+.editor-styles-wrapper .fadetoright,
+.editor-styles-wrapper .totheright,
+.block-editor .editor-styles-wrapper .fadetotop,
+.block-editor .editor-styles-wrapper .fadetoleft,
+.block-editor .editor-styles-wrapper .fadetoright,
+.block-editor .editor-styles-wrapper .totheright {
+  -webkit-transform: none !important;
+          transform: none !important;
+}
 
-/* Block - Fix Group/Vertical */
+/* Block - Fix Group */
 .editor-styles-wrapper .wp-block-group.is-vertical .block-list-appender {
   width: 100%;
+}
+.editor-styles-wrapper .wp-block-group__inner-container {
+  max-width: 1440px;
 }
 
 /* Block - Fix Button */

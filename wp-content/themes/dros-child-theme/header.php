@@ -59,29 +59,73 @@ if ( ! defined( 'ABSPATH' ) ) {
 	?>
 		<header <?php generate_do_attr( 'header' ); ?>>
 			<div <?php generate_do_attr( 'inside-header' ); ?>>
+				<div class="floating-header">
+					<?php
+						do_action( 'generate_before_header_content' );
+
+						if ( ! generate_is_using_flexbox() ) {
+							generate_header_items();
+						}
+
+						do_action( 'generate_before_navigation' );
+					?>
+					<a href="#">Book</a>
+				</div>
+				
+				<nav <?php generate_do_attr( 'navigation' ); ?>>
+					<div <?php generate_do_attr( 'inside-navigation' ); ?>>
+						<?php									
+							// @hooked generate_navigation_search - 10
+							// @hooked generate_mobile_menu_search_icon - 10									
+							do_action( 'generate_inside_navigation' );
+						?>
+							<button <?php generate_do_attr( 'menu-toggle' ); ?>>
+								<?php
+									do_action( 'generate_inside_mobile_menu' );
+									generate_do_svg_icon( 'menu-bars', true );
+									$mobile_menu_label = apply_filters( 'generate_mobile_menu_label', __( 'Menu', 'generatepress' ) );
+
+									if ( $mobile_menu_label ) {
+										printf(
+											'<span class="mobile-menu">%s</span>',
+											$mobile_menu_label // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- HTML allowed in filter.
+										);
+									} else {
+										printf(
+											'<span class="screen-reader-text">%s</span>',
+											esc_html__( 'Menu', 'generatepress' )
+										);
+									}
+								?>
+							</button>
+						<?php
+							do_action( 'generate_after_mobile_menu_button' );
+
+							wp_nav_menu(
+								array(
+									'theme_location' => 'primary',
+									'container' => 'div',
+									'container_class' => 'main-nav',
+									'container_id' => 'primary-menu',
+									'menu_class' => '',
+									'fallback_cb' => 'generate_menu_fallback',
+									'items_wrap' => '<ul id="%1$s" class="%2$s ' . join( ' ', generate_get_element_classes( 'menu' ) ) . '">%3$s</ul>',
+								)
+							);
+
+							do_action( 'generate_after_primary_menu' );
+						?>
+					</div>
+				</nav>
+
+				<?php 
+					do_action( 'generate_after_navigation' ); 
+				?>				
+
 				<?php
-					/**
-					* generate_before_header_content hook.
-					*
-					* @since 0.1
-					*/
-					do_action( 'generate_before_header_content' );
-
-					if ( ! generate_is_using_flexbox() ) {
-						// Add our main header items.
-						generate_header_items();
-					}
-
-					/**
-					* generate_after_header_content hook.
-					*
-					* @since 0.1
-					*
-					* @hooked generate_add_navigation_float_right - 5
-					*/
-					do_action( 'generate_after_header_content' );
-				?>
-				<a href="#">Book</a>
+					// @hooked generate_add_navigation_float_right - 5
+					//do_action( 'generate_after_header_content' );
+				?>				
 			</div>
 		</header>
 	<?php

@@ -14,17 +14,10 @@
 	do_action( 'generate_before_footer' );
 ?>
 
-<?php
-	if ( is_front_page() )
-	{
-		?>
-			<div class="progress-bar-wrapper">
-				<div class="progress-bar">
-				</div>
-			</div>
-		<?php	
-	}
-?>
+<div class="progress-bar-wrapper">
+	<div class="progress-bar">
+	</div>
+</div>
 
 <div <?php generate_do_attr( 'footer' ); ?>>
 	<?php	
