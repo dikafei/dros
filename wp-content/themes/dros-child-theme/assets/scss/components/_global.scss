@@ -43,7 +43,9 @@
     $double-spacing: 50px;
 
     $xl: 1439px;
+    $nb: 1365px;
     $lg: 1199px;
+    $ipad: 1023px;
     $md: 991px;
     $sml: 781px;
     $sm: 767px;
@@ -121,6 +123,20 @@
     $lh6: 26px;
     $lspan: 24px;
 
+    /* Notebook Font Size */
+    $nbh0: 120px;
+    $nbh1: 80px;
+    $nbh2: 50px;
+    $nbh3: 40px;
+    $nbh4: 24px;
+    $nbh5: 18px;
+    $nbpjumbo: 48px;
+    $nbpbig: 38px;
+    $nbp: 24px;    
+    $nbpsmall: 20px;
+    $nbh6: 16px;
+    $nbspan: 14px;
+
     /* Mobile Font Size */
     $mh1: 32px;
     $mh2: 28px;
@@ -143,6 +159,9 @@
     $font: ( 'h0' : $h0, 'h1' : $h1, 'h2' : $h2, 'h3' : $h3, 'h4' : $h4, 'h5' : $h5, 'pjumbo' : $pjumbo, 'pbig' : $pbig, 'p' : $p, 'psmall' : $psmall, 'span' : $span, 'h6' : $h6 );
     $lineheight: ( 'h0' : $lh0, 'h1' : $lh1, 'h2' : $lh2, 'h3' : $lh3, 'h4' : $lh4, 'h5' : $lh5, 'pjumbo' : $lpjumbo, 'pbig' : $lpbig, 'p' : $lp, 'psmall' : $lpsmall, 'span' : $lspan, 'h6' : $lh6 );
 
+    $notebookfont: ( 'h0' : $nbh0, 'h1' : $nbh1, 'h2' : $nbh2, 'h3' : $nbh3, 'h4' : $nbh4, 'h5' : $nbh5, 'pjumbo' : $nbpjumbo, 'pbig' : $nbpbig, 'p' : $nbp, 'psmall' : $nbpsmall, 'span' : $nbspan, 'h6' : $nbh6 );
+    $notebooklineheight: ( 'h0' : $lh0, 'h1' : $lh1, 'h2' : $lh2, 'h3' : $lh3, 'h4' : $lh4, 'h5' : $lh5, 'pjumbo' : $lpjumbo, 'pbig' : $lpbig, 'p' : $lp, 'psmall' : $lpsmall, 'span' : $lspan, 'h6' : $lh6 );
+
     $mobilefont: ( 'h1' : $mh1, 'h2' : $mh2, 'h3' : $mh3, 'h4' : $mh4, 'h5' : $mh5, 'p' : $mp, 'span' : $mspan, 'h6' : $mh6 );
     $mobilelineheight: ( 'h1' : $mlh1, 'h2' : $mlh2, 'h3' : $mlh3, 'h4' : $mlh4, 'h5' : $mlh5, 'p' : $mlp, 'span' : $mlspan, 'h6' : $mlh6 );
 
@@ -153,6 +172,11 @@
     @mixin font( $size ) {
         font-size: map.get( $font, $size );    
         line-height: map.get( $lineheight, $size );
+
+        @media( max-width:$nb ) {
+            font-size: map.get( $notebookfont, $size );    
+            line-height: map.get( $notebooklineheight, $size );
+        }
 
         @media( max-width:$sm ) {
             font-size: map.get( $mobilefont, $size );    

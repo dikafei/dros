@@ -41,6 +41,18 @@
     }
 }
 
+.home-section-rooms5 {
+    position: relative;
+
+    .wp-block-group__inner-container {
+        height: 1080px !important;
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-49%);
+    }
+}
+
 .symbol-of-stillness1,
 .symbol-of-stillness2,
 .symbol-of-stillness3 {
@@ -50,15 +62,18 @@
 .symbol-of-stillness1 {
     top:354px;
     left:296px;
+    /*bottom: clamp(7.5rem, -14.0749rem + 25.2708vw, 16.25rem); /* 60 - 120 */
 }
 
 .symbol-of-stillness2 {
     top:80px;
+    /*top: clamp(1.25rem, -7.9964rem + 10.8303vw, 5rem); /* 20 - 80 */
     left:1136px;
 }
 
 .symbol-of-stillness3 {
     top:732px;
+    /*bottom: clamp(1.25rem, -14.1606rem + 18.0505vw, 7.5rem); /* 20 - 120 */
     left:1024px;
 }
 
@@ -69,33 +84,52 @@
     @include font(h0);
     position: absolute;
     color:$secondary;
+    margin:0;
 }
 
 .symbol-of-stillness-caption1 {
     font-weight: bold;
     top:256px;
     left:730px;
+    /*bottom:667px*/
 }
 
 .symbol-of-stillness-caption2 {
     font-weight: bold;
     top:472px;
     left:1136px;
+    /*bottom:453px;*/
 }
 
 .symbol-of-stillness-caption3 {
     font-style: italic;
     top:668px;
     left:621px;
+    /*bottom: clamp(8.75rem, -8.9722rem + 20.7581vw, 15.9375rem); /* 140 - 255 */
 }
 
 .symbol-of-stillness-slogan {
     top:520px;
+    /*bottom:485px;*/
     left:639px;
     color:$primary;
     @include font(psmall);
     width: 352px;
     text-align: right;
+    margin:0;
+}
+
+.home-section-rooms6.unit-head {
+    
+    .wp-block-group {
+    
+        .wp-block-group__inner-container {
+
+            & > * {
+                max-width: 615px;
+            }
+        }
+    }
 }
 
 .home-section-rooms7,
@@ -121,7 +155,6 @@
             
                 .wp-block-image {
                     width: 660px;
-                    margin-bottom: 100px;
                 }
 
                 &:nth-child(2) {
@@ -199,14 +232,8 @@
                     }
 
                     p {
-                        position: absolute;
-                        top:calc(50% + 250px + 55px );
-                        left:-51px;
-                        white-space: nowrap;
-                        font-family: $tertiary-font;
-                        font-size: 50px;
-                        line-height: 1.2;
-                        margin:0;
+                        top:calc(100% + 30px );
+                        left:-51px; 
                     } 
                 }
             }
@@ -216,13 +243,14 @@
 
 .home-section-rooms18 {
 
-    .wp-block-group__inner-container {
+    & > .wp-block-group__inner-container {
         display: flex;
         align-items: center;
         justify-content: center;
 
         .wp-block-columns {
             margin:0;
+            gap:300px;
 
             .wp-block-column {
                 display: flex;
@@ -230,6 +258,7 @@
                 gap:40px;
 
                 &:nth-child(1) {
+                    flex:0 0 530px;
                 
                     p {
                         &:nth-child(1)::before { background-image: url(../../assets/img/icons/icon-ac.webp); }
@@ -241,6 +270,7 @@
                 }
 
                 &:nth-child(2) {
+                    flex:0 0 690px;
                 
                     p {
                         &:nth-child(1)::before { background-image: url(../../assets/img/icons/icon-bed.webp); }
@@ -259,7 +289,6 @@
                             margin-bottom: 24px;
                             border-bottom: 1px solid $separator;
                             display: flex;
-                            flex-direction: column;
                             gap:30px;
 
                             &:last-child {

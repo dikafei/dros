@@ -27,10 +27,13 @@
         justify-content: center;
         align-items: center;
 
-        & > .wp-block-columns {
-            gap:120px;
+        & > .wp-block-columns {            
 
             & > .wp-block-column {
+
+                .wp-block-columns {
+                    gap:120px;
+                }
             
                 & > p {
                     margin-bottom: 40px;
@@ -77,26 +80,20 @@
                     align-items: center;
 
                     .wp-block-image {
-                        width: 600px;
+                        width: 440px;
                     }
                     
                     p {
-                        position: absolute;
-                        top:calc(50% + 323px + 40px );
-                        left:28px;
-                        white-space: nowrap;
-                        font-family: $tertiary-font;
-                        font-size: 50px;
-                        line-height: 1.2;
-                        margin:0;
+                        top:calc( 100% + 30px );                        
+                        right:-108px;
+                        white-space: nowrap;                        
                     }                        
                 }
             
                 &:last-child {
 
                     .wp-block-image {
-                        width: 720px;
-                        margin-top:154px;
+                        width: 880px;
                     }
                 }
             }
@@ -115,8 +112,6 @@
         & > .wp-block-group {
             max-width: 600px;
             width: 100%;
-            margin-top:229px;
-            margin-bottom: 0;
 
             .wp-block-group__inner-container {
                 display: block;
@@ -197,26 +192,19 @@
                     align-items: center;
 
                     .wp-block-image {
-                        width: 733px;
+                        width: 700px;
                     }
                     
                     p {
-                        position: absolute;
-                        top:calc(50% + 323px + 40px );
-                        left:185px;
-                        white-space: nowrap;
-                        font-family: $tertiary-font;
-                        font-size: 50px;
-                        line-height: 1.2;
-                        margin:0;
+                        top:calc(100% + 30px );
+                        right:-76px;
                     }                        
                 }
             
                 &:last-child {
 
                     .wp-block-image {
-                        width: 587px;
-                        margin-top:154px;
+                        width: 620px;
                     }
                 }
             }
@@ -234,11 +222,14 @@
         & > .wp-block-group {
             max-width: 600px;
             width: 100%;
-            margin-top:229px;
             margin-bottom: 0;
 
             .wp-block-group__inner-container {
                 display: block;
+
+                p {
+                    margin-bottom: 0;
+                }
             }
         }         
 

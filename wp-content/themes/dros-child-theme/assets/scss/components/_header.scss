@@ -247,10 +247,11 @@
                 top:0;  
                 margin:0;
                 max-width: none;
-                padding:$spacing $spacing $spacing 300px;
+                padding:$spacing 0 $spacing 300px;
                 width: calc( 100vw + 200px );
                 height: 100vh;
-                transition: all 1s cubic-bezier(.07,.41,.65,1.18) 0s;
+                /*transition: all 0.8s cubic-bezier(.07,.41,.65,1.18) 0s;*/
+                transition: all 0.8s cubic-bezier(.55,-0.25,.64,.94);
                 z-index: 900;
                 box-shadow:0 5px 10px rgba(102, 59, 32, 0.9);
                 
@@ -289,7 +290,6 @@
                             display: flex !important;
                             justify-content: space-around;
                             flex-direction: row;
-                            gap:120px;
 
                             li {
 
@@ -305,6 +305,11 @@
                                         display: block;        
                                         margin-bottom: 30px;                            
                                         transition: $transition;
+
+                                        @media( max-width:$nb ) {
+                                            width: 280px;
+                                            height: 210px;
+                                        }
                                     }
 
                                     &:hover,
