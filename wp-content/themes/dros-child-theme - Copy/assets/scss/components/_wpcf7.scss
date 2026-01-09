@@ -1,0 +1,189 @@
+@use "global" as *;
+
+/* Label */
+    .wpcf7-form label {
+        font-size: $h6;
+    }
+
+/* Response */
+    .wpcf7 form .wpcf7-response-output {
+        border-radius: $spacing;
+        text-align: center;
+        padding:8px $spacing;
+        margin:$spacing 0;
+    }
+
+/* Tooltip */
+    .wpcf7-form label span.wpcf7-not-valid-tip,
+    .wpcf7-not-valid-tip {
+        color:#f00;
+    }
+
+/* Textarea */
+    .single-row-textarea {
+        height:43.5px;
+    }
+
+/* Radio */
+    .wcpf7-radio {
+        margin-top:11px;
+    }
+
+/* List */
+    .wpcf7-list-item {
+        margin:0 15px 12px 0;
+
+        label {
+        
+            .wpcf7-list-item-label {
+                color:$black;
+            }
+        }
+    }
+
+/* Extra Class - Submit Wrapper */
+    .form-submit {
+        padding:18px 0 0 0;
+
+        p {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            margin-bottom:0;
+
+            .wpcf7-submit {
+                margin-bottom:7px;
+            }
+
+            .wpcf7-spinner {
+                display: block;
+            }
+        }
+    } 
+
+/* Styling Input File */
+    #photo-attachment {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+
+    #photo-attachment-label {
+        display: flex;
+        align-items: center;
+        margin:0 0 15px 0;
+
+        span {
+            
+            color:$black;
+        }
+    }
+
+    #photo-attachment-trigger {
+        cursor: pointer;     
+        width:120px;
+        display: block;
+
+        &:hover,
+        &:focus {
+        
+            #photo-attachment-preview:after {
+                background-color: $primary;
+            }
+        }
+
+        &:focus {
+            outline: 1px dotted #000;
+	        outline: -webkit-focus-ring-color auto 5px;
+        }
+
+        & * {
+            pointer-events: none;
+        }
+        
+        strong {
+            display: flex;
+            align-items: center;
+        }
+
+        .wpcf7-form-control-wrap {
+            padding:0;
+        }
+    }
+
+    #photo-attachment-preview {
+        width:120px;
+        height:120px;
+        background-color: #fff;
+        border-radius: 8px;        
+        overflow: hidden;
+        display: block;
+        position: relative;
+
+        &:hover,
+        &:focus {
+
+            background-color: $primary;
+        
+            &:after {
+                background-color: $primary !important;
+            }
+        }
+
+        &:after {
+            content:'';
+            -webkit-mask-image:url(../../img/attachment-preview.svg);
+            mask-image:url(../../img/attachment-preview.svg);
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat; 
+            -webkit-mask-position:center;
+            mask-position: center;
+            -webkit-mask-size:68px 52px;
+            mask-size:68px 52px;
+            background-color:$dark;        
+            transition: $transition;
+            position: absolute;
+            top:50%;
+            left:50%;
+            transform: translate(-50%, -50%);
+            width:68px;
+            height:52px;
+        }
+
+        &.file-added:after {
+            display: none;
+        }
+
+        img {
+            width:100%;
+            height:100%;
+            object-fit: cover;
+            object-position: center;
+        }
+    }
+
+    #photo-attachment-remove {
+        display: flex;        
+        width:15px;
+        height:15px;
+        border-radius: 50%;
+        background-color: $black;
+        color:$white;
+        cursor: pointer;
+        margin-left:10px;
+        align-items: center;
+        justify-content: center;
+        transition: $transition;
+
+        &:hover,
+        &:focus {
+            background-color: $primary;
+        }
+
+        svg {
+            fill:$white;
+        }
+    }

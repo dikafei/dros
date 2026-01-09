@@ -27,12 +27,12 @@
                 .floating-header {
                     padding-top:112px;
 
-                    @media( max-width:$sml ) {
-                        padding-top:126px;
+                    @media( max-width:$ipad ) {
+                        padding-top:47px;
                     }
 
-                    @media( max-width:$sm ) {
-                        padding-top:86px;
+                    @media( max-width:$sml ) {
+                        padding-top:61px;
                     }
                 }
 
@@ -63,6 +63,11 @@
             
                 #site-navigation.main-navigation {
                     left:-200px;
+                    opacity: 1;
+
+                    @media( max-width:$ipad ) {
+                        left:0px;
+                    }
                 }
             }
         }
@@ -92,6 +97,15 @@
             left: calc( min( calc( 100vw - 40px  ), 600px ) * -1 );
         }*/
 
+        @media( max-width:$ipad ) {
+            height: auto;
+            left: initial;
+            top:15px;
+            right:15px;
+            width: 60px;
+            position: fixed;
+        }
+
 
         .inside-header {     
             flex-wrap: wrap;
@@ -102,6 +116,11 @@
             background-image: url(../../assets/img/halftone.png);
             background-repeat: repeat;
             padding:0;
+
+            @media( max-width:$ipad ) {
+                background: none;
+                width: 60px;
+            }
 
             @media( max-width:$sm ) {                
                 width:80px;
@@ -119,13 +138,19 @@
                 background-image: url(../../assets/img/halftone.png);
                 background-repeat: repeat;
 
-                @media( max-width:$sm ) {
-                    padding:40px 5px;
+                @media( max-width:$ipad ) {
+                    padding:0;
+                    background:none;
+                    border:none;
                 }
 
                 // Logo
                 .site-logo {
                     max-width: 400px;
+
+                    @media( max-width:$ipad ) {
+                        display: none;
+                    }
 
                     /*@media( max-width:$md ) {
                         margin:0;
@@ -142,6 +167,47 @@
                     @media( max-width:$md ) {
                         display: flex;
                         flex-wrap: wrap;
+                    }
+
+                    &.toggled {
+                
+                        @media( max-width:$ipad ) {
+
+                            .menu-toggle {
+                            
+                                .burger-bar-wrapper {
+                                
+                                    .burger-bar {
+                                        border-radius: 999px;
+
+                                        &:nth-child(1) { transform: rotate(45deg) translate(8px, 8px); }
+                                        &:nth-child(2) { opacity: 0; }
+                                        &:nth-child(3) { transform: rotate(-45deg) translate(7.5px, -7.5px); }
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+
+                    &:not(.toggled) {
+
+                        @media( max-width:$ipad ) {
+
+                            &:hover {
+                            
+                                .burger-bar-wrapper {
+
+                                    .burger-bar {
+                                    
+                                        @media( max-width:$ipad ) {
+                                            &:nth-child(1) { top:-2px; }                                        
+                                            &:nth-child(3) { bottom:-2px; }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
 
                     .menu-bar-items {
@@ -170,6 +236,16 @@
                         background-color: transparent;    
                         line-height: 21px;
                         justify-content: center;
+                        cursor: pointer;
+
+                        @media( max-width:$ipad ) {
+                            width: 60px;
+                            height: 60px;
+                            border-radius: 999px;
+                            background-color: $background;
+                            transition: $faster_transition;
+                            align-items: center;
+                        }
 
                         @media( max-width:$md ) {
                             display: block;
@@ -183,10 +259,14 @@
                             transition: $transition;    
                         }
 
-                        &:hover,
-                        &:focus {
+                        &:hover {
+
+                            @media( max-width:$ipad ) {
+                                background-color: $primary;
+                            }
+
                             .gp-icon svg {
-                                fill:$brownier;
+                                fill:$primary;
                             } 
                         }
 
@@ -197,6 +277,11 @@
                         padding:15px;
                         border:none;
                         border-radius: 0;
+
+                        @media( max-width:$ipad ) {
+                            width:60px;
+                            height:60px;
+                        }
 
                         @media( max-width:$sm ) {
                             margin-left:0; 
@@ -210,8 +295,7 @@
                             }
                         }
 
-                        &:hover,
-                        &:focus {                            
+                        &:hover {                            
 
                             svg {
                                 
@@ -223,7 +307,40 @@
                                     stroke:$brownier;
                                 }
                             }
-                        }                        
+
+                            .burger-bar-wrapper {
+
+                                .burger-bar {
+                                    background-color: $primary;
+
+                                    @media( max-width:$ipad ) {
+                                        background-color: $white;
+                                    }
+                                }
+                            }
+                        }                               
+
+                        .burger-bar-wrapper {
+                            width: 30px;
+                            height: 25px;
+                            position: relative;
+                        
+                            .burger-bar {
+                                width: 30px;
+                                height:3px;
+                                background-color: $heading;
+                                transition: $faster_transition;
+                                position: absolute;                                
+
+                                &:nth-child(1) { top:0; }
+                                &:nth-child(2) { top:50%; transform: translateY(-50%); }
+                                &:nth-child(3) { bottom:0; }
+
+                                @media( max-width:$ipad ) {
+                                    background-color: $primary;
+                                }
+                            }
+                        }                 
                     }
                 }
 
@@ -232,6 +349,10 @@
                     @include font(psmall);
                     font-weight:bold;
                     text-align: center;
+
+                    @media( max-width:$ipad ) {
+                        display: none;
+                    }
                 }
             }            
 
@@ -239,7 +360,6 @@
             #site-navigation.main-navigation {
                 background-image: url(../../assets/img/halftone.png);
                 background-repeat: repeat;
-                /*border-right:1px solid $border;*/
                 margin-left:0;
                 display: flex;
                 position: absolute;
@@ -251,10 +371,17 @@
                 width: calc( 100vw + 200px );
                 height: 100vh;
                 /*transition: all 0.8s cubic-bezier(.07,.41,.65,1.18) 0s;*/
-                transition: all 0.8s cubic-bezier(.55,-0.25,.64,.94);
+                transition: left 0.8s cubic-bezier(.55,-0.25,.64,.94), opacity 0.6s ease;
                 z-index: 900;
                 box-shadow:0 5px 10px rgba(102, 59, 32, 0.9);
+                opacity: 1; /* 0 */
                 
+                @media( max-width:$ipad ) {
+                    position: fixed;
+                    left:calc( ( 100vw + 50px ) * -1 );
+                    width:100vw;
+                    padding:$spacing;
+                }
 
                 /*&:not(.toggled) {
                 
@@ -291,6 +418,11 @@
                             justify-content: space-around;
                             flex-direction: row;
 
+                            @media( max-width:$ipad ) {
+                                flex-direction: column;
+                                gap:$spacing;
+                            }
+
                             li {
 
                                 a {
@@ -309,6 +441,12 @@
                                         @media( max-width:$nb ) {
                                             width: 280px;
                                             height: 210px;
+                                        }
+
+                                        @media( max-width:$ipad ) {
+                                            margin-bottom: 10px;
+                                            width: 200px;
+                                            height:150px;
                                         }
                                     }
 
@@ -344,6 +482,17 @@
                                     &:focus {
                                         color:$primary;
                                     }                 
+                                }
+
+                                &.current-menu-item {
+                                
+                                    a {
+                                        color:$primary;
+
+                                        &::before {
+                                            opacity: 0.6;
+                                        }
+                                    }
                                 }
 
                                 &.menu-item-has-children {                                        

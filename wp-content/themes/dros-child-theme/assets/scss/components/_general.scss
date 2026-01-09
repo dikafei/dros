@@ -57,7 +57,7 @@
         font-display: swap;
     }
 
-    *:not(.editor-styles-wrapper) {
+    /*:not(.editor-styles-wrapper) {
 
         .home-section1,
         .home-section2,
@@ -89,7 +89,7 @@
                 display: none !important;
             }
         }
-    }
+    }*/
 
 /* General */
     body:not(.wp-admin) {
@@ -234,6 +234,13 @@
                 transform: translateY(-50%);            
                 display: block;
                 transition: $transition;
+
+                @media( max-width:$sm ) {
+                    -webkit-mask-size:40px 40px;
+                    mask-size:40px 40px;            
+                    width:40px;
+                    height:40px;
+                }
             }
 
             &:hover,
@@ -460,8 +467,14 @@
                 max-width: 100%;   
                 margin:0 !important;   
 
+                @media( max-width:$ipad ) {
+                    flex-direction: column;
+                    transform: none !important;
+                    display: block;
+                }
+
                 & > * {
-                    margin-bottom:$spacing;
+                    margin-bottom:0;
                 }
 
                 &:not(:first-child) {

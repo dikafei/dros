@@ -22,6 +22,11 @@
     padding-left: 300px;
     padding-right: 300px;
 
+    @media( max-width:$ipad ) {
+        padding-left:$spacing;
+        padding-right: $spacing;
+    }
+
     .wp-block-group__inner-container {
         display: flex;        
         justify-content: center;

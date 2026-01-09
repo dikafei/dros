@@ -7,16 +7,22 @@ var headerEl;
 const animItems = [];
 const unitHeads = [];
 const imageScales = [];
+const sectionImageScales = [];
 let sectionPositions = [];
 
 const SECTION_WIDTH = 1920;
 const ARROW_SCROLL_STEP = 120;
+
 const ANIM_TRIGGER_OFFSET = 0.3;
-const ANIM_UNITHEAD_OFFSET = 0.2;
-const ANIM_UNITHEAD_FASTER_SCROLL = Math.min(
+const ANIM_STAGGER = 200; // ms between items
+const X_GROUP_TOLERANCE = 10; // px (same column tolerance)
+const animGroups = {};
+
+const ANIM_UNITHEAD_OFFSET = 0; //0.2;
+const ANIM_UNITHEAD_FASTER_SCROLL = 1; /*Math.min(
 	0.6,
 	1200 / window.innerWidth
-); 
+); */ 
 
 let ticking = false;
 
@@ -153,7 +159,7 @@ $j(function(){
 
 		// Animation Type Fade: Collect animated elements into array
 			$j( '.anim' ).each(function () {
-				const $animatedEl = $j( this );
+				/*const $animatedEl = $j( this );
 				const $sectionEl = $animatedEl.closest( '[class*="home-section"]' );
 
 				if ( !$sectionEl.length ) return;
@@ -164,18 +170,44 @@ $j(function(){
 				const sectionLeft = $sectionEl.position().left;
 				const xInSection = $animatedEl.position().left;
 
-				/*animItems.push({
-					el: this,
-					x: sectionIndex * window.innerWidth + xInSection,
-					width: $animatedEl.width(),
-					triggered: false
-				});*/
-
 				animItems.push({
 					el: this,
 					x: sectionLeft + xInSection,
 					width: $animatedEl.outerWidth(),
 					triggered: false
+				});*/
+
+				const $el = $j(this);
+				const $section = $el.closest('[class*="home-section"]');
+				if (!$section.length) return;
+
+				const sectionIndex = $sections.index($section);
+				if (sectionIndex === -1) return;
+
+				const sectionLeft = $section.position().left;
+				const xInSection  = $el.position().left;
+				const worldX      = sectionLeft + xInSection;
+
+				// --- group by approximate X
+				const groupKey = Math.round(worldX / X_GROUP_TOLERANCE) * X_GROUP_TOLERANCE;
+
+				if (!animGroups[groupKey]) {
+					animGroups[groupKey] = [];
+				}
+
+				animGroups[groupKey].push({
+					el: this,
+					x: worldX,
+					width: $el.outerWidth(),
+					triggered: false,
+					delay: 0
+				});
+			});
+
+			Object.values(animGroups).forEach(group => {
+				group.forEach((item, index) => {
+					item.delay = index * ANIM_STAGGER;
+					animItems.push(item);
 				});
 			});
 
@@ -278,71 +310,32 @@ $j(function(){
 					const move = Math.min(
 						item.maxMove,
 						progress * item.maxMove
-					);
+					) * 0.9;
 
-					item.leftEl.style.transform  = `translateX(${ move }px)`;
-					item.rightEl.style.transform = `translateX(${ -move }px)`;
+					const move2 = move * 1.2;
+
+					const moveOpacity = Math.min(
+						item.maxMove,
+						progress * item.maxMove
+					) * 0.2 / 100;
+
+					//item.leftEl.style.transform  = `translateX(${ move }px)`;
+					//item.rightEl.style.transform = `translateX(${ -move }px)`;
+					item.leftEl.style.transform  = `translateX(${ -move }px)`;
+					item.rightEl.style.transform = `translateX(${ -move2 }px)`;
+					item.leftEl.style.opacity = `${ moveOpacity }`;
+					item.rightEl.style.opacity = `${ moveOpacity }`;
 				});
 			}
 			
-		// Animation Type Image
-			buildImageScales();
+		// Animation Type - Section Image (full size image)
+			buildSectionImageScales();
 
-			function buildImageScales() {
-				/*imageScales.length = 0;
-
+			function buildSectionImageScales() {	
 				const $sections = $j('[class*="home-section"]');
 
-				$j('[class*="home-section"] .wp-block-image:not(.noscaling)').each(function () {
-					const $block = $j(this);
-					const $section = $block.closest('[class*="home-section"]');
-					const sectionIndex = $sections.index($section);
-					if (sectionIndex === -1) return;
-
-					const sectionX = sectionIndex * SECTION_WIDTH;
-
-					// offset INSIDE the section (static)
-					const blockX = sectionX + $block.offset().left - $section.offset().left;
-					const blockWidth = $block.outerWidth();
-
-					const img = $block.find('img')[0];
-					if (!img) return;
-
-					img.style.transform = 'scale(1.2)';
-					img.style.willChange = 'transform';
-
-					const isHero = img.classList.contains('hero-stack');
-
-					let startX, endX;
-
-					if (isHero) {
-						const HERO_SCROLL_WIDTH = 2880; // home-section2 width
-
-						// Start when hero section starts entering viewport
-						startX = blockX - window.innerWidth;
-
-						// End after the full hero scroll distance
-						endX = startX + HERO_SCROLL_WIDTH;
-					} else {
-						// Normal images
-						startX = blockX - window.innerWidth;
-						endX   = blockX + blockWidth - window.innerWidth;
-					}
-
-					imageScales.push({
-						el: img,
-
-						// viewport-right touching block-left → start
-						startX,
-
-						// viewport-right touching block-right → end
-						endX
-					});
-				});*/
-
-				const $sections = $j('[class*="home-section"]');
-
-				$j('[class*="home-section"] .wp-block-image:not(.noscaling) img').each(function () {
+				//$j('[class*="home-section"] .wp-block-image:not(.noscaling) img').each(function () {
+				$j('[class*="home-section"] .wp-block-image.section-image img').each(function () {
 					const img = this;
 					const $img = $j(img);
 					const $block = $img.closest('.wp-block-image');
@@ -371,7 +364,7 @@ $j(function(){
 						endX   = blockX + blockWidth - window.innerWidth;
 					}
 
-					imageScales.push({
+					sectionImageScales.push({
 						el: img,
 						startX,
 						endX,
@@ -381,20 +374,8 @@ $j(function(){
 				});
 			}
 
-			function updateImageScales(scrollX) {
-				/*imageScales.forEach(item => {
-					const progress = Math.max(
-						0,
-						Math.min(1, (scrollX - item.startX) / (item.endX - item.startX))
-					);
-
-					// scale from 1.2 → 1
-					const scale = 1.2 - 0.2 * progress;
-
-					item.el.style.transform = `scale(${scale})`;
-				});*/
-
-				imageScales.forEach(item => {
+			function updateSectionImageScales(scrollX) {
+				sectionImageScales.forEach(item => {
 					const local = scrollX - item.startX;
 
 					const progress = Math.max(
@@ -404,6 +385,87 @@ $j(function(){
 
 					const scale = 1.2 - progress * 0.2;
 					item.el.style.transform = `scale(${scale})`;
+				});
+			}
+
+		// Animation Type - Image (normal image, non full, non noscaling)
+			buildImageScales();
+
+			function buildImageScales() {	
+				imageScales.length = 0;
+
+				const $sections = $j('[class*="home-section"]');
+
+				$j('[class*="home-section"] .wp-block-image:not(.noscaling):not(.section-image) img').each(function () {
+
+					const img = this;
+					const $img = $j(img);
+					const $block = $img.closest('.wp-block-image');
+					const $section = $img.closest('[class*="home-section"]');
+
+					const sectionIndex = $sections.index($section);
+					if (sectionIndex === -1) return;
+
+					// --- world X (stable)
+					const sectionX = sectionIndex * SECTION_WIDTH;
+					const blockX   = sectionX + $block.offset().left - $section.offset().left;
+					const blockW   = $block.outerWidth();
+
+					// animation window
+					const startX = blockX - window.innerWidth;
+					const endX   = blockX + blockW - window.innerWidth;
+
+					// how far the scaled image can move
+					const SCALE = 1.2;
+					const maxTranslateX = (blockW * SCALE - blockW) / 2;
+
+					imageScales.push({
+						el: img,
+						startX,
+						endX,
+						range: endX - startX,
+						maxTranslateX
+					});
+				});
+			}
+
+			function updateImageScales(scrollX) {
+				const START_DELAY  = 0.3; // start later
+				const SPEED_FACTOR = 1.6; // slower movement
+
+				imageScales.forEach(item => {
+					const local = scrollX - item.startX;					
+
+					// Type 1: Delay start before move
+					/*
+					let raw = local / item.range;
+					let progress = (raw - START_DELAY) / (1 - START_DELAY);
+					progress = Math.max(0, Math.min(1, progress));*/
+
+					// Type 2: Slower Movement
+					/*
+					const progress = Math.max(
+						0,
+						Math.min(1, local / (item.range * SPEED_FACTOR))
+					);*/					
+					
+					// Type 3: Standard
+					/*const progress = Math.max(
+						0,
+						Math.min(1, local / item.range)
+					);				*/	
+
+					// Type 4: Easing ease out (used with other type)
+					// progress = progress * progress;
+
+					// Type 5: Combo
+					let raw = local / (item.range * SPEED_FACTOR);					
+					let progress = (raw - START_DELAY) / (1 - START_DELAY);
+					progress = Math.max(0, Math.min(1, progress));
+
+					const translateX = progress * item.maxTranslateX;
+
+					item.el.style.transform = `translateX(${translateX}px) scale(1.2)`;
 				});
 			}
 	
@@ -481,9 +543,18 @@ $j(function(){
 						!item.triggered &&
 						item.x + item.width <= viewportRight
 					) {
-						$j( item.el ).addClass( 'is-visible' );
+						/*$j( item.el ).addClass( 'is-visible' );
+						item.triggered = true;*/
+						
 						item.triggered = true;
-					}
+
+						if (item.delay) {
+							setTimeout(() => {
+								$j(item.el).addClass('is-visible');
+							}, item.delay);
+						} else {
+							$j(item.el).addClass('is-visible');
+						}					}
 				});
 			}
 
@@ -502,6 +573,7 @@ $j(function(){
 				checkAnimTriggers(currentScroll);
     			updateUnitHeadAnimations(currentScroll);
 				updateImageScales(currentScroll);
+				updateSectionImageScales(currentScroll);
 				
 				// Continue animation if still moving
 				if (Math.abs(targetScroll - currentScroll) > 0.5) {
@@ -534,6 +606,7 @@ $j(function(){
 				VIEWPORT_WIDTH = window.innerWidth;
 
     			buildUnitHeads();
+				buildSectionImageScales();
 				buildImageScales();
 
 				heroLeft = $j( '.hero' ).position().left;
