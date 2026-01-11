@@ -501,16 +501,6 @@ $j(function(){
 				// Progress Bar
 				var scrollProgress = targetScroll / maxScroll * 100;
 				$j( '.progress-bar' ).css({ 'width' : scrollProgress + '%' });
-
-				// Trigger Animation
-				/*if ( !ticking ) {
-					requestAnimationFrame(() => {
-						checkAnimTriggers();
-						updateUnitHeadAnimations();
-						ticking = false;
-					});
-					ticking = true;
-				}*/
 			});
 
 		// Animation executor
@@ -611,7 +601,22 @@ $j(function(){
 
 				heroLeft = $j( '.hero' ).position().left;
 				heroWidth = $j( '.hero' ).width();
+
+				mobileCheck();
 			});
+	
+	// Mobile Check
+		mobileCheck();
+
+		function mobileCheck() {
+			if ( windowWidth <= 1024 ) {
+				let windowWidth = $j( window ).width();
+				$j( 'body' ).addClass( 'mobile' );
+			}
+			else {
+				$j( 'body' ).removeClass( 'mobile' );
+			}
+		}
 
 			
 

@@ -1,8 +1,8 @@
 @use "../components/" as *;
 
-/*.home-section-rooms1x,
+.home-section-rooms1x,
 .home-section-rooms2x,
-.home-section-rooms3x,
+.home-section-about3x,
 .home-section-rooms4x,
 .home-section-rooms5x,
 .home-section-rooms6x,
@@ -14,9 +14,16 @@
 .home-section-rooms12x,
 .home-section-rooms13x,
 .home-section-rooms14x,
-.home-section-rooms15x {
-    display: none;
-}*/
+.home-section-rooms15x,
+.home-section-rooms16x,
+.home-section-rooms17x,
+.home-section-rooms18x,
+.home-section-rooms19x,
+.home-section-rooms20x,
+.home-section24x,
+.home-section25x {
+    display: none !important;
+}
 
 
 .home-section-rooms3 {
@@ -50,6 +57,19 @@
         position: absolute;
         top: 50%;
         transform: translateY(-49%);
+
+        @media( max-width:$ipad ) {
+            height: auto !important;
+            position: relative;
+            transform: none;
+        }
+
+        @media( max-width:$sm ) {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow-x: hidden;
+        }
     }
 }
 
@@ -63,18 +83,53 @@
     top:354px;
     left:296px;
     /*bottom: clamp(7.5rem, -14.0749rem + 25.2708vw, 16.25rem); /* 60 - 120 */
+
+    @media( max-width:$ipad ) {
+        top:50%;        
+        left:25px;
+        transform: translateY(-50%);
+        width: 252px;
+    }
+
+    @media( max-width:$sm ) {
+        left: -70px;
+        margin-top:-50px;
+    }
 }
 
 .symbol-of-stillness2 {
     top:80px;
     /*top: clamp(1.25rem, -7.9964rem + 10.8303vw, 5rem); /* 20 - 80 */
     left:1136px;
+
+    @media( max-width:$ipad ) {
+        right: 25px;
+        left: initial;
+        width: 300px;
+    }
+
+    @media( max-width:$sm ) {
+        right: -140px;
+    }
 }
 
 .symbol-of-stillness3 {
     top:732px;
     /*bottom: clamp(1.25rem, -14.1606rem + 18.0505vw, 7.5rem); /* 20 - 120 */
     left:1024px;
+
+    @media( max-width:$ipad ) {
+        bottom:80px;
+        right: 150px;
+        top:initial;
+        left: initial;
+        width: 220px;
+    }
+
+    @media( max-width:$sm ) {
+        right: -100px;
+        bottom:120px;
+    }
 }
 
 .symbol-of-stillness-caption1,
@@ -85,6 +140,19 @@
     position: absolute;
     color:$secondary;
     margin:0;
+
+    @media( max-width:$ipad ) {
+        font-size: 100px;
+    }
+
+    @media( max-width:$sm ) {
+        font-size: 70px;
+        position: static;
+    }
+}
+
+.anim {
+    opacity: 1 !important;
 }
 
 .symbol-of-stillness-caption1 {
@@ -92,6 +160,13 @@
     top:256px;
     left:730px;
     /*bottom:667px*/
+
+    @media( max-width:$ipad ) {
+        top:150px;
+        left:0;
+        width: 100%;
+        text-align: center;
+    }
 }
 
 .symbol-of-stillness-caption2 {
@@ -99,6 +174,18 @@
     top:472px;
     left:1136px;
     /*bottom:453px;*/
+
+    @media( max-width:$ipad ) { 
+        right:100px;
+        left:initial;
+        top:50%;
+        margin-top:-65px;
+    }
+
+    @media( max-width:$sm ) { 
+        text-align: center;
+        margin-top:0;
+    }
 }
 
 .symbol-of-stillness-caption3 {
@@ -106,6 +193,18 @@
     top:668px;
     left:621px;
     /*bottom: clamp(8.75rem, -8.9722rem + 20.7581vw, 15.9375rem); /* 140 - 255 */
+
+    @media( max-width:$ipad ) {
+        width:100%;
+        left:0;
+        top:initial;
+        bottom:150px;
+        text-align: center;
+    }
+
+    @media( max-width:$sm ) { 
+        margin-bottom: 50px;
+    }
 }
 
 .symbol-of-stillness-slogan {
@@ -117,6 +216,21 @@
     width: 352px;
     text-align: right;
     margin:0;
+
+    @media( max-width:$ipad ) {
+        font-size: 20px;
+        top:50%;
+        left:50%;
+        margin-left: -250px;
+        margin-top:-36px;
+    }
+
+    @media( max-width:$sm ) { 
+        margin:0 auto;
+        max-width: 352px;
+        width: 100%;
+        text-align: center;
+    }
 }
 
 .home-section-rooms6.unit-head {
@@ -139,33 +253,55 @@
     padding-left: 200px;
     padding-right: 200px;
 
+    @media( max-width:$ipad )      {
+        padding-left: $spacing;
+        padding-right: $spacing;
+    }
+
     .wp-block-group__inner-container {
         display: flex;                
     
         .wp-block-columns {
             margin:0;
             gap:200px;
-            height: 100%;                    
+            height: 100%;           
+
+            @media( max-width:$ipad ) {
+                flex-direction: column;
+                gap:120px;
+                width: 100%;
+            }         
 
             .wp-block-column {
                 display: flex;
                 align-items: center;
                 flex-direction: column;
                 justify-content: center;
+
+                @media( max-width:$ipad ) {
+                    display: flex;
+                    justify-content: center;
+                }
             
                 .wp-block-image {
                     width: 660px;
-                }
 
-                &:nth-child(2) {
-                
-                    .wp-block-image {
-                        width:660px;
+                    @media( max-width:$ipad ) {
+                        width: 100%;   
+                        max-width: 660px;
                     }
                 }
             }
         }
     }          
+}
+
+.home-section-rooms9,
+.home-section-rooms14 {
+
+    @media( max-width:$ipad ) {
+        padding-bottom: 120px;
+    }
 }
 
 .home-section-rooms8,
@@ -190,6 +326,11 @@
     font-size: 50px;
     line-height: 1.2;
 
+    @media( max-width:$ipad )      {
+        padding-left: $spacing;
+        padding-right: $spacing;
+    }
+
     .wp-block-group__inner-container {
         display: flex;
         justify-content: center;
@@ -202,11 +343,22 @@
             justify-content: space-between;
             gap:200px;
 
+            @media( max-width:$ipad ) {
+                flex-direction: column;
+                gap:120px;
+                width: 100%;
+            }
+
             .wp-block-column {
                 flex:initial;
                 display: flex;
                 align-items: center;
                 justify-content: center;
+
+                @media( max-width:$ipad ) {
+                    display: flex;
+                    justify-content: center;
+                }
 
                 .wp-block-image {
                     display: flex;
@@ -220,6 +372,11 @@
 
                     .wp-block-image {
                         width: 680px;
+
+                        @media( max-width:$ipad ) {
+                            width: 100%;   
+                            max-width: 680px;
+                        }
                     }                  
                                            
                 }
@@ -229,11 +386,29 @@
 
                     .wp-block-image {
                         width: 640px;
+
+                        @media( max-width:$ipad ) {
+                            width: 100%;   
+                            max-width: 640px;
+                        }
+
+                        img {
+                        
+                            @media( max-width:$ipad ) {
+                                object-position: right top;
+                            }
+                        }
                     }
 
                     p {
                         top:calc(100% + 30px );
                         left:-51px; 
+
+                        @media( max-width:$ipad ) {
+                            width: 100%;   
+                            max-width: 640px;
+                            text-align: right;
+                        }
                     } 
                 }
             }
@@ -243,14 +418,23 @@
 
 .home-section-rooms18 {
 
+    @media( max-width:$ipad ) {
+        padding:120px 25px;
+    }
+
     & > .wp-block-group__inner-container {
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: center;        
 
         .wp-block-columns {
             margin:0;
             gap:300px;
+
+            @media( max-width:$ipad ) {
+                flex-direction: column;
+                gap:120px;
+            }
 
             .wp-block-column {
                 display: flex;
@@ -317,31 +501,66 @@
     padding-left: 200px;
     padding-right: 200px;
 
+    @media( max-width:$ipad )      {
+        padding-left: $spacing;
+        padding-right: $spacing;
+        padding-bottom: 120px;
+    }
+
     .wp-block-group__inner-container {
         display: flex;                
     
         .wp-block-columns {
             margin:0;
             gap:200px;
-            height: 100%;                    
+            height: 100%;     
+
+            @media( max-width:$ipad ) {
+                flex-direction: column;
+                gap:120px;
+                width: 100%;
+            }               
 
             .wp-block-column {
                 display: flex;
                 align-items: center;
 
+                @media( max-width:$ipad ) {
+                    display: flex;
+                    justify-content: center;
+                }
+
                 &:nth-child(1) {
                     flex: 0 0 720px;
 
+                    @media( max-width:$ipad ) {
+                        flex: initial;
+                    }
+
                     .wp-block-image {
                         width: 100%;
+
+                        @media( max-width:$ipad ) {
+                            width: 100%;   
+                            max-width: 720px;
+                        }
                     }
                 }
                
                 &:nth-child(2) {
                     flex:0 0 600px;
+
+                    @media( max-width:$ipad ) {
+                        flex: initial;
+                    }
                 
                     .wp-block-image {
                         width: 100%;
+
+                        @media( max-width:$ipad ) {
+                            width: 100%;   
+                            max-width: 600px;
+                        }
                     }
                 }
             }
@@ -353,12 +572,38 @@
 
     .wp-block-cover {
         height:100%;
+
+        @media( max-width:$ipad ) {
+            padding:120px 25px;
+        }
+
+        .wp-block-cover__inner-container {
+
+            @media( max-width:$ipad ) {
+                max-width: 560px;
+                width: 100%;
+                margin:0 auto;
+            }
+        }
+    }
+
+    .wp-block-columns {
+    
+        @media( max-width:$ipad ) {
+            flex-direction: column;
+            gap:60px;
+        }
     }
 
     .wp-block-buttons {
 
         .wp-block-button {
             width: 100%;
+
+            @media( max-width:$ipad ) {
+                display: flex;
+                justify-content: center;
+            }
         
             .wp-block-button__link {
                 padding:30px 50px;
@@ -366,6 +611,11 @@
                 border:1px solid $secondary;
                 background-color: transparent;
                 color:$secondary;
+
+                @media( max-width:$ipad ) {
+                    max-width: 440px;
+                    margin:60px auto 0;
+                }
 
                 &:hover,
                 &:focus {
