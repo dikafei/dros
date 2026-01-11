@@ -1383,8 +1383,9 @@ body::-webkit-scrollbar {
     left:100px;
     width: calc( 100% - 100px );
 
-    @media( max-width:$ipad ) {
-        display: none;
+    @media( max-width:$ipad ) {        
+        left:0;
+        width: 100%;
     }
 
     .progress-bar {
@@ -1403,6 +1404,16 @@ body::-webkit-scrollbar {
 .unit-bookyourstay { 
     flex: 0 0 1920px;
     background-image: url(../../assets/img/patterns/pattern-omah-tanah.webp); 
+}
+
+.hero {
+
+    img {
+
+        @media( max-width:$ipad )  {
+            transform: none !important;
+        }
+    }
 }
 
 .unit-head {
@@ -1444,6 +1455,10 @@ body::-webkit-scrollbar {
             display: inline-flex;
             flex-direction: column;
             width: 100%;            
+
+            @media( max-width:$ipad ) {
+                max-width: 440px;
+            }
         }
 
         .wp-block-heading:not(.alignwide):not(.alignfull) {
@@ -1456,7 +1471,7 @@ body::-webkit-scrollbar {
             opacity: 0;
 
             @media( max-width:$ipad ) {
-                font-size: 60px;
+                font-size: 80px;
             }
 
             &:first-child {
@@ -1467,7 +1482,7 @@ body::-webkit-scrollbar {
                 align-self: flex-end;
 
                 @media( max-width:$ipad ) {
-                    align-self: center;
+                    //align-self: center;
                 }
             }
 
@@ -1480,7 +1495,7 @@ body::-webkit-scrollbar {
                 margin-right: -50px !important;
 
                 @media( max-width:$ipad ) {
-                    align-self: center;
+                    //align-self: center;
                 }
             }
         }

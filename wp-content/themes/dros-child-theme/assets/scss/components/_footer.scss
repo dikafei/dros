@@ -165,3 +165,65 @@
             }
         }
     }
+
+/* Popup */
+    #popup-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,.6);
+        z-index: 9999;
+    }
+
+    #popup-modal {
+        background: $background;
+        background-image: url(../../assets/img/halftone.png);
+        background-repeat: repeat;
+        max-width: 720px;
+        width: 90%;
+        margin: 10vh auto;
+        max-height: 80vh;
+        position: relative;
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        .popup-content {
+            padding:25px;
+        }
+
+        label {
+            color:$primary;
+        }
+    }
+
+    .popup-loader {
+        text-align: center;
+        padding: 25px;
+        height: 80vh;
+        color:$primary;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .popup-close {
+        position: absolute;        
+        background: none;
+        border: 0;
+        font-size: 40px;
+        cursor: pointer;
+        width: 40px;
+        height:40px;
+        background-color: $primary;
+        border-radius: 999px !important;
+        text-align: center;
+        line-height: 20px;
+        padding:0 0 6px !important;
+        top:10px;
+        right:10px;
+    }
+
+    .wpcf7-date {
+        padding:10px 16px;
+        border-radius: 0;
+        border-color:#ddd;
+    }

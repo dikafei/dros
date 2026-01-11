@@ -121,5 +121,13 @@ wp_footer();
 <div id="toTop">
 </div>
 
+<div id="popup-overlay" style="display:none;">
+	<div id="popup-modal">
+		<div class="popup-loader">Loading…</div>
+		<div class="popup-content"></div>
+		<button class="popup-close">×</button>
+	</div>
+</div>
+
 </body>
 </html>

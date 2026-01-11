@@ -1245,8 +1245,7 @@ body {
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
-    -webkit-transform: none !important;
-            transform: none !important;
+    /*transform: none !important;*/
     display: block;
   }
 }

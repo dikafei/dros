@@ -469,7 +469,7 @@
 
                 @media( max-width:$ipad ) {
                     flex-direction: column;
-                    transform: none !important;
+                    /*transform: none !important;*/
                     display: block;
                 }
 

@@ -7,8 +7,12 @@ var headerEl;
 const animItems = [];
 const unitHeads = [];
 const imageScales = [];
+const imageScalesMobile = [];
 const sectionImageScales = [];
-let sectionPositions = [];
+const sectionImageScalesMobile = [];
+
+let sectionPositionsDesktop = [];
+let sectionPositionsMobile  = [];
 
 const SECTION_WIDTH = 1920;
 const ARROW_SCROLL_STEP = 120;
@@ -27,6 +31,9 @@ const ANIM_UNITHEAD_FASTER_SCROLL = 1; /*Math.min(
 let ticking = false;
 
 $j(function(){	
+	// Initial mobile check - important put at very top
+		mobileCheck();
+
 	// Unit Head Texts - Make them same size
 		syncUnitHeadTextWidth();
 
@@ -53,11 +60,17 @@ $j(function(){
 		buildSectionPositions();
 
 		function buildSectionPositions() {
-			sectionPositions = [];
+			sectionPositionsDesktop = [];
+			sectionPositionsMobile  = [];
+
 			const $sections = $j('[class*="home-section"]');
 
 			$sections.each(function (index) {
-				sectionPositions.push(index * SECTION_WIDTH);
+				// Desktop: horizontal
+				sectionPositionsDesktop.push(index * SECTION_WIDTH);
+
+				// Mobile: vertical
+				sectionPositionsMobile.push(this.offsetTop);
 			});
 		}
 
@@ -74,12 +87,43 @@ $j(function(){
 			}
 		}
 
-		function getCurrentSectionIndex() {
+		/*function getCurrentSectionIndex() {
 			let closestIndex = 0;
 			let minDist = Infinity;
 
 			sectionPositions.forEach((pos, i) => {
 				const dist = Math.abs(pos - currentScroll);
+				if (dist < minDist) {
+					minDist = dist;
+					closestIndex = i;
+				}
+			});
+
+			return closestIndex;
+		}*/
+
+		function getCurrentSectionIndexDesktop() {
+			let closestIndex = 0;
+			let minDist = Infinity;
+
+			sectionPositionsDesktop.forEach((pos, i) => {
+				const dist = Math.abs(pos - currentScroll);
+				if (dist < minDist) {
+					minDist = dist;
+					closestIndex = i;
+				}
+			});
+
+			return closestIndex;
+		}
+
+		function getCurrentSectionIndexMobile() {
+			const scrollY = window.scrollY;
+			let closestIndex = 0;
+			let minDist = Infinity;
+
+			sectionPositionsMobile.forEach((pos, i) => {
+				const dist = Math.abs(pos - scrollY);
 				if (dist < minDist) {
 					minDist = dist;
 					closestIndex = i;
@@ -99,28 +143,83 @@ $j(function(){
 				'ArrowRight'
 			];
 
-			if (keys.includes(e.code)) {
-				e.preventDefault();
-			} else {
+			if (!keys.includes(e.code)) return;
+
+			e.preventDefault();
+
+			/* ===========================
+			MOBILE
+			=========================== */
+			if (isMobile()) {
+
+				const currentIndex = getCurrentSectionIndexMobile();
+
+				switch (e.code) {
+
+					case 'PageUp': {
+						const targetIndex = Math.max(0, currentIndex - 1);
+						window.scrollTo({
+							top: sectionPositionsMobile[targetIndex],
+							behavior: 'smooth'
+						});
+						break;
+					}
+
+					case 'PageDown': {
+						const targetIndex = Math.min(
+							sectionPositionsMobile.length - 1,
+							currentIndex + 1
+						);
+						window.scrollTo({
+							top: sectionPositionsMobile[targetIndex],
+							behavior: 'smooth'
+						});
+						break;
+					}
+
+					case 'Home':
+						window.scrollTo({ top: 0, behavior: 'smooth' });
+						break;
+
+					case 'End':
+						window.scrollTo({
+							top: document.documentElement.scrollHeight,
+							behavior: 'smooth'
+						});
+						break;
+
+					case 'ArrowLeft':
+						window.scrollBy({ top: -ARROW_SCROLL_STEP, behavior: 'smooth' });
+						break;
+
+					case 'ArrowRight':
+						window.scrollBy({ top: ARROW_SCROLL_STEP, behavior: 'smooth' });
+						break;
+				}
+
 				return;
 			}
 
-			const currentIndex = getCurrentSectionIndex();
+			/* ===========================
+			DESKTOP (UNCHANGED)
+			=========================== */
+
+			const currentIndex = getCurrentSectionIndexDesktop();
 
 			switch (e.code) {
 
 				case 'PageUp': {
 					const targetIndex = Math.max(0, currentIndex - 1);
-					targetScroll = sectionPositions[targetIndex];
+					targetScroll = sectionPositionsDesktop[targetIndex];
 					break;
 				}
 
 				case 'PageDown': {
 					const targetIndex = Math.min(
-						sectionPositions.length - 1,
+						sectionPositionsDesktop.length - 1,
 						currentIndex + 1
 					);
-					targetScroll = sectionPositions[targetIndex];
+					targetScroll = sectionPositionsDesktop[targetIndex];
 					break;
 				}
 
@@ -157,36 +256,29 @@ $j(function(){
 
 		const $sections = $j('[class*="home-section"]');
 
+		/*$j( '.burger-bar-wrapper' ).click( function() {
+			alert( $j( '.between' ).offset().top );
+		});*/
+
 		// Animation Type Fade: Collect animated elements into array
+			var i = 0;
 			$j( '.anim' ).each(function () {
-				/*const $animatedEl = $j( this );
-				const $sectionEl = $animatedEl.closest( '[class*="home-section"]' );
-
-				if ( !$sectionEl.length ) return;
-
-				const sectionIndex = $sections.index( $sectionEl );
-				if ( sectionIndex === -1 ) return;
-
-				const sectionLeft = $sectionEl.position().left;
-				const xInSection = $animatedEl.position().left;
-
-				animItems.push({
-					el: this,
-					x: sectionLeft + xInSection,
-					width: $animatedEl.outerWidth(),
-					triggered: false
-				});*/
-
 				const $el = $j(this);
 				const $section = $el.closest('[class*="home-section"]');
 				if (!$section.length) return;
 
-				const sectionIndex = $sections.index($section);
+				const sectionIndex = $sections.index($section);				
 				if (sectionIndex === -1) return;
 
-				const sectionLeft = $section.position().left;
-				const xInSection  = $el.position().left;
-				const worldX      = sectionLeft + xInSection;
+				const sectionLeft = $section.position().left;				
+				const sectionTop = $section.position().top;
+
+				const xInSection = $el.position().left;
+				const yInSection = $el.position().top;
+
+				const worldX = sectionLeft + xInSection;
+				//const worldY = sectionTop + yInSection;
+				const worldY = $el.offset().top;
 
 				// --- group by approximate X
 				const groupKey = Math.round(worldX / X_GROUP_TOLERANCE) * X_GROUP_TOLERANCE;
@@ -195,21 +287,43 @@ $j(function(){
 					animGroups[groupKey] = [];
 				}
 
+				/*if ( $j( this ).hasClass( 'between' )) {
+					i = 'between';
+
+					alert(worldY);
+				}*/
+
 				animGroups[groupKey].push({
+					index: i,
 					el: this,
 					x: worldX,
+					y: worldY,
 					width: $el.outerWidth(),
+					height: $el.outerHeight(),
 					triggered: false,
 					delay: 0
 				});
-			});
 
+				i++;
+			});
+			
+			
 			Object.values(animGroups).forEach(group => {
 				group.forEach((item, index) => {
 					item.delay = index * ANIM_STAGGER;
 					animItems.push(item);
 				});
 			});
+
+			// On mobile, sort anim items to fix some overlap animation
+			if ( isMobile() ) {
+				animItems.sort((a, b) => a.y - b.y);
+
+				// Trigger the first animation on first section on load
+				requestAnimationFrame(() => {
+					checkAnimTriggers(window.scrollY);
+				});
+			}			
 
 		// Animation Type Unit Head
 			buildUnitHeads();
@@ -220,34 +334,6 @@ $j(function(){
 				const $sections = $j('[class*="home-section"]');
 
 				$j('.unit-head').each(function () {
-					/*const $section = $j(this);
-					const sectionIndex = $sections.index($section);
-					if (sectionIndex === -1) return;
-
-					//const startX = $section.position().left - window.innerWidth;
-					const startX = $section.position().left - window.innerWidth * ( 1 - ANIM_UNITHEAD_OFFSET );					
-
-					const $cover = $section.find('.wp-block-cover');
-					const coverWidth = $cover.outerWidth(); 
-
-					const maxMove = coverWidth; 
-					// left goes from 0 → coverWidth
-					// right goes from 0 → -coverWidth
-
-					const $inner = $cover.find(
-						'.wp-block-cover__inner-container'
-					);
-
-					const leftEl  = $inner.children().first()[0];
-					const rightEl = $inner.children().last()[0];
-
-					unitHeads.push({
-						startX,
-						maxMove,
-						leftEl,
-						rightEl
-					});*/
-
 					const $section = $j(this);
 
 					const startX = $section.position().left - window.innerWidth * ( 1 - ANIM_UNITHEAD_OFFSET );
@@ -276,22 +362,6 @@ $j(function(){
 			}
 
 			function updateUnitHeadAnimations(scrollX) {
-				/*const viewportWidth = window.innerWidth;
-
-				unitHeads.forEach(item => {
-					const localScroll = scrollX - item.startX;				
-
-					const progress = Math.max(
-						0,
-						Math.min(1, localScroll / viewportWidth)
-					);
-
-					const move = progress * item.maxMove;
-
-					item.leftEl.style.transform  = `translateX(${ move }px)`;
-					item.rightEl.style.transform = `translateX(${ -move }px)`;
-				});*/
-
 				const viewportWidth = window.innerWidth;
 
 				unitHeads.forEach(item => {
@@ -388,6 +458,49 @@ $j(function(){
 				});
 			}
 
+		// Animation Type - Section Image for mobile
+			buildSectionImageScalesMobile();
+
+			function buildSectionImageScalesMobile() {
+				sectionImageScalesMobile.length = 0;
+
+				$j('[class*="home-section"] .wp-block-image.section-image img').each(function () {
+					const img = this;
+					const $img = $j(img);
+					const $block = $img.closest('.wp-block-image');
+
+					const rect = $block[0].getBoundingClientRect();
+					const scrollTop = window.scrollY;
+
+					const blockTop = rect.top + scrollTop;
+					const blockHeight = $block.outerHeight();
+
+					const startY = blockTop - window.innerHeight;
+					const endY   = blockTop + blockHeight;
+
+					sectionImageScalesMobile.push({
+						el: img,
+						startY,
+						endY,
+						range: endY - startY
+					});
+				});
+			}
+
+			function updateSectionImageScalesMobile() {
+				const scrollY = window.scrollY;
+
+				sectionImageScalesMobile.forEach(item => {
+					const local = scrollY - item.startY;
+
+					let progress = local / item.range;
+					progress = Math.max(0, Math.min(1, progress));
+
+					const scale = 1.2 - progress * 0.2;
+					item.el.style.transform = `scale(${scale})`;
+				});
+			}
+
 		// Animation Type - Image (normal image, non full, non noscaling)
 			buildImageScales();
 
@@ -468,14 +581,71 @@ $j(function(){
 					item.el.style.transform = `translateX(${translateX}px) scale(1.2)`;
 				});
 			}
+
+		// Animation Type - Normal image but for mobile
+			buildImageScalesMobile();
+
+			function buildImageScalesMobile() {
+				imageScalesMobile.length = 0;
+
+				$j('.wp-block-image:not(.noscaling):not(.section-image) img').each(function () {
+					const img = this;
+					const $img = $j(img);
+					const $block = $img.closest('.wp-block-image');
+
+					const blockTop    = $block.offset().top;
+					const blockHeight = $block.outerHeight();
+					const viewportH   = window.innerHeight;
+
+					// animation window (vertical)
+					const startY = blockTop - viewportH;
+					const endY   = blockTop + blockHeight - viewportH;
+
+					const SCALE = 1.2;
+					const blockW = $block.outerWidth();
+					const maxTranslateX = (blockW * SCALE - blockW) / 2;
+
+					imageScalesMobile.push({
+						el: img,
+						startY,
+						endY,
+						range: endY - startY,
+						maxTranslateX
+					});
+				});
+			}
+
+			function updateImageScalesMobile(scrollY) {
+				const START_DELAY  = 0.3;
+				const SPEED_FACTOR = 1.6;
+
+				imageScalesMobile.forEach(item => {
+					const local = scrollY - item.startY;
+
+					let raw = local / (item.range * SPEED_FACTOR);
+					let progress = (raw - START_DELAY) / (1 - START_DELAY);
+					progress = Math.max(0, Math.min(1, progress));
+
+					const translateX = progress * item.maxTranslateX;
+
+					item.el.style.transform =
+						`translateX(${translateX}px) scale(1.2)`;
+				});
+			}
 	
 
 		// Initial call on animation
-			checkAnimTriggers(0);
-			updateUnitHeadAnimations(0);
+			if ( !isMobile() ) {
+				checkAnimTriggers(0);
+				updateUnitHeadAnimations(0);
+			}
 
 		// Calculate total scroll width from children
 			function calculateMaxScroll() {
+				if ( isMobile() ) {
+					return $container.outerHeight() - $j(window).height();
+				}
+
 				let totalWidth = 0;
 				$container.children().each(function() {
 					totalWidth += $j(this).outerWidth(true); // includes margins
@@ -486,7 +656,17 @@ $j(function(){
 			maxScroll = calculateMaxScroll();
 		
 		// Handle mouse wheel
+			// Desktop Scroll
 			$j( window ).on( 'wheel', function(e) {
+				if ( isMobile() ) {
+					// Native scroll
+					return;
+				}
+
+				if ( $j( 'body, html' ).hasClass( 'is-loading') ) {
+					return;
+				}
+
 				e.preventDefault();
 				
 				// Adjust target scroll position
@@ -503,39 +683,102 @@ $j(function(){
 				$j( '.progress-bar' ).css({ 'width' : scrollProgress + '%' });
 			});
 
+			// Mobile Scroll
+			$j( window ).on('scroll', function () {
+				if ( !isMobile() ) return;
+
+				if ( $j( 'body, html' ).hasClass( 'is-loading' ) ) {
+					return;
+				}
+
+				// Update Animations
+				updateHeroMobile();
+				updateUnitHeadAnimationsMobile();
+				updateImageScalesMobile(window.scrollY);
+				updateSectionImageScalesMobile();
+
+				// Anim Executor
+				checkAnimTriggers(window.scrollY);		
+
+				// Progress Bar (mobile)
+				const scrollTop   = window.scrollY;
+				const docHeight  = document.documentElement.scrollHeight;
+				const viewportH  = window.innerHeight;
+				const maxScrollY = docHeight - viewportH;
+
+				const scrollProgress = maxScrollY > 0
+					? (scrollTop / maxScrollY) * 100
+					: 0;
+
+				$j('.progress-bar').css({
+					width: scrollProgress + '%'
+				});		
+			});
+
+			function updateHeroMobile() {
+				const hero = document.querySelector('.hero');
+				if (!hero) return;
+
+				const rect = hero.getBoundingClientRect();
+				const vh = window.innerHeight;
+
+				/*
+				Trigger range:
+				- start when hero top enters viewport
+				- finish when hero has scrolled 1/4 of its height
+				*/
+				const start = vh;
+				//const end = vh - hero.offsetHeight / 4;
+				const end = vh - hero.offsetHeight;
+
+				let progress = (start - rect.top) / (start - end);
+				progress = Math.max(0, Math.min(progress, 1));
+
+				$j('.hero .wp-block-image:nth-child(2)')
+					.css({ opacity: progress });
+			}
+
+			function updateUnitHeadAnimationsMobile() {
+				const vh = window.innerHeight;
+
+				unitHeads.forEach(item => {
+					const rect = item.leftEl.getBoundingClientRect();
+
+					/*
+					Start when text bottom hits viewport bottom
+					End when text top reaches 60% viewport height
+					*/
+					const start = vh;
+					const end = vh * 0.6;
+
+					let progress = (start - rect.bottom) / (start - end);
+					progress = Math.max(0, Math.min(1, progress));
+
+					const move  = item.maxMove * progress * 0.6;
+					const move2 = move * 1.3;
+
+					item.leftEl.style.transform  = `translateX(${-move}px)`;
+					item.rightEl.style.transform = `translateX(${-move2}px)`;
+
+					item.leftEl.style.opacity  = progress;
+					item.rightEl.style.opacity = progress;
+				});
+			}
+
 		// Animation executor
 			//checkAnimTriggers();
 		
-			function checkAnimTriggers( scrollX ) {				
+			/*function checkAnimTriggers( scrollX ) {				
 				//const triggerX = scrollX + windowWidth * ( 1 - ANIM_TRIGGER_OFFSET ); // Trigger based on % of viewport seen (ANIM_TRIGGER_OFFSET)
 				const viewportRight = scrollX + windowWidth; // Trigger based on element must be fully in viewport
 
 				animItems.forEach(item => {					
-					//console.log( targetScroll + ' + ' + windowWidth + ' >= ' + item.x + ' + ' + item.width );					
-
-					/*if ( !item.triggered && targetScroll + windowWidth >= item.x + item.width ) {
-						$j( item.el ).addClass('is-visible'); // or trigger animation
-						item.triggered = true;
-					}*/
-
-								 
-					// Trigger based on % of viewport seen (ANIM_TRIGGER_OFFSET)
-					/*if (
-						!item.triggered &&
-						item.x <= triggerX
-					) {
-						$j( item.el ).addClass( 'is-visible' );
-						item.triggered = true;
-					}*/
 
 					// Trigger based on element must be fully in viewport
 					if (
 						!item.triggered &&
 						item.x + item.width <= viewportRight
-					) {
-						/*$j( item.el ).addClass( 'is-visible' );
-						item.triggered = true;*/
-						
+					) {						
 						item.triggered = true;
 
 						if (item.delay) {
@@ -544,20 +787,98 @@ $j(function(){
 							}, item.delay);
 						} else {
 							$j(item.el).addClass('is-visible');
-						}					}
+						}					
+					}
 				});
+			}*/
+
+			/*function checkAnimTriggers(scrollPos) {
+				if (isMobile()) {
+					//const triggerLine = window.innerHeight * 0.85;
+					//const triggerY = scrollY + window.innerHeight * 0.85;
+					const triggerLine = scrollY + window.innerHeight;
+					const TRANSLATE_Y_OFFSET = 200; // Animation Height Y
+
+					animItems.forEach(item => {
+						if (item.triggered) return;		
+
+						// fully inside viewport
+						if (item.y - TRANSLATE_Y_OFFSET <= triggerLine) {
+							triggerAnim(item);
+						}
+					});
+
+				} else {
+					const viewportRight = scrollPos + window.innerWidth;
+
+					animItems.forEach(item => {
+						if (
+							!item.triggered &&
+							item.x + item.width <= viewportRight
+						) {
+							triggerAnim(item);
+						}
+					});
+				}
+			}*/
+
+			const TRANSLATE_Y_OFFSET = 200; // same as your translateY
+
+			function checkAnimTriggers(scrollPos) {
+
+				const viewportStart = scrollPos;
+				const viewportEnd = scrollPos + (
+					isMobile() ? window.innerHeight : window.innerWidth
+				);
+
+				animItems.forEach(item => {
+					if (item.triggered) return;
+
+					const itemStart = isMobile()
+						? item.y - TRANSLATE_Y_OFFSET
+						: item.x;
+
+					const itemEnd = isMobile()
+						? itemStart + item.height
+						: itemStart + item.width;
+
+					// OVERLAP test (this is the key)
+					if (itemEnd >= viewportStart && itemStart <= viewportEnd) {
+						triggerAnim(item);
+					}
+				});
+			}
+
+			function triggerAnim(item) {
+				item.triggered = true;
+
+				if (item.delay) {
+					setTimeout(() => {
+						$j(item.el).addClass('is-visible');
+					}, item.delay);
+				} else {
+					$j(item.el).addClass('is-visible');
+				}
 			}
 
 		// Smooth scrolling with easing
 			function smoothScroll() {			
 				// Easing factor: lower = smoother but slower (0.05-0.15 recommended)
-				currentScroll += ( targetScroll - currentScroll ) * 0.05;
+				currentScroll += ( targetScroll - currentScroll ) * 0.05;				
 
 				// Apply transform
-				$container.css(
-					'transform',
-					`translateX(-${currentScroll}px)`
-				);
+				if ( isMobile() ) {
+					$container.css(
+						'transform',
+						`translateY(-${currentScroll}px)`
+					);
+					
+				} else {
+					$container.css(
+						'transform',
+						`translateX(-${currentScroll}px)`
+					);
+				}
 
 				// All animations
 				checkAnimTriggers(currentScroll);
@@ -570,10 +891,11 @@ $j(function(){
 					animationId = requestAnimationFrame(smoothScroll);
 				} else {
 					currentScroll = targetScroll;
-					$container.css(
-						'transform',
-						`translateX(-${currentScroll}px)`
-					);
+					if (isMobile()) {
+						$container.css('transform', `translateY(-${currentScroll}px)`);
+											} else {
+						$container.css('transform', `translateX(-${currentScroll}px)`);
+					}
 					animationId = null;
 				}
 
@@ -588,16 +910,28 @@ $j(function(){
 		
 		// Update variables on window resize
 			$j( window ).on( 'resize', function() {
-				maxScroll = calculateMaxScroll(); //$container.outerWidth() - $j( window ).width();
+				const wasMobile = isMobile();
+
+				maxScroll = calculateMaxScroll(); 
 				targetScroll = Math.min( targetScroll, maxScroll );
-				windowWidth = $j( window ).width();
 				currentScroll = Math.min( currentScroll, maxScroll );
+
+				if ( isMobile() ) {
+					$container.css('transform', `translateY(-${currentScroll}px)`);
+				} else {
+					$container.css('transform', `translateX(-${currentScroll}px)`);
+				}
+
+				windowWidth = $j( window ).width();				
 				$container.css( 'transform', `translateX(-${currentScroll}px)`);
 				VIEWPORT_WIDTH = window.innerWidth;
 
     			buildUnitHeads();
 				buildSectionImageScales();
+				buildSectionImageScalesMobile();
 				buildImageScales();
+				buildImageScalesMobile();
+				buildSectionPositions();				
 
 				heroLeft = $j( '.hero' ).position().left;
 				heroWidth = $j( '.hero' ).width();
@@ -605,20 +939,21 @@ $j(function(){
 				mobileCheck();
 			});
 	
-	// Mobile Check
-		mobileCheck();
-
+	// Mobile Check		
 		function mobileCheck() {
-			if ( windowWidth <= 1024 ) {
-				let windowWidth = $j( window ).width();
+			let windowWidth = $j( window ).width();
+
+			if ( windowWidth <= 1024 ) {				
 				$j( 'body' ).addClass( 'mobile' );
 			}
 			else {
 				$j( 'body' ).removeClass( 'mobile' );
 			}
-		}
+		}		
 
-			
+		function isMobile() {
+			return document.body.classList.contains('mobile');
+		}			
 
 	// Search
 		$j( '.search-field' ).attr( 'placeholder', 'Search...' );
@@ -794,6 +1129,39 @@ $j(function(){
 				$j( this ).addClass( 'active' ).siblings().removeClass( 'active' );
 				tabContentWrapper.find( '.tab-item-wrapper[data-id="' + tabID +'"]').addClass( 'active' ).siblings().removeClass( 'active' );
 			});	
+		
+	// Popup
+		  $j('body').on('click', 'a.popup, .popup a', function (e) {
+			e.preventDefault();
+
+			const url = $j(this).attr('href');
+
+			$j('#popup-overlay').fadeIn();
+			$j('.popup-content').empty();
+			$j('.popup-loader').show();
+
+			$j.ajax({
+			url: HC.ajaxurl,
+			type: 'POST',
+			data: {
+				action: 'load_popup_page',
+				url: url
+			},
+			success: function (response) {
+				$j('.popup-loader').hide();
+				$j('.popup-content').html(response);
+			},
+			error: function () {
+				$j('.popup-loader').hide();
+				$j('.popup-content').html('<p>Error loading content.</p>');
+			}
+			});
+		});
+
+		$j('.popup-close, #popup-overlay').on('click', function (e) {
+			if (e.target !== this) return;
+			$j('#popup-overlay').fadeOut();
+		});
 }); 
 
 
@@ -817,3 +1185,4 @@ $j( window ).scroll( function() {
 			}
 		}	
 });
+

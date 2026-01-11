@@ -24,6 +24,7 @@
 	 * 11. Make Search Univeral
 	 * 12. WPCF7	 
 	 * 13. Woocommerce
+	 * 14. Link Popup AJAX
 	 */
 
 	// Constants
@@ -656,4 +657,35 @@
 				$defaults['delimiter'] = '<span class="breadcrumb-arrow"></span>';
 				return $defaults;
 			}
+			
+	// Link Popup AJAX
+		add_action( 'wp_ajax_load_popup_page', 'load_popup_page' );
+		add_action( 'wp_ajax_nopriv_load_popup_page', 'load_popup_page' );
+
+		function load_popup_page() {
+
+			if ( empty( $_POST['url'] ) ) {
+				wp_die();
+			}
+
+			$url  = esc_url_raw( $_POST['url'] );
+			$id   = url_to_postid( $url );
+
+			if ( ! $id ) {
+				wp_die( 'Page not found' );
+			}
+
+			$post = get_post( $id );
+
+			if ( ! $post || $post->post_status !== 'publish' ) {
+				wp_die( 'Invalid page' );
+			}
+
+			setup_postdata( $post );
+
+			echo apply_filters( 'the_content', $post->post_content );
+
+			wp_reset_postdata();
+			wp_die();
+		}
 ?>
