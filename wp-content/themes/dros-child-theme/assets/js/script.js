@@ -70,7 +70,9 @@ $j(function(){
 				sectionPositionsDesktop.push(index * SECTION_WIDTH);
 
 				// Mobile: vertical
-				sectionPositionsMobile.push(this.offsetTop);
+				if ( !$j( this ).hasClass( 'hero' ) ) { // Hero is hidden on mobile
+					sectionPositionsMobile.push(this.offsetTop);
+				}				
 			});
 		}
 

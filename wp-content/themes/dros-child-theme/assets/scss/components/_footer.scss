@@ -222,8 +222,15 @@
         right:10px;
     }
 
+    @supports (-webkit-touch-callout: none) {
+        .popup-close {
+            padding-bottom: 0;
+            line-height: 40px;
+        }
+    }
+
     .wpcf7-date {
         padding:10px 16px;
         border-radius: 0;
-        border-color:#ddd;
+        border:1px solid $border;
     }

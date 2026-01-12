@@ -169,7 +169,7 @@ body::-webkit-scrollbar {
             flex-direction: column;
             justify-content: center;
 
-            .wp-block-image {                    
+            .wp-block-image:not(.mobile-hero) {                    
                 position: absolute;
                 top:80px;
                 left:150px;
@@ -1406,13 +1406,34 @@ body::-webkit-scrollbar {
     background-image: url(../../assets/img/patterns/pattern-omah-tanah.webp); 
 }
 
-.hero {
+.mobile-hero {
+    display: none;
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    
+    @media( max-width:$ipad ) {
+        display: block;
+    }
 
     img {
+        opacity: 0.3;
+    }
+}
 
-        @media( max-width:$ipad )  {
-            transform: none !important;
-        }
+.hero {
+
+    @media( max-width:$ipad ) {
+        display:none !important;
+    }
+
+    img {
+        transform: none !important;
+        object-position: right center;
     }
 }
 

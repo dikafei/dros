@@ -2273,10 +2273,16 @@ body.transparent-header .site-header {
   right: 10px;
 }
 
+@supports (-webkit-touch-callout: none) {
+  .popup-close {
+    padding-bottom: 0;
+    line-height: 40px;
+  }
+}
 .wpcf7-date {
   padding: 10px 16px;
   border-radius: 0;
-  border-color: #ddd;
+  border: 1px solid #dddddd;
 }
 
 /* Heading */
@@ -5585,17 +5591,17 @@ body::-webkit-scrollbar {
       -ms-flex-pack: center;
           justify-content: center;
 }
-.entry-content .home-section1 .wp-block-group__inner-container .wp-block-image,
-.entry-content .home-section-about1 .wp-block-group__inner-container .wp-block-image,
-.entry-content .home-section-rooms1 .wp-block-group__inner-container .wp-block-image {
+.entry-content .home-section1 .wp-block-group__inner-container .wp-block-image:not(.mobile-hero),
+.entry-content .home-section-about1 .wp-block-group__inner-container .wp-block-image:not(.mobile-hero),
+.entry-content .home-section-rooms1 .wp-block-group__inner-container .wp-block-image:not(.mobile-hero) {
   position: absolute;
   top: 80px;
   left: 150px;
 }
 @media (max-width: 1024px) {
-  .entry-content .home-section1 .wp-block-group__inner-container .wp-block-image,
-  .entry-content .home-section-about1 .wp-block-group__inner-container .wp-block-image,
-  .entry-content .home-section-rooms1 .wp-block-group__inner-container .wp-block-image {
+  .entry-content .home-section1 .wp-block-group__inner-container .wp-block-image:not(.mobile-hero),
+  .entry-content .home-section-about1 .wp-block-group__inner-container .wp-block-image:not(.mobile-hero),
+  .entry-content .home-section-rooms1 .wp-block-group__inner-container .wp-block-image:not(.mobile-hero) {
     left: 50%;
     -webkit-transform: translateX(-50%);
             transform: translateX(-50%);
@@ -5603,9 +5609,9 @@ body::-webkit-scrollbar {
   }
 }
 @media (max-width: 767px) {
-  .entry-content .home-section1 .wp-block-group__inner-container .wp-block-image,
-  .entry-content .home-section-about1 .wp-block-group__inner-container .wp-block-image,
-  .entry-content .home-section-rooms1 .wp-block-group__inner-container .wp-block-image {
+  .entry-content .home-section1 .wp-block-group__inner-container .wp-block-image:not(.mobile-hero),
+  .entry-content .home-section-about1 .wp-block-group__inner-container .wp-block-image:not(.mobile-hero),
+  .entry-content .home-section-rooms1 .wp-block-group__inner-container .wp-block-image:not(.mobile-hero) {
     top: 25px;
     width: 160px;
   }
@@ -7045,11 +7051,37 @@ body::-webkit-scrollbar {
   background-image: url(../../assets/img/patterns/pattern-omah-tanah.webp);
 }
 
+.mobile-hero {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
 @media (max-width: 1024px) {
-  .hero img {
-    -webkit-transform: none !important;
-            transform: none !important;
+  .mobile-hero {
+    display: block;
   }
+}
+.mobile-hero img {
+  opacity: 0.3;
+}
+
+@media (max-width: 1024px) {
+  .hero {
+    display: none !important;
+  }
+}
+.hero img {
+  -webkit-transform: none !important;
+          transform: none !important;
+  -o-object-position: right center;
+     object-position: right center;
 }
 
 @media (max-width: 1024px) {
@@ -9910,4 +9942,4 @@ body::-webkit-scrollbar {
 .unit-bookyourstay .wp-block-buttons .wp-block-button .wp-block-button__link:hover, .unit-bookyourstay .wp-block-buttons .wp-block-button .wp-block-button__link:focus {
   background-color: #c2a390;
   color: #ffffff;
-}
+}/*# sourceMappingURL=style.css.map */
