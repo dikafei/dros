@@ -347,6 +347,10 @@ body {
     line-height: 38px;
   }
 }
+.editor-styles-wrapper body:not(.wp-admin).is-popup-open,
+.block-editor .editor-styles-wrapper body:not(.wp-admin).is-popup-open {
+  overflow: hidden;
+}
 .editor-styles-wrapper body, .editor-styles-wrapper button:not(.components-button):not(.wp-block-splide-carousel-add), .editor-styles-wrapper input, .editor-styles-wrapper select, .editor-styles-wrapper textarea,
 .block-editor .editor-styles-wrapper body,
 .block-editor .editor-styles-wrapper button:not(.components-button):not(.wp-block-splide-carousel-add),

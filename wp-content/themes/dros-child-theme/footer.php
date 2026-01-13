@@ -125,9 +125,15 @@ wp_footer();
 	<div id="popup-modal">
 		<div class="popup-loader">Loading…</div>
 		<div class="popup-content"></div>
-		<button class="popup-close">×</button>
+		<button class="popup-close"></button>
 	</div>
 </div>
+
+<?php
+/*
+<div style="position:absolute; height:8098px; top:0; left:0; width:10px;background:red;"></div>
+*/
+?>
 
 </body>
 </html>

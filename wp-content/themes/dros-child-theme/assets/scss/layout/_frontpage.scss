@@ -66,6 +66,7 @@ body {
         @media( max-width:$ipad ) {
             height: initial;
             overflow-y: initial;
+            overflow-x:hidden;
         }
     
         .site-content {
@@ -250,6 +251,10 @@ body::-webkit-scrollbar {
         flex:0 0 1920px;            
         position: relative;
 
+        @media( max-width:$ipad ) {
+            min-height: 0 !important;
+        }
+
         .wp-block-group__inner-container {
             max-width: 100%;
             display: flex;
@@ -257,7 +262,7 @@ body::-webkit-scrollbar {
             justify-content: center;
 
             @media( max-width:$ipad ) {
-                padding:0 clamp(1.5625rem, -3.3203rem + 20.8333vw, 10rem); /* 25 - 160 */
+                padding:0 clamp(1.5625rem, -3.3203rem + 20.8333vw, 10rem) 200px; /* 25 - 160 */
             }
 
             & > * {
@@ -1349,6 +1354,7 @@ body::-webkit-scrollbar {
                                         border:1px solid $secondary;
                                         background-color: transparent;
                                         color:$secondary;
+                                        white-space: nowrap;
 
                                         &:hover,
                                         &:focus {
@@ -1493,6 +1499,10 @@ body::-webkit-scrollbar {
 
             @media( max-width:$ipad ) {
                 font-size: 80px;
+            }
+
+            @media( max-width:$ipad ) {
+                font-size: 70px;
             }
 
             &:first-child {

@@ -327,6 +327,8 @@ $j(function(){
 				});
 			}			
 
+			console.log(animItems);
+
 		// Animation Type Unit Head
 			buildUnitHeads();
 
@@ -606,13 +608,14 @@ $j(function(){
 					const SCALE = 1.2;
 					const blockW = $block.outerWidth();
 					const maxTranslateX = (blockW * SCALE - blockW) / 2;
+					const maxTranslateY =  (blockHeight * SCALE - blockHeight) / 2;
 
 					imageScalesMobile.push({
 						el: img,
 						startY,
 						endY,
 						range: endY - startY,
-						maxTranslateX
+						maxTranslateY
 					});
 				});
 			}
@@ -629,9 +632,12 @@ $j(function(){
 					progress = Math.max(0, Math.min(1, progress));
 
 					const translateX = progress * item.maxTranslateX;
+					const translateY = progress * item.maxTranslateY;
 
+					/*item.el.style.transform =
+						`translateX(${translateX}px) scale(1.2)`;*/
 					item.el.style.transform =
-						`translateX(${translateX}px) scale(1.2)`;
+						`translateY(${translateY}px) scale(1.2)`;
 				});
 			}
 	
@@ -715,6 +721,13 @@ $j(function(){
 				$j('.progress-bar').css({
 					width: scrollProgress + '%'
 				});		
+
+				if ( scrollTop > 61 ) {
+					$j( '.admin-bar .site-header .inside-header .floating-header' ).addClass( 'onWheel' );
+				}
+				else {
+					$j( '.admin-bar .site-header .inside-header .floating-header' ).removeClass( 'onWheel' );
+				}
 			});
 
 			function updateHeroMobile() {
@@ -824,8 +837,6 @@ $j(function(){
 				}
 			}*/
 
-			const TRANSLATE_Y_OFFSET = 200; // same as your translateY
-
 			function checkAnimTriggers(scrollPos) {
 
 				const viewportStart = scrollPos;
@@ -837,14 +848,21 @@ $j(function(){
 					if (item.triggered) return;
 
 					const itemStart = isMobile()
-						? item.y - TRANSLATE_Y_OFFSET
+						? item.y - 200 // tinggi translateY
 						: item.x;
 
 					const itemEnd = isMobile()
 						? itemStart + item.height
 						: itemStart + item.width;
+	
+					/*if ( item.index == 9 ) {
+						let x = false;
+						if (itemEnd >= viewportStart && itemStart <= viewportEnd) {
+							x = true;
+						}
+						console.log( itemEnd + ' >= ' + viewportStart + ' && ' + itemStart + ' <= ' + viewportEnd + ' ||| ' + x );
+					}*/
 
-					// OVERLAP test (this is the key)
 					if (itemEnd >= viewportStart && itemStart <= viewportEnd) {
 						triggerAnim(item);
 					}
@@ -854,17 +872,22 @@ $j(function(){
 			function triggerAnim(item) {
 				item.triggered = true;
 
-				if (item.delay) {
-					setTimeout(() => {
-						$j(item.el).addClass('is-visible');
-					}, item.delay);
-				} else {
+				if ( isMobile() ) {
 					$j(item.el).addClass('is-visible');
+				}
+				else {
+					if (item.delay) {
+						setTimeout(() => {
+							$j(item.el).addClass('is-visible');
+						}, item.delay);
+					} else {
+						$j(item.el).addClass('is-visible');
+					}
 				}
 			}
 
 		// Smooth scrolling with easing
-			function smoothScroll() {			
+			function smoothScroll() {						
 				// Easing factor: lower = smoother but slower (0.05-0.15 recommended)
 				currentScroll += ( targetScroll - currentScroll ) * 0.05;				
 
@@ -884,7 +907,7 @@ $j(function(){
 
 				// All animations
 				checkAnimTriggers(currentScroll);
-    			updateUnitHeadAnimations(currentScroll);
+				updateUnitHeadAnimations(currentScroll);
 				updateImageScales(currentScroll);
 				updateSectionImageScales(currentScroll);
 				
@@ -907,8 +930,9 @@ $j(function(){
 				if ( imgScrollPost > ( heroLeft + ( heroWidth / 4 ) ) ) { imgScrollPost = ( heroLeft + ( heroWidth / 4 ) ) }
 				
 				let opacity = imgScrollPost / ( heroLeft + ( heroWidth / 4 ) );
-				$j( '.hero .wp-block-image:nth-child(2)' ).css({ 'opacity' : opacity });			
-			}
+				$j( '.hero .wp-block-image:nth-child(2)' ).css({ 'opacity' : opacity });	
+			}	
+			
 		
 		// Update variables on window resize
 			$j( window ).on( 'resize', function() {
@@ -1141,6 +1165,7 @@ $j(function(){
 			$j('#popup-overlay').fadeIn();
 			$j('.popup-content').empty();
 			$j('.popup-loader').show();
+			$j( 'body' ).addClass( 'is-popup-open' );
 
 			$j.ajax({
 			url: HC.ajaxurl,
@@ -1163,6 +1188,7 @@ $j(function(){
 		$j('.popup-close, #popup-overlay').on('click', function (e) {
 			if (e.target !== this) return;
 			$j('#popup-overlay').fadeOut();
+			$j( 'body' ).removeClass( 'is-popup-open' );
 		});
 }); 
 

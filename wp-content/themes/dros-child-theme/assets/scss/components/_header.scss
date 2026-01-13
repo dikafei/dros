@@ -34,6 +34,14 @@
                     @media( max-width:$sml ) {
                         padding-top:61px;
                     }
+
+                    &.onWheel {
+
+                        @media( max-width:$ipad ) {
+                            transition: all 0.2s ease 0s;
+                            padding-top:15px !important;
+                        }
+                    }
                 }
 
                 #site-navigation.main-navigation {

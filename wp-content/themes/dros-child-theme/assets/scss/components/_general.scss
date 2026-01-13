@@ -96,7 +96,11 @@
         font-family: $primary-font;
         @include font(p);
         color:$foreground;
-        background-color:$background;        
+        background-color:$background;      
+
+        &.is-popup-open {
+            overflow: hidden;
+        }  
     }
 
     body, button:not(.components-button):not(.wp-block-splide-carousel-add), input, select, textarea {

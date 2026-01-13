@@ -69,7 +69,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 						do_action( 'generate_before_navigation' );
 					?>
-					<a href="#">Book</a>
+					<a class="popup" href="/booking/">Book</a>
 				</div>
 				
 				<nav <?php generate_do_attr( 'navigation' ); ?>>
