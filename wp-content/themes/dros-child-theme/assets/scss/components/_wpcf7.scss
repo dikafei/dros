@@ -11,6 +11,7 @@
         text-align: center;
         padding:8px $spacing;
         margin:$spacing 0;
+        @include font(h6);
     }
 
 /* Tooltip */

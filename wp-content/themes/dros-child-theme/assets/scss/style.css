@@ -5289,6 +5289,26 @@ address {
   text-align: center;
   padding: 8px 25px;
   margin: 25px 0;
+  font-size: 16px;
+  line-height: 26px;
+}
+@media (max-width: 1365px) {
+  .wpcf7 form .wpcf7-response-output {
+    font-size: 16px;
+    line-height: 26px;
+  }
+}
+@media (max-width: 1024px) {
+  .wpcf7 form .wpcf7-response-output {
+    font-size: 16px;
+    line-height: 26px;
+  }
+}
+@media (max-width: 767px) {
+  .wpcf7 form .wpcf7-response-output {
+    font-size: 14px;
+    line-height: 24px;
+  }
 }
 
 /* Tooltip */

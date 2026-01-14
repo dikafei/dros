@@ -327,7 +327,7 @@ $j(function(){
 				});
 			}			
 
-			console.log(animItems);
+			//console.log(animItems);
 
 		// Animation Type Unit Head
 			buildUnitHeads();
@@ -1157,7 +1157,18 @@ $j(function(){
 			});	
 		
 	// Popup
-		  $j('body').on('click', 'a.popup, .popup a', function (e) {
+		function initPopupForms() {
+			if (typeof wpcf7 === 'undefined') return;
+
+			$j('.popup-content .wpcf7 form').each(function () {
+				if (this.dataset.wpcf7Bound) return;
+
+				wpcf7.init(this);
+				this.dataset.wpcf7Bound = 'true';
+			});
+		}
+
+		$j('body').on('click', 'a.popup, .popup a', function (e) {
 			e.preventDefault();
 
 			const url = $j(this).attr('href');
@@ -1168,29 +1179,49 @@ $j(function(){
 			$j( 'body' ).addClass( 'is-popup-open' );
 
 			$j.ajax({
-			url: HC.ajaxurl,
-			type: 'POST',
-			data: {
-				action: 'load_popup_page',
-				url: url
-			},
-			success: function (response) {
-				$j('.popup-loader').hide();
-				$j('.popup-content').html(response);
-			},
-			error: function () {
-				$j('.popup-loader').hide();
-				$j('.popup-content').html('<p>Error loading content.</p>');
-			}
+				url: HC.ajaxurl,
+				type: 'POST',
+				data: {
+					action: 'load_popup_page',
+					url: url
+				},
+				success: function (response) {
+					$j('.popup-loader').hide();
+					$j('.popup-content').html(response);
+
+					initPopupForms();
+				},
+				error: function () {
+					$j('.popup-loader').hide();
+					$j('.popup-content').html('<p>Error loading content.</p>');
+				}
 			});
 		});
 
 		$j('.popup-close, #popup-overlay').on('click', function (e) {
+			/*f (e.target !== this) return;
+			$j('#popup-overlay').fadeOut();
+			$j( 'body' ).removeClass( 'is-popup-open' );*/
+			closePopup.call(this, e);
+		});
+
+		function closePopup(e) {
 			if (e.target !== this) return;
 			$j('#popup-overlay').fadeOut();
 			$j( 'body' ).removeClass( 'is-popup-open' );
-		});
+		}
+
+		function closePopupNow() {
+			$j('#popup-overlay').fadeOut();
+			$j('body').removeClass('is-popup-open');
+		}
+
+		
 }); 
+
+$j(document).on('wpcf7mailsent', function () {
+	closePopupNow();
+});
 
 
 $j( window ).scroll( function() {
