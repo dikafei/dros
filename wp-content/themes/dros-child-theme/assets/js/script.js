@@ -258,6 +258,8 @@ $j(function(){
 
 		const $sections = $j('[class*="home-section"]');
 
+		let moveTrigger = '';
+
 		/*$j( '.burger-bar-wrapper' ).click( function() {
 			alert( $j( '.between' ).offset().top );
 		});*/
@@ -327,7 +329,7 @@ $j(function(){
 				});
 			}			
 
-			//console.log(animItems);
+			console.log(animItems);
 
 		// Animation Type Unit Head
 			buildUnitHeads();
@@ -661,19 +663,15 @@ $j(function(){
 				return totalWidth - $j(window).width();
 			}
 			
-			maxScroll = calculateMaxScroll();
+			maxScroll = calculateMaxScroll();		
 		
 		// Handle mouse wheel
 			// Desktop Scroll
 			$j( window ).on( 'wheel', function(e) {
-				if ( isMobile() ) {
-					// Native scroll
-					return;
-				}
+				moveTrigger = 'wheel';
 
-				if ( $j( 'body, html' ).hasClass( 'is-loading') ) {
-					return;
-				}
+				if ( isMobile() ) { return; } // Native Scroll
+				if ( $j( 'body, html' ).hasClass( 'is-loading') ) { return;	}
 
 				e.preventDefault();
 				
@@ -684,16 +682,20 @@ $j(function(){
 				// Start smooth scrolling animation if not already running
 				if ( !animationId ) {
 					animationId = requestAnimationFrame( smoothScroll );
-				}			
+				}					
 
 				// Progress Bar
 				var scrollProgress = targetScroll / maxScroll * 100;
 				$j( '.progress-bar' ).css({ 'width' : scrollProgress + '%' });
+
+				//
 			});
 
 			// Mobile Scroll
 			$j( window ).on('scroll', function () {
 				if ( !isMobile() ) return;
+
+				moveTrigger = 'scroll';
 
 				if ( $j( 'body, html' ).hasClass( 'is-loading' ) ) {
 					return;
@@ -729,6 +731,72 @@ $j(function(){
 					$j( '.admin-bar .site-header .inside-header .floating-header' ).removeClass( 'onWheel' );
 				}
 			});
+
+			// Touchscreen
+			let touchStartX = 0;
+			let touchLastX  = 0;
+			let touchStartScroll = 0;
+			let isTouching = false;
+
+			$j(window).on('touchstart', function(e) {
+				if (isMobile()) return;
+				if ($j('body, html').hasClass('is-loading')) return;				
+				
+				const touch = e.originalEvent.touches[0];
+				touchStartX = touch.clientX;
+				touchLastX  = touch.clientX;
+
+				moveTrigger = 'touch';
+				isTouching = true;
+
+				cancelAnimationFrame(animationId);
+				animationId = null;
+			});
+
+			$j(window).on('touchmove', function(e) {
+				if (isMobile()) return;
+				if ($j('body, html').hasClass('is-loading')) return;
+
+				e.preventDefault();
+
+				const touch = e.originalEvent.touches[0];
+				const deltaX = touchLastX - touch.clientX; 
+				touchLastX = touch.clientX;
+
+				// Update targetScroll HERE
+				targetScroll += deltaX;
+				targetScroll = Math.max(0, Math.min(targetScroll, maxScroll));
+
+				// Snap currentScroll directly
+				currentScroll = targetScroll;
+
+				// Apply transform
+				$container.css(
+					'transform',
+					`translateX(-${currentScroll}px)`
+				);
+
+				console.log(targetScroll);
+
+				// Animations
+				checkAnimTriggers(currentScroll);
+				updateUnitHeadAnimations(currentScroll);
+				updateImageScales(currentScroll);
+				updateSectionImageScales(currentScroll);
+
+				// Progress bar
+				const scrollProgress = (currentScroll / maxScroll) * 100;
+				$j('.progress-bar').css({ width: scrollProgress + '%' });
+			});
+
+			$j(window).on('touchend touchcancel', function(e) {
+				isTouching = false;
+			});
+
+
+
+
+
 
 			function updateHeroMobile() {
 				const hero = document.querySelector('.hero');
@@ -780,64 +848,9 @@ $j(function(){
 				});
 			}
 
-		// Animation executor
-			//checkAnimTriggers();
-		
-			/*function checkAnimTriggers( scrollX ) {				
-				//const triggerX = scrollX + windowWidth * ( 1 - ANIM_TRIGGER_OFFSET ); // Trigger based on % of viewport seen (ANIM_TRIGGER_OFFSET)
-				const viewportRight = scrollX + windowWidth; // Trigger based on element must be fully in viewport
-
-				animItems.forEach(item => {					
-
-					// Trigger based on element must be fully in viewport
-					if (
-						!item.triggered &&
-						item.x + item.width <= viewportRight
-					) {						
-						item.triggered = true;
-
-						if (item.delay) {
-							setTimeout(() => {
-								$j(item.el).addClass('is-visible');
-							}, item.delay);
-						} else {
-							$j(item.el).addClass('is-visible');
-						}					
-					}
-				});
-			}*/
-
-			/*function checkAnimTriggers(scrollPos) {
-				if (isMobile()) {
-					//const triggerLine = window.innerHeight * 0.85;
-					//const triggerY = scrollY + window.innerHeight * 0.85;
-					const triggerLine = scrollY + window.innerHeight;
-					const TRANSLATE_Y_OFFSET = 200; // Animation Height Y
-
-					animItems.forEach(item => {
-						if (item.triggered) return;		
-
-						// fully inside viewport
-						if (item.y - TRANSLATE_Y_OFFSET <= triggerLine) {
-							triggerAnim(item);
-						}
-					});
-
-				} else {
-					const viewportRight = scrollPos + window.innerWidth;
-
-					animItems.forEach(item => {
-						if (
-							!item.triggered &&
-							item.x + item.width <= viewportRight
-						) {
-							triggerAnim(item);
-						}
-					});
-				}
-			}*/
-
+		// Animation executor		
 			function checkAnimTriggers(scrollPos) {
+				//console.log(scrollPos);
 
 				const viewportStart = scrollPos;
 				const viewportEnd = scrollPos + (
@@ -889,7 +902,15 @@ $j(function(){
 		// Smooth scrolling with easing
 			function smoothScroll() {						
 				// Easing factor: lower = smoother but slower (0.05-0.15 recommended)
-				currentScroll += ( targetScroll - currentScroll ) * 0.05;				
+				if (isTouching) return;
+				
+				/*if ( moveTrigger == 'touch' ) {
+					currentScroll += ( targetScroll - currentScroll );									
+					console.log( 'touch ' + currentScroll );
+				}	
+				else {*/
+					currentScroll += ( targetScroll - currentScroll ) * 0.05;				
+				//}
 
 				// Apply transform
 				if ( isMobile() ) {
@@ -980,6 +1001,14 @@ $j(function(){
 		function isMobile() {
 			return document.body.classList.contains('mobile');
 		}			
+
+	// Touch Check
+		function isTouchDevice() {
+			return (
+				'ontouchstart' in window ||
+				navigator.maxTouchPoints > 0
+			);
+		}
 
 	// Search
 		$j( '.search-field' ).attr( 'placeholder', 'Search...' );

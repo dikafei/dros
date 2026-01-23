@@ -64,15 +64,42 @@ if ( ! defined( 'ABSPATH' ) ) {
 		?>
 
 		<div class="entry-content"<?php echo $itemprop; // phpcs:ignore -- No escaping needed. ?>>
-			<?php
-			the_content();
+			<div class="check">
+			</div>
 
-			wp_link_pages(
-				array(
-					'before' => '<div class="page-links">' . __( 'Pages:', 'generatepress' ),
-					'after'  => '</div>',
-				)
-			);
+			<style>
+				.check {
+					display:none;
+					position:absolute;
+					top:0;
+					left:0;
+					width: 25000px;
+					height:100px;
+					z-index: 9999;
+				background-color: #fff;
+			background-image:
+				linear-gradient(45deg, #000 25%, transparent 25%),
+				linear-gradient(-45deg, #000 25%, transparent 25%),
+				linear-gradient(45deg, transparent 75%, #000 75%),
+				linear-gradient(-45deg, transparent 75%, #000 75%);
+			background-size: 200px 200px;
+			background-position:
+				0 0,
+				0 100px,
+				100px -100px,
+				-100px 0;
+					opacity:0.1;
+				}
+			</style>
+			<?php
+				the_content();
+
+				wp_link_pages(
+					array(
+						'before' => '<div class="page-links">' . __( 'Pages:', 'generatepress' ),
+						'after'  => '</div>',
+					)
+				);
 			?>
 		</div>
 

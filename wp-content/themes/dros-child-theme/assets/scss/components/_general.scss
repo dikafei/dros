@@ -97,6 +97,8 @@
         @include font(p);
         color:$foreground;
         background-color:$background;      
+        touch-action: none;
+	    overscroll-behavior: none;
 
         &.is-popup-open {
             overflow: hidden;

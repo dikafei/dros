@@ -121,6 +121,10 @@ body:not(.wp-admin) {
   line-height: 1.8;
   color: #333333;
   background-color: #ece5d5;
+  -ms-touch-action: none;
+      touch-action: none;
+  -ms-scroll-chaining: none;
+      overscroll-behavior: none;
 }
 @media (max-width: 1365px) {
   body:not(.wp-admin) {
