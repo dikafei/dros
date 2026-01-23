@@ -733,7 +733,7 @@ $j(function(){
 			});
 
 			// Touchscreen
-			let touchStartX = 0;
+			/*let touchStartX = 0;
 			let touchLastX  = 0;
 			let touchStartScroll = 0;
 			let isTouching = false;
@@ -791,7 +791,7 @@ $j(function(){
 
 			$j(window).on('touchend touchcancel', function(e) {
 				isTouching = false;
-			});
+			});*/
 
 
 
@@ -990,7 +990,7 @@ $j(function(){
 		function mobileCheck() {
 			let windowWidth = $j( window ).width();
 
-			if ( windowWidth <= 1024 ) {				
+			if ( windowWidth <= 1180 ) {				
 				$j( 'body' ).addClass( 'mobile' );
 			}
 			else {

@@ -337,7 +337,7 @@ body {
     line-height: 1.8;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1180px) {
   .editor-styles-wrapper body:not(.wp-admin),
   .block-editor .editor-styles-wrapper body:not(.wp-admin) {
     font-size: 22px;
@@ -396,7 +396,7 @@ body {
     line-height: 1.3;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1180px) {
   .editor-styles-wrapper .has-h-0-font-size,
   .block-editor .editor-styles-wrapper .has-h-0-font-size {
     font-size: 120px;
@@ -423,7 +423,7 @@ body {
     line-height: 1.3;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1180px) {
   .editor-styles-wrapper h1,
   .editor-styles-wrapper .h1,
   .editor-styles-wrapper .has-h-1-font-size,
@@ -465,7 +465,7 @@ body {
     line-height: 1.3;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1180px) {
   .editor-styles-wrapper h2,
   .editor-styles-wrapper .h2,
   .editor-styles-wrapper .has-h-2-font-size,
@@ -507,7 +507,7 @@ body {
     line-height: 1.3;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1180px) {
   .editor-styles-wrapper h3,
   .editor-styles-wrapper .h3,
   .editor-styles-wrapper .has-h-3-font-size,
@@ -549,7 +549,7 @@ body {
     line-height: 34px;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1180px) {
   .editor-styles-wrapper h4,
   .editor-styles-wrapper .h4,
   .editor-styles-wrapper .has-h-4-font-size,
@@ -591,7 +591,7 @@ body {
     line-height: 28px;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1180px) {
   .editor-styles-wrapper h5,
   .editor-styles-wrapper .h5,
   .editor-styles-wrapper .has-h-5-font-size,
@@ -633,7 +633,7 @@ body {
     line-height: 26px;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1180px) {
   .editor-styles-wrapper h6,
   .editor-styles-wrapper .h6,
   .editor-styles-wrapper .has-h-6-font-size,
@@ -672,7 +672,7 @@ body {
     line-height: 1.8;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1180px) {
   .editor-styles-wrapper p,
   .editor-styles-wrapper .has-paragraph-font-size,
   .block-editor .editor-styles-wrapper p,
@@ -711,7 +711,7 @@ body {
     line-height: 1.6;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1180px) {
   .editor-styles-wrapper .has-body-big-font-size,
   .block-editor .editor-styles-wrapper .has-body-big-font-size {
     font-size: 28px;
@@ -744,7 +744,7 @@ body {
     line-height: 1.6;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1180px) {
   .editor-styles-wrapper .has-body-jumbo-font-size,
   .block-editor .editor-styles-wrapper .has-body-jumbo-font-size {
     font-size: 38px;
@@ -777,7 +777,7 @@ body {
     line-height: 1.8;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1180px) {
   .editor-styles-wrapper .has-body-small-font-size,
   .block-editor .editor-styles-wrapper .has-body-small-font-size {
     font-size: 18px;
@@ -809,7 +809,7 @@ body {
     line-height: 24px;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1180px) {
   .editor-styles-wrapper .has-span-font-size,
   .block-editor .editor-styles-wrapper .has-span-font-size {
     font-size: 14px;
@@ -1244,7 +1244,7 @@ body {
   max-width: 100%;
   margin: 0 !important;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1180px) {
   .editor-styles-wrapper #page .site-content .entry-content,
   .editor-styles-wrapper #page .site-content .entry-summary,
   .block-editor .editor-styles-wrapper #page .site-content .entry-content,
@@ -1851,7 +1851,7 @@ body {
     line-height: 34px;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1180px) {
   .editor-styles-wrapper blockquote p,
   .block-editor .editor-styles-wrapper blockquote p {
     font-size: 20px;
@@ -1879,7 +1879,7 @@ body {
     line-height: 28px;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1180px) {
   .editor-styles-wrapper blockquote cite,
   .block-editor .editor-styles-wrapper blockquote cite {
     font-size: 16px;
@@ -2450,7 +2450,7 @@ body {
     line-height: 34px;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1180px) {
   .editor-styles-wrapper .testimonial-block-wrapper .swiper-outer .swiper-container .swiper-wrapper .swiper-slide .testimonial-item-wrapper,
   .block-editor .editor-styles-wrapper .testimonial-block-wrapper .swiper-outer .swiper-container .swiper-wrapper .swiper-slide .testimonial-item-wrapper {
     font-size: 20px;
@@ -2659,7 +2659,7 @@ body {
     line-height: 1.3;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1180px) {
   .editor-styles-wrapper .testimonial-block-wrapper .thumbswiper-container .swiper-wrapper .swiper-slide .thumbswiper-icon .thumbswiper-icon-inner,
   .block-editor .editor-styles-wrapper .testimonial-block-wrapper .thumbswiper-container .swiper-wrapper .swiper-slide .thumbswiper-icon .thumbswiper-icon-inner {
     font-size: 50px;
@@ -3047,7 +3047,7 @@ body {
     line-height: 26px;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1180px) {
   .editor-styles-wrapper .slider-block-wrapper .swiper-container .navigation-wrapper .swiper-pagination.swiper-pagination-fraction,
   .block-editor .editor-styles-wrapper .slider-block-wrapper .swiper-container .navigation-wrapper .swiper-pagination.swiper-pagination-fraction {
     font-size: 16px;
@@ -3135,7 +3135,7 @@ body {
     line-height: 26px;
   }
 }
-@media (max-width: 767px) and (max-width: 1024px) {
+@media (max-width: 767px) and (max-width: 1180px) {
   .editor-styles-wrapper .marquee-block-wrapper .swiper-wrapper .swiper-slide .word,
   .block-editor .editor-styles-wrapper .marquee-block-wrapper .swiper-wrapper .swiper-slide .word {
     font-size: 16px;
@@ -3274,7 +3274,7 @@ body {
     line-height: 26px;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1180px) {
   .editor-styles-wrapper .wp-block-acf-accordion-group:before {
     font-size: 16px;
     line-height: 26px;
@@ -3321,7 +3321,7 @@ body {
     line-height: 26px;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1180px) {
   .editor-styles-wrapper .wp-block-acf-slider:before {
     font-size: 16px;
     line-height: 26px;
@@ -3368,7 +3368,7 @@ body {
     line-height: 26px;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1180px) {
   .editor-styles-wrapper .wp-block-acf-testimonial-group:before {
     font-size: 16px;
     line-height: 26px;
@@ -3418,7 +3418,7 @@ body {
     line-height: 26px;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1180px) {
   .editor-styles-wrapper .wp-block-acf-tab-group:before {
     font-size: 16px;
     line-height: 26px;
