@@ -50,8 +50,14 @@
 					wp_enqueue_script( 'jquery' );					
 					wp_enqueue_script( 'gsap', 'https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js', array( 'jquery' ), null, true);
 					wp_enqueue_script( 'scrollTrigger', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js', array( 'gsap' ), null, true);
-					//wp_enqueue_script( 'swiper-js', THEMEURI . 'assets/vendor/swiper/swiper-bundle.min.js', array( 'jquery' ), null, true );				
-					wp_enqueue_script( 'default-js', THEMEURI . ( $js_path = '/assets/js/script.js' ), array( 'jquery' ), get_version( $js_path ), true );
+					//wp_enqueue_script( 'swiper-js', THEMEURI . 'assets/vendor/swiper/swiper-bundle.min.js', array( 'jquery' ), null, true );			
+
+					if ( is_page( 377 ) ) {
+						wp_enqueue_script( 'default-prod-js', THEMEURI . ( $js_path = '/assets/js/script-prod.js' ), array( 'jquery' ), get_version( $js_path ), true );
+					}
+					else {	
+						wp_enqueue_script( 'default-js', THEMEURI . ( $js_path = '/assets/js/script.js' ), array( 'jquery' ), get_version( $js_path ), true );
+					}
 
 					wp_add_inline_script('default-js', 'const HC =' . json_encode(array(
 						'ajaxurl' => admin_url('admin-ajax.php'),

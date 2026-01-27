@@ -31,6 +31,7 @@ const ANIM_UNITHEAD_FASTER_SCROLL = 1; /*Math.min(
 let ticking = false;
 
 $j(function(){	
+    
 	// Initial mobile check - important put at very top
 		mobileCheck();
 
@@ -733,9 +734,7 @@ $j(function(){
 			});
 
 			// Touchscreen
-			/*let touchStartX = 0;
 			let touchLastX  = 0;
-			let touchStartScroll = 0;
 			let isTouching = false;
 
 			$j(window).on('touchstart', function(e) {
@@ -776,7 +775,10 @@ $j(function(){
 					`translateX(-${currentScroll}px)`
 				);
 
-				console.log(targetScroll);
+                // CONSOLE
+                $j( '.console' ).html( 'currentScroll : ' + currentScroll );
+
+				//console.log(targetScroll);
 
 				// Animations
 				checkAnimTriggers(currentScroll);
@@ -787,14 +789,19 @@ $j(function(){
 				// Progress bar
 				const scrollProgress = (currentScroll / maxScroll) * 100;
 				$j('.progress-bar').css({ width: scrollProgress + '%' });
+
+                // Home Section 2 Transition			
+				let imgScrollPost = currentScroll;
+				if ( imgScrollPost < 0 ) { imgScrollPost = 0; }
+				if ( imgScrollPost > ( heroLeft + ( heroWidth / 4 ) ) ) { imgScrollPost = ( heroLeft + ( heroWidth / 4 ) ) }
+				
+				let opacity = imgScrollPost / ( heroLeft + ( heroWidth / 4 ) );
+				$j( '.hero .wp-block-image:nth-child(2)' ).css({ 'opacity' : opacity });	
 			});
 
 			$j(window).on('touchend touchcancel', function(e) {
 				isTouching = false;
-			});*/
-
-
-
+			});
 
 
 
@@ -904,13 +911,13 @@ $j(function(){
 				// Easing factor: lower = smoother but slower (0.05-0.15 recommended)
 				if (isTouching) return;
 				
-				/*if ( moveTrigger == 'touch' ) {
+				if ( moveTrigger == 'touch' ) {
 					currentScroll += ( targetScroll - currentScroll );									
 					console.log( 'touch ' + currentScroll );
 				}	
-				else {*/
+				else {
 					currentScroll += ( targetScroll - currentScroll ) * 0.05;				
-				//}
+				}
 
 				// Apply transform
 				if ( isMobile() ) {
@@ -990,7 +997,7 @@ $j(function(){
 		function mobileCheck() {
 			let windowWidth = $j( window ).width();
 
-			if ( windowWidth <= 1180 ) {				
+			if ( windowWidth <= 1024 ) {				
 				$j( 'body' ).addClass( 'mobile' );
 			}
 			else {
