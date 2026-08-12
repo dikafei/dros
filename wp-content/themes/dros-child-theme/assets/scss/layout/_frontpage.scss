@@ -83,11 +83,13 @@ body {
                         height: 100%;
                 
                         .inside-article {
-                            width:100vw;
-                            position: fixed;
-                            inset:0;
-
                             height: 100%;
+
+                            @media( min-width:1025px ) { /* Fix calculation error on touchscreen - desktop mode/horizontal scrolling */
+                                width:100vw;
+                                position: fixed;
+                                inset:0;
+                            }
                         
                             & > .entry-header {
                                 display: none;
@@ -109,7 +111,12 @@ body::-webkit-scrollbar {
 }
 
 .entry-content {
-                        
+    // Promote to its own GPU layer up front - this element gets translateX/Y
+    // written every rAF frame while scrolling, and without will-change the
+    // browser has to re-decide whether to promote it, causing the scroll
+    // micro-stutter.
+    will-change: transform;
+
     & > .wp-block-group {
         height:100vh;
 
@@ -144,6 +151,7 @@ body::-webkit-scrollbar {
 
             img {
                 transform: scale(1.2);
+                will-change: transform;
             }
         }
 

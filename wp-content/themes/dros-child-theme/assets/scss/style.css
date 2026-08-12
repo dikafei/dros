@@ -5563,10 +5563,14 @@ body #page .site-content #primary #main article {
   height: 100%;
 }
 body #page .site-content #primary #main article .inside-article {
-  width: 100vw;
-  position: fixed;
-  inset: 0;
   height: 100%;
+}
+@media (min-width: 1025px) {
+  body #page .site-content #primary #main article .inside-article { /* Fix calculation error on touchscreen - desktop mode/horizontal scrolling */
+    width: 100vw;
+    position: fixed;
+    inset: 0;
+  }
 }
 body #page .site-content #primary #main article .inside-article > .entry-header {
   display: none;
@@ -5579,6 +5583,9 @@ body::-webkit-scrollbar {
   display: none; /* Chrome/Safari */
 }
 
+.entry-content {
+  will-change: transform;
+}
 .entry-content > .wp-block-group {
   height: 100vh;
 }
@@ -5620,6 +5627,7 @@ body::-webkit-scrollbar {
 .entry-content .wp-block-image.section-image img {
   -webkit-transform: scale(1.2);
           transform: scale(1.2);
+  will-change: transform;
 }
 .entry-content .wp-block-image:not(.section-image):not(.noscaling) img {
   -webkit-transform: scale(1.2);
@@ -10018,4 +10026,4 @@ body::-webkit-scrollbar {
 .unit-bookyourstay .wp-block-buttons .wp-block-button .wp-block-button__link:hover, .unit-bookyourstay .wp-block-buttons .wp-block-button .wp-block-button__link:focus {
   background-color: #c2a390;
   color: #ffffff;
-}/*# sourceMappingURL=style.css.map */
+}

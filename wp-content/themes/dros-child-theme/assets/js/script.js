@@ -29,6 +29,7 @@ const ANIM_UNITHEAD_FASTER_SCROLL = 1; /*Math.min(
 ); */ 
 
 let ticking = false;
+let allAnimItemsTriggered = false; // avoid re-scanning animItems every rAF frame once done
 
 $j(function(){	
     
@@ -209,6 +210,14 @@ $j(function(){
 
 			const currentIndex = getCurrentSectionIndexDesktop();
 
+			// Force the plain lerp path in smoothScroll() regardless of
+			// whatever the last mouse/touch interaction set moveTrigger to -
+			// otherwise a keypress right after a wheel scroll would fall into
+			// the wheel-momentum branch and snap instead of easing.
+			moveTrigger = 'keyboard';
+			wheelVelocity = 0; // discard any in-flight wheel momentum so it can't leak into the next wheel scroll
+			wheelFrameTime = null;
+
 			switch (e.code) {
 
 				case 'PageUp': {
@@ -253,6 +262,20 @@ $j(function(){
 		let windowWidth = $j( window ).width();
 		let maxScroll = 0;
 		let animationId = null;
+
+		// Wheel momentum: each notch adds an impulse instead of jumping
+		// targetScroll straight to a new value. Friction bleeds it off over
+		// several frames so consecutive notches blend into one glide rather
+		// than each one "snapping" a new target for the old flat lerp to
+		// chase - that snap-per-notch is what read as stutter on ratchet
+		// mouse wheels.
+		let wheelVelocity = 0;
+		let wheelFrameTime = null; // performance.now() of the previous momentum frame - lets decay be time-based, not tied to actual rAF tick rate
+		const WHEEL_FRICTION = 0.85; // decay per WHEEL_FRAME_MS of elapsed time (0-1, higher = longer, gentler glide)
+		const WHEEL_FRAME_MS = 1000 / 60; // reference frame duration the friction value above is tuned against
+		const WHEEL_DISTANCE_SCALE = 1; // fraction of the raw wheel delta a notch actually travels - lower = shorter/slower glide
+		const WHEEL_VELOCITY_STOP = 0.05; // px/frame below which momentum is considered settled
+		const MAX_WHEEL_VELOCITY = 70; // clamp so rapid-fire notches can't runaway-accelerate
 
 		let heroLeft = $j( '.hero' ).position().left;
 		let heroWidth = $j( '.hero' ).width();
@@ -675,28 +698,36 @@ $j(function(){
 				if ( $j( 'body, html' ).hasClass( 'is-loading') ) { return;	}
 
 				e.preventDefault();
-				
-				// Adjust target scroll position
-				targetScroll += e.originalEvent.deltaY;
-				targetScroll = Math.max( 0, Math.min( targetScroll, maxScroll ) );
-				
+
+				// Feed this notch into the running momentum (scaled down by
+				// WHEEL_DISTANCE_SCALE and by (1 - WHEEL_FRICTION) so its
+				// *total* contribution, once friction bleeds it off across
+				// frames in smoothScroll(), equals a fraction of the notch's
+				// raw delta) instead of jumping targetScroll straight to a
+				// new value.
+				wheelVelocity += e.originalEvent.deltaY * WHEEL_DISTANCE_SCALE * ( 1 - WHEEL_FRICTION );
+				wheelVelocity = Math.max( -MAX_WHEEL_VELOCITY, Math.min( MAX_WHEEL_VELOCITY, wheelVelocity ) );
+
 				// Start smooth scrolling animation if not already running
 				if ( !animationId ) {
+					wheelFrameTime = null; // fresh glide - don't use a stale elapsed time for the first frame
 					animationId = requestAnimationFrame( smoothScroll );
-				}					
+				}
 
-				// Progress Bar
-				var scrollProgress = targetScroll / maxScroll * 100;
-				$j( '.progress-bar' ).css({ 'width' : scrollProgress + '%' });
+				// Progress bar is updated from smoothScroll() each frame while
+				// the momentum plays out, so it tracks the glide instead of
+				// jumping ahead of the visible scroll.
 
 				//
 			});
 
 			// Mobile Scroll
-			$j( window ).on('scroll', function () {
-				if ( !isMobile() ) return;
-
-				moveTrigger = 'scroll';
+			// Runs all the layout-reading (getBoundingClientRect) + style-writing work for
+			// a single frame. Native 'scroll' events can fire many times per rendered frame,
+			// so this is coalesced via rAF + the `ticking` flag below instead of running
+			// synchronously on every event (that was causing forced-layout jank/stutter).
+			function updateMobileScrollEffects() {
+				ticking = false;
 
 				if ( $j( 'body, html' ).hasClass( 'is-loading' ) ) {
 					return;
@@ -709,7 +740,7 @@ $j(function(){
 				updateSectionImageScalesMobile();
 
 				// Anim Executor
-				checkAnimTriggers(window.scrollY);		
+				checkAnimTriggers(window.scrollY);
 
 				// Progress Bar (mobile)
 				const scrollTop   = window.scrollY;
@@ -723,13 +754,24 @@ $j(function(){
 
 				$j('.progress-bar').css({
 					width: scrollProgress + '%'
-				});		
+				});
 
 				if ( scrollTop > 61 ) {
 					$j( '.admin-bar .site-header .inside-header .floating-header' ).addClass( 'onWheel' );
 				}
 				else {
 					$j( '.admin-bar .site-header .inside-header .floating-header' ).removeClass( 'onWheel' );
+				}
+			}
+
+			$j( window ).on('scroll', function () {
+				if ( !isMobile() ) return;
+
+				moveTrigger = 'scroll';
+
+				if ( !ticking ) {
+					ticking = true;
+					requestAnimationFrame( updateMobileScrollEffects );
 				}
 			});
 
@@ -747,6 +789,8 @@ $j(function(){
 
 				moveTrigger = 'touch';
 				isTouching = true;
+				wheelVelocity = 0; // discard any in-flight wheel momentum so it can't leak in later
+				wheelFrameTime = null;
 
 				cancelAnimationFrame(animationId);
 				animationId = null;
@@ -859,10 +903,16 @@ $j(function(){
 			function checkAnimTriggers(scrollPos) {
 				//console.log(scrollPos);
 
+				// Once every item has fired, there's nothing left to check - skip the
+				// per-item scan entirely instead of walking the whole array every frame.
+				if (allAnimItemsTriggered) return;
+
 				const viewportStart = scrollPos;
 				const viewportEnd = scrollPos + (
 					isMobile() ? window.innerHeight : window.innerWidth
 				);
+
+				let pending = false;
 
 				animItems.forEach(item => {
 					if (item.triggered) return;
@@ -874,7 +924,7 @@ $j(function(){
 					const itemEnd = isMobile()
 						? itemStart + item.height
 						: itemStart + item.width;
-	
+
 					/*if ( item.index == 9 ) {
 						let x = false;
 						if (itemEnd >= viewportStart && itemStart <= viewportEnd) {
@@ -885,8 +935,14 @@ $j(function(){
 
 					if (itemEnd >= viewportStart && itemStart <= viewportEnd) {
 						triggerAnim(item);
+					} else {
+						pending = true;
 					}
 				});
+
+				if (!pending) {
+					allAnimItemsTriggered = true;
+				}
 			}
 
 			function triggerAnim(item) {
@@ -907,16 +963,50 @@ $j(function(){
 			}
 
 		// Smooth scrolling with easing
-			function smoothScroll() {						
+			function smoothScroll() {
 				// Easing factor: lower = smoother but slower (0.05-0.15 recommended)
 				if (isTouching) return;
-				
+
+				let stillAnimating;
+
 				if ( moveTrigger == 'touch' ) {
-					currentScroll += ( targetScroll - currentScroll );									
-					console.log( 'touch ' + currentScroll );
-				}	
+					currentScroll += ( targetScroll - currentScroll );
+					stillAnimating = Math.abs(targetScroll - currentScroll) > 0.5;
+				}
+				else if ( moveTrigger == 'wheel' ) {
+					// Momentum: bleed off the accumulated wheel velocity with
+					// friction and feed it straight into
+					// targetScroll/currentScroll together. The velocity
+					// itself is already the smooth curve, so no separate lag
+					// layer is needed on top of it (that would just add a
+					// second, mushier delay).
+					//
+					// Decay is scaled to real elapsed time (not just "one rAF
+					// tick") so the glide plays at the same speed regardless
+					// of the display's refresh rate or any dropped frames -
+					// a fixed per-tick multiplier would decay twice as fast
+					// on a 120Hz screen as on 60Hz.
+					const now = performance.now();
+					const dt = wheelFrameTime ? ( now - wheelFrameTime ) : WHEEL_FRAME_MS;
+					wheelFrameTime = now;
+
+					wheelVelocity *= Math.pow( WHEEL_FRICTION, dt / WHEEL_FRAME_MS );
+					if ( Math.abs( wheelVelocity ) < WHEEL_VELOCITY_STOP ) {
+						wheelVelocity = 0;
+					}
+
+					targetScroll = Math.max( 0, Math.min( targetScroll + wheelVelocity, maxScroll ) );
+					currentScroll = targetScroll;
+
+					stillAnimating = wheelVelocity !== 0;
+
+					// Progress bar tracks the glide, not just the triggering notch
+					var scrollProgress = targetScroll / maxScroll * 100;
+					$j( '.progress-bar' ).css({ 'width' : scrollProgress + '%' });
+				}
 				else {
-					currentScroll += ( targetScroll - currentScroll ) * 0.05;				
+					currentScroll += ( targetScroll - currentScroll ) * 0.05;
+					stillAnimating = Math.abs(targetScroll - currentScroll) > 0.5;
 				}
 
 				// Apply transform
@@ -925,7 +1015,7 @@ $j(function(){
 						'transform',
 						`translateY(-${currentScroll}px)`
 					);
-					
+
 				} else {
 					$container.css(
 						'transform',
@@ -938,12 +1028,13 @@ $j(function(){
 				updateUnitHeadAnimations(currentScroll);
 				updateImageScales(currentScroll);
 				updateSectionImageScales(currentScroll);
-				
+
 				// Continue animation if still moving
-				if (Math.abs(targetScroll - currentScroll) > 0.5) {
+				if (stillAnimating) {
 					animationId = requestAnimationFrame(smoothScroll);
 				} else {
 					currentScroll = targetScroll;
+					wheelVelocity = 0;
 					if (isMobile()) {
 						$container.css('transform', `translateY(-${currentScroll}px)`);
 											} else {
