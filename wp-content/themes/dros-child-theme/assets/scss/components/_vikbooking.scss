@@ -1,0 +1,355 @@
+@use "global" as *;
+
+/*
+ * VikBooking plugin overrides
+ *
+ * VikBooking ships its own default component styling (blue buttons/badges,
+ * a jQuery-UI-blue calendar, plain cards, etc.) that doesn't know about this
+ * theme's brand palette or button treatment. Two layers of fixes here:
+ *
+ * 1. Re-theme via VikBooking's own CSS custom properties. Its stylesheet
+ *    already themes almost everything (buttons, price text, capacity
+ *    badges, the availability calendar's selected/hover states) off a
+ *    small set of --vbo-* variables defined at :root. Overriding just
+ *    those variables re-skins the plugin globally and consistently,
+ *    instead of chasing every individual selector by hand - and it keeps
+ *    working for parts of the UI we haven't manually inspected. !important
+ *    is used because VikBooking sets these itself in an inline <style>
+ *    block per page (its admin-configurable "preferred color"), and
+ *    there's no reliable guarantee our stylesheet loads after it.
+ * 2. Manual selector overrides for shape/spacing/layout (border-radius,
+ *    padding, card treatment) that VikBooking's variables don't cover, plus
+ *    a proper card redesign for the room listing and booking-details price
+ *    widget so they read as part of this site rather than default plugin
+ *    output.
+ */
+
+:root {
+    // VikBooking's admin-configurable "preferred color" (drives the Details
+    // buttons, price text, capacity icon badges, etc.)
+    --vbo-pref-bgcolor: #{$primary} !important;
+    --vbo-pref-bgcolorhov: #{$secondary} !important;
+    --vbo-pref-fontcolor: #{$white} !important;
+    --vbo-pref-fontcolorhov: #{$white} !important;
+    --vbo-pref-textcolor: #{$primary} !important;
+
+    // VikBooking's own hardcoded "brand blue" (calendar selected/hover
+    // states, misc UI accents) - independent of the preferred-color setting
+    // above, so it needs its own override.
+    --vbo-base-color: #{$primary} !important;
+    --vbo-base-color-hover: #{$tertiary} !important;
+    --vbo-darkblue-color: #{$tertiary} !important;
+    --vbo-blue-color: #{$primary} !important;
+    --vbo-blue-color-hover: #{$tertiary} !important;
+    --vbo-lightblue-color: #{$secondary} !important;
+    --vbo-lightblue-color-hover: #{$tertiary} !important;
+}
+
+// Shape/spacing that the color variables above don't touch.
+.vbo-pref-color-btn {
+    border-radius: 0 !important;
+    padding: 8px 24px !important;
+    font-family: $primary-font !important;
+    transition: all 0.6s ease 0s !important;
+}
+
+// VikBooking's markup (room listing, booking-details) isn't wrapped in a
+// Gutenberg block, so it never picks up the block-level padding other pages
+// get automatically. At desktop widths that's invisible because the
+// container is narrower than the viewport and just looks centered, but
+// below that the container IS the viewport, so content was sitting flush
+// against the screen edges with no side padding at all.
+.plugin-container {
+
+    @media( max-width:$ipad ) {
+        padding: 0 $spacing;
+    }
+
+    @media( max-width:$sm ) {
+        padding: 0 $half-spacing;
+    }
+}
+
+/*
+ * Room listing cards (/our-rooms/)
+ *
+ * Kept as a card grid rather than folding into the site's horizontal-scroll
+ * home-sectionN layout - that pattern is built for one immersive, full-bleed
+ * section at a time (right for a homepage/story page), whereas a room list
+ * is a comparison task where guests want to scan and compare several rooms
+ * quickly. VikBooking also renders its own responsive grid here; fighting
+ * that to force it into home-sectionN sections would be fragile. Instead
+ * the existing 2-up grid gets a proper card treatment to match the rest of
+ * the site.
+ */
+ul.vblist {
+    row-gap: $double-spacing;
+}
+
+li.room_result {
+    background-color: $white;
+    border: 1px solid rgba($black, 0.08);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+
+    &:hover {
+        box-shadow: 0 12px 30px rgba($black, 0.12);
+        transform: translateY(-4px);
+    }
+}
+
+// VikBooking's own rule here is `flex: 0 0 35%`, sized for its row-based
+// layout (35% width). The list view re-flows this container into a column
+// (flex-flow:column) without updating that rule, so the 35% is read as a
+// height instead - against an indefinite parent height, which Chrome
+// resolves by silently shrinking the image well below its real 300px, and
+// that shortfall was the source of the dead space at the bottom of each
+// card. Force it to size off its actual content instead.
+.vbimglistdiv {
+    flex: 0 0 auto !important;
+    position: relative;
+    overflow: hidden;
+
+    .vblistimg {
+        transition: transform 0.6s ease;
+    }
+}
+
+li.room_result:hover .vblistimg {
+    transform: scale(1.06);
+}
+
+// Cards in the same grid row stretch to match the tallest sibling (varying
+// description lengths). Rather than leaving dead space below shorter cards,
+// make the info block fill that stretched height and pin the price/button
+// footer to the bottom, so every card's footer lines up regardless of copy
+// length.
+.vbo-info-room {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 1 auto !important;
+    // VikBooking's own rule here is `padding: 0` with higher specificity
+    // than a plain `.vbo-info-room` selector, so this never actually took
+    // effect - the title/amenities sat flush against the card edges while
+    // the price/button row below (which does carry !important) had real
+    // padding. Match that same padding here so both halves of the card
+    // breathe the same amount.
+    padding: $half-spacing $spacing !important;
+}
+
+.vbdescrlistdiv {
+    margin-bottom: $half-spacing;
+}
+
+.vbrowcname {
+    margin-bottom: $quarter-spacing !important;
+}
+
+.vbrowcdescr {
+    color: $foreground;
+}
+
+.roomlist_carats {
+    margin-top: $half-spacing;
+    padding-top: $half-spacing;
+    border-top: 1px solid rgba($black, 0.08);
+}
+
+.vbo-room-carat {
+    opacity: 0.8;
+}
+
+.vbcontdivtot {
+    margin-top: auto;
+    border-top: 1px solid rgba($black, 0.08);
+}
+
+// .vbdivtot has a hardcoded height (tied to sizing elsewhere in VikBooking's
+// own layout) with align-items:flex-end, which was pinning the price/button
+// row to the bottom of that box and leaving a dead gap above it. Let it
+// size to its actual content instead.
+.vbdivtot {
+    height: auto !important;
+    align-items: center !important;
+}
+
+.vbdivtotinline {
+    // This defaults to a column flex, which combined with space-between
+    // stretched price and button to the top/bottom of the row's full
+    // height. Force it into a single horizontal row instead: price/capacity
+    // on the left, button on the right.
+    flex-direction: row !important;
+    flex-grow: 0 !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: $half-spacing $spacing !important;
+    gap: $half-spacing;
+}
+
+// The price ("$ 50 / per night") was collapsing to a ~50px column and
+// wrapping the number onto its own line - force it back onto one line.
+.vbsrowpricediv {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: baseline !important;
+    gap: 6px;
+}
+
+.room_cost {
+    display: inline-flex !important;
+    width: auto !important;
+    white-space: nowrap !important;
+}
+
+.vbliststartfrom {
+    font-size: 16px !important;
+    color: $dark !important;
+    white-space: nowrap;
+}
+
+.vbselectordiv {
+    display: block !important;
+}
+
+/*
+ * Booking-details gallery
+ *
+ * The inline gallery only shows a compact thumbnail grid (no large hero
+ * image), but VikBooking still renders a prev/next control absolutely
+ * positioned as if flanking a wide hero - so the arrows float in empty
+ * space well to the left of the actual thumbnails. The full-photo lightbox
+ * (opened via a thumbnail or "All photos") has its own separate, correctly
+ * positioned prev/next/close controls, so this inline pair is redundant -
+ * hide it rather than try to reposition floating controls that serve no
+ * real purpose here.
+ */
+.vikfx-roomdetails-gallery-container .vikfx-gallery-navigation-controls-prevnext {
+    display: none;
+}
+
+// Hiding the prevnext buttons above didn't stop their parent wrapper
+// (.vikfx-gallery-navigation-controls) from covering the hero image edge to
+// edge - it's positioned absolutely over the full image, and even with
+// nothing visible inside it, it was still capturing clicks before they
+// reached the <img> underneath, which is why "click the hero to open the
+// gallery" wasn't working. Let clicks pass through it.
+.vikfx-gallery-navigation-controls {
+    pointer-events: none;
+}
+
+// The hero image now opens the lightbox on click (see script.js) - show a
+// pointer cursor so that's discoverable, matching the small thumbnails.
+.vikfx-gallery-image {
+    cursor: pointer;
+}
+
+// The lightbox's prev/next/close controls pick up the site's global button
+// treatment (8px 24px padding, sized for text buttons like "Details"), but
+// these are small fixed-size icon buttons - that padding eats almost all of
+// their box and pushes the glyph off-center. Strip it and center with flex
+// instead, so the chevrons/× sit in the middle of their button regardless
+// of font metrics.
+.vikfxg-prev,
+.vikfxg-next,
+.vikfxg-close {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    padding: 0 !important;
+}
+
+// The room title sits flush against the very top of the page (no page
+// heading/breadcrumb block above it here) and its divider line is
+// VikBooking's default #eee - barely visible against this theme's cream
+// background. Give the title some breathing room and darken the divider
+// enough to actually read as a line.
+.vblistroomnamediv {
+    padding-top: $double-spacing;
+    border-bottom-color: rgba($black, 0.1) !important;
+
+    @media( max-width:$sm ) {
+        padding-top: $spacing;
+    }
+}
+
+// Same near-invisible divider color around the amenities list.
+.vbo-listing-amenities-wrap {
+    border-top-color: rgba($black, 0.1) !important;
+    border-bottom-color: rgba($black, 0.1) !important;
+}
+
+/*
+ * Booking-details price / availability widget
+ */
+.vbo-listing-details-costroomdet-inner {
+    border: 1px solid rgba($black, 0.08);
+    box-shadow: 0 12px 30px rgba($black, 0.08);
+}
+
+// The availability calendar sits directly on the page background with no
+// card treatment, unlike everything else on this page - give it the same
+// white-card language as the price widget.
+.vbo-roomdet-calscontainer-inner {
+    background-color: $white;
+    border: 1px solid rgba($black, 0.08);
+    box-shadow: 0 12px 30px rgba($black, 0.08);
+    padding: $spacing;
+}
+
+// Same issue as the lightbox controls above: the calendar's month prev/next
+// arrows share the `.vbo-pref-color-btn` text-button padding, which crowds
+// out almost all of their small box and knocks the chevron off-center.
+.vbo-rdet-avcal-nav {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    padding: 0 !important;
+}
+
+// The check-in/check-out fields are wrapped in their own `.input-group` box
+// (border + padding), and the input inside carries a second border of its
+// own - two nested boxes read as one field with a stray "double border"
+// around it. Make the wrapper the single visual boundary and let the input
+// sit borderless inside it.
+.vbo-search-inpblock .input-group {
+    border: 1px solid $border !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    background-color: $white;
+
+    &:focus-within {
+        border-color: $primary !important;
+    }
+}
+
+input#checkindate,
+input#checkoutdate {
+    border: none !important;
+    border-radius: 0 !important;
+    height: 46px !important;
+    padding: 0 $half-spacing !important;
+    font-family: $primary-font;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.vbo-search-inpblock .vbo-caltrigger {
+    display: flex;
+    align-items: center;
+    padding: 0 $half-spacing;
+}
+
+// The "Adults 1 - 2" / "Total People 2 - 3" range text was wrapping onto
+// two lines in its narrow flex slot ("1 -" / "2"), which read as broken
+// layout rather than a range. Keep it on one line and stop it from being
+// squeezed by its siblings.
+.vbmaxnumberdet {
+    white-space: nowrap !important;
+    flex-shrink: 0;
+}
+
+.vbmaxlabeldet {
+    white-space: nowrap;
+}

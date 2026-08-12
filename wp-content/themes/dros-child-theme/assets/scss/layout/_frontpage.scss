@@ -28,7 +28,16 @@
     display: none !important;
 }
 
-body {
+// Scoped to pages that actually contain the home-sectionN layout (Home,
+// About, The Rooms) - this drives the horizontal-scroll-hijack layout
+// (fixed-position article, hidden overflow, translateX'd entry-content).
+// It must not leak onto pages that don't use that layout (VikBooking's
+// Our Rooms / booking-details pages) - unscoped, or scoped only to the
+// literal front page, it was pinning those pages to a fixed-height
+// viewport and hiding the rest of their content with no way to scroll to
+// it. :has() lets this key off the actual content structure rather than
+// a specific page ID or a hardcoded "this plugin doesn't get it" rule.
+body:has([class*="home-section"]) {
     overflow: hidden;
     background-image: url(../../assets/img/halftone.png);
     background-repeat: repeat;
@@ -106,11 +115,16 @@ body {
     }  
 }
 
-body::-webkit-scrollbar {
+body:has([class*="home-section"])::-webkit-scrollbar {
   display: none;          /* Chrome/Safari */
 }
 
-.entry-content {
+// Scoped to pages that contain home-sectionN content - this whole block is
+// the horizontal-scroll layout (all the home-sectionN rules, image
+// scale/crop treatment, etc.). It was unscoped before, which forced 100vh
+// block heights and a 1.2x scale+crop onto every .wp-block-image on
+// *every* page's .entry-content, not just these.
+body:has([class*="home-section"]) .entry-content {
     // Promote to its own GPU layer up front - this element gets translateX/Y
     // written every rAF frame while scrolling, and without will-change the
     // browser has to re-decide whether to promote it, causing the scroll
@@ -1394,7 +1408,14 @@ body::-webkit-scrollbar {
 }
 
 
+// The progress bar tracks the homepage's fake horizontal scroll - it was
+// unscoped and rendering as a fixed strip at the bottom of every page.
 .progress-bar-wrapper {
+    display: none;
+}
+
+body:has([class*="home-section"]) .progress-bar-wrapper {
+    display: block;
     position: fixed;
     bottom:0;
     left:100px;

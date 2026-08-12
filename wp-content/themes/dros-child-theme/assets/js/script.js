@@ -31,10 +31,20 @@ const ANIM_UNITHEAD_FASTER_SCROLL = 1; /*Math.min(
 let ticking = false;
 let allAnimItemsTriggered = false; // avoid re-scanning animItems every rAF frame once done
 
-$j(function(){	
-    
+$j(function(){
+
 	// Initial mobile check - important put at very top
 		mobileCheck();
+
+	// The fake horizontal-scroll (wheel/touch/keyboard hijack, translateX
+	// animation loop) only makes sense on pages actually built with the
+	// home-sectionN layout (Home, About, The Rooms). Pages without that
+	// structure (VikBooking's Our Rooms / booking-details pages) should
+	// just get native scrolling; several handlers below bail out early via
+	// this flag so they don't hijack wheel/keys/touch there. Keyed off the
+	// content itself rather than a specific page/plugin so it keeps working
+	// if more home-sectionN pages get added later.
+		const isHomePage = $j( '[class*="home-section"]' ).length > 0;
 
 	// Unit Head Texts - Make them same size
 		syncUnitHeadTextWidth();
@@ -138,6 +148,8 @@ $j(function(){
 		}
 
 		$j(window).on('keydown', function (e) {
+			if (!isHomePage) return; // let PageUp/Down/Home/End/arrows behave natively everywhere else (booking forms, etc.)
+
 			const keys = [
 				'PageDown',
 				'PageUp',
@@ -277,8 +289,16 @@ $j(function(){
 		const WHEEL_VELOCITY_STOP = 0.05; // px/frame below which momentum is considered settled
 		const MAX_WHEEL_VELOCITY = 70; // clamp so rapid-fire notches can't runaway-accelerate
 
-		let heroLeft = $j( '.hero' ).position().left;
-		let heroWidth = $j( '.hero' ).width();
+		// `.hero` only exists on the home-sectionN pages. `.position()` on an
+		// empty jQuery set returns `undefined`, so reading `.left` off it threw
+		// here on every other page (booking-details, our-rooms, etc.) - a
+		// synchronous, unguarded throw partway through this top-level ready
+		// callback, which silently aborted ALL of the code after it: the
+		// header "Book" popup handler, keyboard/wheel/touch handlers, and any
+		// other click bindings registered further down the file. Guard it so
+		// pages without a `.hero` just fall back to 0 instead of crashing.
+		let heroLeft = $j( '.hero' ).length ? $j( '.hero' ).position().left : 0;
+		let heroWidth = $j( '.hero' ).width() || 0;
 
 		const $sections = $j('[class*="home-section"]');
 
@@ -692,6 +712,8 @@ $j(function(){
 		// Handle mouse wheel
 			// Desktop Scroll
 			$j( window ).on( 'wheel', function(e) {
+				if ( !isHomePage ) { return; } // native wheel scroll everywhere else
+
 				moveTrigger = 'wheel';
 
 				if ( isMobile() ) { return; } // Native Scroll
@@ -765,6 +787,7 @@ $j(function(){
 			}
 
 			$j( window ).on('scroll', function () {
+				if ( !isHomePage ) return; // nothing to animate on other pages, don't do the work every scroll frame
 				if ( !isMobile() ) return;
 
 				moveTrigger = 'scroll';
@@ -780,9 +803,10 @@ $j(function(){
 			let isTouching = false;
 
 			$j(window).on('touchstart', function(e) {
+				if (!isHomePage) return; // native touch scroll everywhere else
 				if (isMobile()) return;
-				if ($j('body, html').hasClass('is-loading')) return;				
-				
+				if ($j('body, html').hasClass('is-loading')) return;
+
 				const touch = e.originalEvent.touches[0];
 				touchStartX = touch.clientX;
 				touchLastX  = touch.clientX;
@@ -797,6 +821,7 @@ $j(function(){
 			});
 
 			$j(window).on('touchmove', function(e) {
+				if (!isHomePage) return; // native touch scroll everywhere else
 				if (isMobile()) return;
 				if ($j('body, html').hasClass('is-loading')) return;
 
@@ -1078,8 +1103,8 @@ $j(function(){
 				buildImageScalesMobile();
 				buildSectionPositions();				
 
-				heroLeft = $j( '.hero' ).position().left;
-				heroWidth = $j( '.hero' ).width();
+				heroLeft = $j( '.hero' ).length ? $j( '.hero' ).position().left : 0;
+				heroWidth = $j( '.hero' ).width() || 0;
 
 				mobileCheck();
 			});
@@ -1295,15 +1320,10 @@ $j(function(){
 			});
 		}
 
-		$j('body').on('click', 'a.popup, .popup a', function (e) {
-			e.preventDefault();
-
-			const url = $j(this).attr('href');
-
-			$j('#popup-overlay').fadeIn();
+		function loadPopupContent( url ) {
+			$j('.popup-chooser').hide();
 			$j('.popup-content').empty();
 			$j('.popup-loader').show();
-			$j( 'body' ).addClass( 'is-popup-open' );
 
 			$j.ajax({
 				url: HC.ajaxurl,
@@ -1323,28 +1343,86 @@ $j(function(){
 					$j('.popup-content').html('<p>Error loading content.</p>');
 				}
 			});
+		}
+
+		// Clicking "Book" always opens the email/WhatsApp chooser first,
+		// rather than jumping straight to the contact form.
+		$j('body').on('click', 'a.popup, .popup a', function (e) {
+			e.preventDefault();
+
+			$j('#popup-overlay').fadeIn();
+			$j( 'body' ).addClass( 'is-popup-open' );
+			$j('.popup-loader').hide();
+			$j('.popup-content').empty();
+			$j('.popup-chooser').show();
+		});
+
+		// "book via email" swaps the chooser out for the existing contact-form
+		// popup content (same AJAX load as before, just gated behind the
+		// chooser instead of firing immediately).
+		$j('body').on('click', '.popup-choice-email', function (e) {
+			e.preventDefault();
+
+			loadPopupContent( $j(this).attr('href') );
+		});
+
+		// "chat on whatsapp" is a plain link to wa.me and opens in its own tab
+		// via target="_blank" - just close our popup behind it instead of
+		// leaving it sitting open.
+		$j('body').on('click', '.popup-choice-whatsapp', function () {
+			closePopupNow();
 		});
 
 		$j('.popup-close, #popup-overlay').on('click', function (e) {
-			/*f (e.target !== this) return;
-			$j('#popup-overlay').fadeOut();
-			$j( 'body' ).removeClass( 'is-popup-open' );*/
 			closePopup.call(this, e);
 		});
 
 		function closePopup(e) {
 			if (e.target !== this) return;
-			$j('#popup-overlay').fadeOut();
-			$j( 'body' ).removeClass( 'is-popup-open' );
+			resetPopup();
 		}
 
 		function closePopupNow() {
-			$j('#popup-overlay').fadeOut();
-			$j('body').removeClass('is-popup-open');
+			resetPopup();
 		}
 
-		
-}); 
+		// Always leave the popup back at the chooser step when it closes, so
+		// reopening it doesn't show whatever form/content was loaded last time.
+		function resetPopup() {
+			$j('#popup-overlay').fadeOut();
+			$j( 'body' ).removeClass( 'is-popup-open' );
+			$j('.popup-content').empty();
+			$j('.popup-chooser').show();
+		}
+
+	// VikBooking Room Gallery - Hero Image Click
+		// The large "hero" image in the room-details gallery isn't wrapped in a
+		// link like the small thumbnails are, so clicking it does nothing.
+		// Match its filename against the thumbnail hrefs (which point to the
+		// "big_" variant of the same file, prefixed with an attachment id) to
+		// find its index, then reuse VikBooking's own vikfxgallery instance to
+		// open the lightbox at that photo.
+		$j( 'body' ).on( 'click', '.vikfx-gallery-image', function() {
+			if ( typeof window.vikfxgallery === 'undefined' || typeof window.vikfxgallery.open !== 'function' ) return;
+
+			var heroFile = $j( this ).attr( 'src' ).split( '/' ).pop().split( '?' )[0];
+			var $links = $j( this ).closest( '.vikfx-gallery-container' ).find( '.vikfx-gallery a' );
+			var index = 0;
+
+			$links.each( function( i ) {
+				var linkFile = $j( this ).attr( 'href' ).split( '/' ).pop().split( '?' )[0];
+
+				if ( linkFile.slice( -heroFile.length ) === heroFile ) {
+					index = i;
+					return false;
+				}
+			});
+
+			window.vikfxgallery.open( index );
+		});
+
+
+});
 
 $j(document).on('wpcf7mailsent', function () {
 	closePopupNow();

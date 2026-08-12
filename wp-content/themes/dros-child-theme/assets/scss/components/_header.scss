@@ -85,9 +85,16 @@
         }
     }
 
-    .site-header {     
+    .site-header {
         background-color: transparent;
-        position: absolute;
+        // Was `absolute`, which anchors the header (and its full-height nav
+        // overlay) to the document rather than the viewport. Pages with
+        // native scroll (e.g. VikBooking pages) would scroll the header
+        // away instead of keeping it pinned, cutting the open nav overlay
+        // off partway down. `fixed` keeps it pinned to the viewport on any
+        // page, scrollable or not - matching the $ipad breakpoint below,
+        // which already uses `fixed` for the same reason.
+        position: fixed;
         /*width: min( calc( 100vw + 100px - 40px  ), 600px );*/
         width: 100px;
         height:100vh;
