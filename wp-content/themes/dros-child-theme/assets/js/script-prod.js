@@ -1398,31 +1398,120 @@ $j(function(){
 	// VikBooking Room Gallery - Hero Image Click
 		// The large "hero" image in the room-details gallery isn't wrapped in a
 		// link like the small thumbnails are, so clicking it does nothing.
-		// Match its filename against the thumbnail hrefs (which point to the
-		// "big_" variant of the same file, prefixed with an attachment id) to
-		// find its index, then reuse VikBooking's own vikfxgallery instance to
-		// open the lightbox at that photo.
+		// Rather than reimplementing VikBooking's own lightbox-opening logic
+		// (which didn't reliably work when driven programmatically), just
+		// forward the click to its real "All photos" trigger - the hero image
+		// is always the first photo, so this opens the lightbox in the right
+		// spot using VikBooking's own click handling.
 		$j( 'body' ).on( 'click', '.vikfx-gallery-image', function() {
-			if ( typeof window.vikfxgallery === 'undefined' || typeof window.vikfxgallery.open !== 'function' ) return;
+			var openTrigger = $j( this ).closest( '.vikfx-gallery-container' ).find( '.vikfx-gallery-open' )[0];
 
-			var heroFile = $j( this ).attr( 'src' ).split( '/' ).pop().split( '?' )[0];
-			var $links = $j( this ).closest( '.vikfx-gallery-container' ).find( '.vikfx-gallery a' );
-			var index = 0;
-
-			$links.each( function( i ) {
-				var linkFile = $j( this ).attr( 'href' ).split( '/' ).pop().split( '?' )[0];
-
-				if ( linkFile.slice( -heroFile.length ) === heroFile ) {
-					index = i;
-					return false;
-				}
-			});
-
-			window.vikfxgallery.open( index );
+			if ( openTrigger ) {
+				openTrigger.click();
+			}
 		});
 
+	// VikBooking Booking Options Step - Simplify Header
+		// The showprc step (last step before "Book Now") still shows the full
+		// "Dates > Rooms > Options > Book" progress tracker, duplicating context
+		// the guest already knows by this point. Swap it for a plain title,
+		// matching the treatment used on every other VikBooking page (styled in
+		// _vikbooking.scss, which also hides the tracker itself).
+		var vboShowprcHead = document.querySelector( '.vbo-showprc-head-wrapper' );
 
-}); 
+		if ( vboShowprcHead && !document.querySelector( '.vbo-showprc-title' ) ) {
+			var vboShowprcTitle = document.createElement( 'h1' );
+			vboShowprcTitle.className = 'vbo-showprc-title';
+			vboShowprcTitle.textContent = 'Booking Summary';
+			vboShowprcHead.parentNode.insertBefore( vboShowprcTitle, vboShowprcHead );
+		}
+
+	// VikBooking Booking Summary - Inline Gallery Slider
+		// The compact room photo box's prev/next arrows are wired by VikBooking
+		// to open the full lightbox (they directly call
+		// window.vikfxgallery1.open(), same as clicking the photo), leaving no
+		// way to actually browse the room's photos without leaving the compact
+		// view. Intercept clicks in the capture phase - before VikBooking's own
+		// handler, bound directly on the arrow, gets a chance to run - and swap
+		// the small preview image to the next/previous photo instead. Clicking
+		// the photo itself still opens the full lightbox (this page has no
+		// separate `.vikfx-gallery-open` trigger for it, unlike the other
+		// galleries, so that's handled here too), now navigated to whichever
+		// photo is currently showing rather than always the first.
+		document.addEventListener( 'click', function( e ) {
+			var arrow = e.target.closest( '.vikfx-showprc-gallery-container .vikfx-gallery-next-image, .vikfx-showprc-gallery-container .vikfx-gallery-previous-image' );
+			var galleryImage = e.target.closest( '.vikfx-showprc-gallery-container .vikfx-gallery-image' );
+
+			if ( !arrow && !galleryImage ) {
+				return;
+			}
+
+			var gallery = window.vikfxgallery1;
+			var fadeContainer = ( arrow || galleryImage ).closest( '.vikfx-gallery-fade-container' );
+			var img = fadeContainer ? fadeContainer.querySelector( '.vikfx-gallery-image' ) : null;
+
+			if ( !gallery || !img || !gallery.length ) {
+				return;
+			}
+
+			// Each room photo's filename (e.g. "20260407_163750_img_8095.jpg")
+			// is shared between the small preview image's src and the matching
+			// full-size lightbox link's href (just under a different path/
+			// prefix) - use it to find which of the gallery's photos is
+			// currently showing.
+			var filenamePattern = /\d{8}_\d{6}_img_\d+\.\w+$/;
+			var currentMatch = img.src.match( filenamePattern );
+
+			if ( !currentMatch ) {
+				return;
+			}
+
+			var currentIndex = -1;
+
+			for ( var i = 0; i < gallery.length; i++ ) {
+				var href = gallery[ i ].getAttribute( 'href' ) || '';
+
+				if ( href.indexOf( currentMatch[ 0 ] ) !== -1 ) {
+					currentIndex = i;
+					break;
+				}
+			}
+
+			if ( currentIndex === -1 ) {
+				return;
+			}
+
+			e.preventDefault();
+			e.stopPropagation();
+
+			if ( arrow ) {
+				var isNext = arrow.classList.contains( 'vikfx-gallery-next-image' );
+				var nextIndex = ( currentIndex + ( isNext ? 1 : -1 ) + gallery.length ) % gallery.length;
+				var nextHref = gallery[ nextIndex ].getAttribute( 'href' ) || '';
+				var nextMatch = nextHref.match( filenamePattern );
+
+				if ( nextMatch ) {
+					img.src = img.src.replace( filenamePattern, nextMatch[ 0 ] );
+				}
+			} else {
+				gallery[ currentIndex ].click();
+			}
+		}, true );
+
+	// VikBooking Booking Confirmation Step - Add Title
+		// Same treatment as the Booking Summary step - this page also still
+		// shows the (hidden) step tracker's wrapper with nothing in its place,
+		// so add a plain title above the order summary.
+		var vboOconfirmWrapper = document.querySelector( '.vbo-oconfirm-wrapper' );
+
+		if ( vboOconfirmWrapper && !document.querySelector( '.vbo-oconfirm-title' ) ) {
+			var vboOconfirmTitle = document.createElement( 'h1' );
+			vboOconfirmTitle.className = 'vbo-oconfirm-title';
+			vboOconfirmTitle.textContent = 'Confirm Your Booking';
+			vboOconfirmWrapper.parentNode.insertBefore( vboOconfirmTitle, vboOconfirmWrapper );
+		}
+
+});
 
 $j(document).on('wpcf7mailsent', function () {
 	closePopupNow();

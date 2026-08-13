@@ -51,6 +51,12 @@
     padding: 8px 24px !important;
     font-family: $primary-font !important;
     transition: all 0.6s ease 0s !important;
+    // Several of these ("Book Now" on the price/checkout pages) are
+    // `<input type="submit">` rather than a real button - browsers give
+    // those native OS chrome (rounded corners, etc.) that silently
+    // overrides border-radius unless appearance is reset first.
+    -webkit-appearance: none;
+    appearance: none;
 }
 
 // VikBooking's markup (room listing, booking-details) isn't wrapped in a
@@ -73,14 +79,10 @@
 /*
  * Room listing cards (/our-rooms/)
  *
- * Kept as a card grid rather than folding into the site's horizontal-scroll
- * home-sectionN layout - that pattern is built for one immersive, full-bleed
- * section at a time (right for a homepage/story page), whereas a room list
- * is a comparison task where guests want to scan and compare several rooms
- * quickly. VikBooking also renders its own responsive grid here; fighting
- * that to force it into home-sectionN sections would be fragile. Instead
- * the existing 2-up grid gets a proper card treatment to match the rest of
- * the site.
+ * Kept as a simple wrapping grid so every room is visible at once, rather
+ * than a horizontal-scroll carousel - that was tried and reverted (visual
+ * clipping against the 1000px .plugin-container, and scroll interaction
+ * issues), so back to the plain, always-fully-visible card grid.
  */
 ul.vblist {
     row-gap: $double-spacing;
@@ -352,4 +354,294 @@ input#checkoutdate {
 
 .vbmaxlabeldet {
     white-space: nowrap;
+}
+
+/*
+ * Booking price/options confirmation page
+ * (/booking-details/?task=showprc... - reached after picking dates and
+ * clicking "Book" on a room). Same treatment as the rest of the plugin:
+ * darken the near-invisible default borders, flatten the rounded corners
+ * to match the site's flat card language, and fix the controls that were
+ * still using unstyled browser defaults.
+ */
+
+// The step tracker sits flush against the very top of the page, same issue
+// fixed on the room-details title and /our-rooms/ heading.
+.vbo-showprc-head-wrapper {
+    padding-top: $double-spacing;
+
+    @media( max-width:$sm ) {
+        padding-top: $spacing;
+    }
+}
+
+// No outer border/shadow here - it sat only ~20px above the price entry's
+// own border below, and above the Back/Book Now row, reading as a stray
+// "double border" floating in the content rather than a real container.
+.vbo-showprc-room-block {
+    border: none !important;
+    box-shadow: none !important;
+    padding: $spacing;
+
+    @media( max-width:$sm ) {
+        padding: $half-spacing;
+    }
+}
+
+// The "Dates > Rooms > Options > Book" progress tracker duplicates context
+// the guest already knows at this final step - script.js swaps it for a
+// plain title (same treatment as every other VikBooking page here) and this
+// hides the tracker itself. Only appears within the booking flow, so it's
+// safe to hide sitewide rather than scope per step.
+.vbstepsbarcont {
+    display: none;
+}
+
+// Sized to match the h3 VikBooking already uses for the room title itself
+// (.vblistroomnamediv on the room-details step, e.g. "Deluxe Ocean View") -
+// h1 read comically oversized next to everything else on this page.
+.vbo-showprc-title {
+    @include font(h3);
+    color: $heading;
+    font-weight: 700;
+    font-family: $primary-font;
+    margin: 0;
+    padding: $double-spacing 0 $spacing 0;
+    border-bottom: 1px solid rgba($black, 0.1);
+
+    @media( max-width:$sm ) {
+        padding-top: $spacing;
+    }
+}
+
+// Now that this page has its own "Booking Summary" title above, the room
+// name below it ("Deluxe Ocean View") reads as a duplicate heading at the
+// same h3 size - demote it to h4 so the page title stays the primary
+// heading. Scoped to `.vbo-showprc-roomname` (this step only) so the plain
+// booking-details/room-details view - where this room name IS the page's
+// only heading - keeps its current h3 size.
+.vbo-showprc-roomname h3 {
+    @include font(h4);
+}
+
+// The Nights/Adults/Check-in/Check-out summary was four plain icon+label+
+// value stacks floating directly on the page background, with the label and
+// value both bold and close in size - no clear hierarchy, reading as
+// cluttered. A solid white fill here read as an odd extra box competing with
+// the room card below it, so drop it and just keep a single bottom divider;
+// VikBooking's own `justify-content:center` was also clustering the four
+// figures in the middle of the row instead of using the full width, so
+// spread them out instead.
+.vbo-results-head-showprc {
+    background-color: transparent;
+    border: none !important;
+    border-bottom: 1px solid rgba($black, 0.1) !important;
+    justify-content: space-between !important;
+    padding: 0 0 $spacing 0 !important;
+    margin-bottom: $spacing;
+    flex-wrap: wrap;
+}
+
+.vbo-results-nights,
+.vbo-results-numadults,
+.vbcheckinroom,
+.vbcheckoutroom {
+    display: flex !important;
+    align-items: center;
+    border-right: 1px solid rgba($black, 0.1);
+
+    &:last-child {
+        border-right: none;
+    }
+
+    @media( max-width:$sm ) {
+        flex: 1 1 50%;
+        border-right: none;
+        margin-bottom: $half-spacing;
+    }
+}
+
+.vbo-results-head-det {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 2px;
+}
+
+.vbo-results-head-det-lbl {
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    color: $dark !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.vbo-results-head-det-val {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    color: $heading !important;
+}
+
+// The small "2 Adults" occupancy note above the room title sits inside a
+// wrapper that stretches full-width with a near-invisible top/bottom
+// border and no padding - reads as a stray, mostly-empty box rather than
+// a label. Drop the border and shrink it to its own content instead, with
+// a bit of padding so the icon/text aren't flush against the edge.
+.vbo-showprc-room-head {
+    display: inline-block;
+    border: none !important;
+    margin: 0 0 $half-spacing 0 !important;
+}
+
+.vbo-showprc-staydetails {
+    padding: 4px 0 !important;
+}
+
+// The rate option ("Standard Rate $800") - same near-invisible border color
+// as elsewhere, rounded corners that don't match the site's flat buttons/
+// cards, and no horizontal padding so the label/price sit flush against the
+// box edges.
+.vbo-showprc-price-entry {
+    border-color: rgba($black, 0.1) !important;
+    border-radius: 0 !important;
+    padding-left: $spacing !important;
+    padding-right: $spacing !important;
+
+    @media( max-width:$sm ) {
+        padding-left: $half-spacing !important;
+        padding-right: $half-spacing !important;
+    }
+}
+
+// Native, unstyled browser radio - recolor to brand and size it up slightly
+// so it reads clearly as a selectable option rather than a stray dot.
+input.vbo-radio {
+    accent-color: $primary;
+    width: 18px;
+    height: 18px;
+}
+
+// "Back" link/button - carries VikBooking's "-secondary" variant class,
+// which isn't covered by .vbo-pref-color-btn above, so it was falling back
+// to a plain bordered box with rounded corners. Give it the same flat,
+// brand-colored outline treatment as the rest of the site's secondary
+// actions.
+// VikBooking's own hover state sets background-color to the brand primary
+// (via --vbo-pref-bgcolor) but leaves text color following our non-hover
+// override - primary-on-primary, so the label visually disappears. Force a
+// white label to match the now-solid primary background instead of just
+// re-tinting the border/text like the rest of the site's outline buttons.
+.vbo-pref-color-btn-secondary {
+    border-radius: 0 !important;
+    border-color: $border !important;
+    color: $foreground !important;
+    font-family: $primary-font !important;
+    transition: all 0.3s ease !important;
+
+    &:hover,
+    &:focus {
+        border-color: $primary !important;
+        color: $white !important;
+    }
+}
+
+// The checkout page's own inline image slider reuses the same prevnext
+// controls as the main gallery, but here they're still visible (this
+// slider has no separate lightbox to defer to) and inherit an odd
+// non-square box that pushes the chevron off-center - center it properly.
+// They also inherited `pointer-events:none` from the
+// `.vikfx-gallery-navigation-controls` rule above (added so the hero image
+// click-to-open-lightbox works on booking-details, where this same wrapper
+// has no visible controls to click) - re-enable clicks here since on this
+// page the arrows are the only way to move the slider.
+.vikfx-gallery-previous-image,
+.vikfx-gallery-next-image {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    padding: 0 !important;
+    width: 44px !important;
+    height: 44px !important;
+    pointer-events: auto !important;
+}
+
+/*
+ * Booking confirmation / checkout page
+ * (/booking-details/?task=oconfirm - reached after clicking "Book Now" on
+ * the summary step). Same treatment as the rest of the plugin: a plain
+ * title in place of the (already hidden) step tracker, the same spread-out
+ * summary row as the showprc page, flattened corners, and a couple of
+ * near-invisible/leftover borders cleaned up.
+ */
+.vbo-oconfirm-title {
+    @include font(h3);
+    color: $heading;
+    font-weight: 700;
+    font-family: $primary-font;
+    margin: 0;
+    padding: $double-spacing 0 $spacing 0;
+    border-bottom: 1px solid rgba($black, 0.1);
+
+    @media( max-width:$sm ) {
+        padding-top: $spacing;
+    }
+}
+
+.vbo-oconfirm-wrapper {
+    padding-top: $spacing;
+}
+
+// Same spread-out, no-fill treatment as the showprc page's summary row -
+// both pages share the .vbo-results-nights/.vbo-results-numadults classes,
+// this page just uses .vbo-summary-date instead of .vbcheckinroom/
+// .vbcheckoutroom for the two date columns.
+.vbo-results-head-oconfirm {
+    background-color: transparent;
+    border: none !important;
+    border-bottom: 1px solid rgba($black, 0.1) !important;
+    justify-content: space-between !important;
+    padding: 0 0 $spacing 0 !important;
+    margin-bottom: $spacing;
+    flex-wrap: wrap;
+}
+
+.vbo-summary-date {
+    display: flex !important;
+    align-items: center;
+    border-right: 1px solid rgba($black, 0.1);
+
+    &:last-child {
+        border-right: none;
+    }
+
+    @media( max-width:$sm ) {
+        flex: 1 1 50%;
+        border-right: none;
+        margin-bottom: $half-spacing;
+    }
+}
+
+// The order summary's total row already has a brand-colored divider along
+// its top - VikBooking pairs that with a second, near-invisible #eee
+// divider along the bottom, which (with nothing below this row) just reads
+// as a stray leftover line. Keep only the top divider.
+.vbo-oconfirm-summary-total-wrapper {
+    border-bottom: none !important;
+}
+
+// The "Credit Card" payment option kept VikBooking's default rounded
+// corners, which don't match the flat card language used everywhere else
+// on the site, plus a near-invisible default border on its outer wrapper.
+.vbo-oconfirm-paymethod-item {
+    border-radius: 0 !important;
+}
+
+.vbo-oconfirm-paymentopts {
+    border-color: rgba($black, 0.1) !important;
+}
+
+// Native browser checkbox ("I agree to the terms and conditions") -
+// recolor to brand, matching the rate-option radio buttons on the previous
+// step.
+.vbo-oconfirm-cfield-input input[type="checkbox"] {
+    accent-color: $primary;
 }
