@@ -1511,6 +1511,201 @@ $j(function(){
 			vboOconfirmWrapper.parentNode.insertBefore( vboOconfirmTitle, vboOconfirmWrapper );
 		}
 
+	// VikBooking Room Details - Extra Bed Note
+		// Let guests know upfront (before they even start a booking) that an
+		// extra bed is available as a checkout add-on, since the max-people
+		// badges above only describe the base room capacity.
+		var vboMaxPeopleBlock = document.querySelector( '.vbmaxminpeopleroom' );
+
+		if ( vboMaxPeopleBlock && !document.querySelector( '.vbo-extrabed-note' ) ) {
+			var vboExtraBedNote = document.createElement( 'p' );
+			vboExtraBedNote.className = 'vbo-extrabed-note';
+			vboExtraBedNote.textContent = 'Up to one extra bed may be added during checkout once the maximum room occupancy has been selected.';
+			vboMaxPeopleBlock.insertAdjacentElement( 'afterend', vboExtraBedNote );
+		}
+
+	// VikBooking Booking Summary - Extra Bed / Breakfast Add-ons
+		// Two related rules for the Options step:
+		// 1. Extra Bed only makes sense once the room is already booked at its
+		//    normal max adult occupancy - below that, guests should just book
+		//    more adults in the search instead of adding a bed. The room's own
+		//    max-adults figure isn't sent to this page, so fetch it from the
+		//    room's own details page (same one linked from /our-rooms/) and
+		//    compare against the adults actually booked here. Extra Bed is
+		//    hidden entirely (not just disabled) until that's true.
+		// 2. Additional Breakfast only makes sense for whoever is using that
+		//    extra bed, and that's a single guest, so the three separate
+		//    checkboxes are replaced with one combined "Additional Breakfast"
+		//    entry offering a single choice (including "No Breakfast") that
+		//    drives the real optid12/13/14 checkboxes behind the scenes -
+		//    VikBooking still only ever sees at most one of them checked for
+		//    its own price calculation. The combined entry is hidden entirely
+		//    until an extra bed is actually added.
+		var vboExtraBedSelect = document.querySelector( 'select[name="optid11"]' );
+		var vboBreakfastCheckboxes = document.querySelectorAll( 'input[name="optid12"], input[name="optid13"], input[name="optid14"]' );
+
+		if ( vboExtraBedSelect && vboBreakfastCheckboxes.length ) {
+			var vboBreakfastLabels = {
+				optid12: 'Under 7 years old',
+				optid13: '8-12',
+				optid14: '13+'
+			};
+
+			var vboBreakfastCombined = document.createElement( 'div' );
+			vboBreakfastCombined.className = 'vbo-showprc-option-entry vbo-breakfast-combined';
+
+			var vboBreakfastCombinedName = document.createElement( 'div' );
+			vboBreakfastCombinedName.className = 'vbo-showprc-option-entry-name';
+			vboBreakfastCombinedName.textContent = 'Additional Breakfast';
+			vboBreakfastCombined.appendChild( vboBreakfastCombinedName );
+
+			var vboBreakfastList = document.createElement( 'div' );
+			vboBreakfastList.className = 'vbo-breakfast-combined-list';
+			vboBreakfastCombined.appendChild( vboBreakfastList );
+
+			var vboBreakfastRadios = [];
+			var vboAnyBreakfastChecked = [].some.call( vboBreakfastCheckboxes, function( cb ) { return cb.checked; } );
+
+			var vboMakeBreakfastOption = function( label, cb, cost ) {
+				var item = document.createElement( 'label' );
+				item.className = 'vbo-breakfast-combined-item';
+
+				var radio = document.createElement( 'input' );
+				radio.type = 'radio';
+				radio.name = 'vbo-breakfast-choice';
+				radio.className = 'vbo-breakfast-radio';
+				radio.checked = cb ? cb.checked : !vboAnyBreakfastChecked;
+
+				var labelText = document.createElement( 'span' );
+				labelText.className = 'vbo-breakfast-combined-label';
+				labelText.textContent = label;
+
+				item.appendChild( radio );
+				item.appendChild( labelText );
+
+				if ( cost ) {
+					var priceText = document.createElement( 'span' );
+					priceText.className = 'vbo-breakfast-combined-price';
+					priceText.textContent = cost;
+					item.appendChild( priceText );
+				}
+
+				radio.addEventListener( 'change', function() {
+					if ( !radio.checked ) {
+						return;
+					}
+
+					vboBreakfastCheckboxes.forEach( function( other ) {
+						var shouldCheck = ( other === cb );
+
+						if ( other.checked !== shouldCheck ) {
+							other.checked = shouldCheck;
+							other.dispatchEvent( new Event( 'change', { bubbles: true } ) );
+						}
+					});
+				});
+
+				vboBreakfastRadios.push( radio );
+				vboBreakfastList.appendChild( item );
+			};
+
+			vboMakeBreakfastOption( 'No Breakfast', null, null );
+
+			vboBreakfastCheckboxes.forEach( function( cb ) {
+				var entry = cb.closest( '.vbo-showprc-option-entry' );
+				var costEl = entry ? entry.querySelector( '.vbo-showprc-option-entry-cost' ) : null;
+				var cost = costEl ? costEl.textContent.replace( /\s+/g, ' ' ).trim() : null;
+
+				vboMakeBreakfastOption( vboBreakfastLabels[ cb.name ] || cb.name, cb, cost );
+
+				if ( entry ) {
+					entry.style.display = 'none';
+				}
+			});
+
+			var vboFirstBreakfastEntry = vboBreakfastCheckboxes[ 0 ].closest( '.vbo-showprc-option-entry' );
+
+			if ( vboFirstBreakfastEntry ) {
+				vboFirstBreakfastEntry.insertAdjacentElement( 'afterend', vboBreakfastCombined );
+			}
+
+			var vboUpdateBreakfastState = function() {
+				var extraBedActive = parseInt( vboExtraBedSelect.value, 10 ) > 0 && !vboExtraBedSelect.disabled;
+
+				vboBreakfastCombined.style.display = extraBedActive ? '' : 'none';
+
+				vboBreakfastCheckboxes.forEach( function( cb ) {
+					cb.disabled = !extraBedActive;
+				});
+
+				vboBreakfastRadios.forEach( function( radio ) {
+					radio.disabled = !extraBedActive;
+				});
+
+				if ( !extraBedActive ) {
+					vboBreakfastCheckboxes.forEach( function( cb ) {
+						if ( cb.checked ) {
+							cb.checked = false;
+							cb.dispatchEvent( new Event( 'change', { bubbles: true } ) );
+						}
+					});
+
+					vboBreakfastRadios.forEach( function( radio, idx ) {
+						radio.checked = ( idx === 0 );
+					});
+				}
+			};
+
+			vboExtraBedSelect.addEventListener( 'change', vboUpdateBreakfastState );
+			vboUpdateBreakfastState();
+
+			var vboRoomIdInput = document.querySelector( 'input[name="roomid[]"]' );
+			var vboAdultsInput = document.querySelector( 'input[name="adults[]"]' );
+
+			if ( vboRoomIdInput && vboAdultsInput ) {
+				var vboBookedAdults = parseInt( vboAdultsInput.value, 10 );
+
+				fetch( '/booking-details/?roomid=' + vboRoomIdInput.value, { credentials: 'same-origin' } )
+					.then( function( res ) { return res.text(); } )
+					.then( function( html ) {
+						var doc = new DOMParser().parseFromString( html, 'text/html' );
+						var maxEl = doc.querySelector( '.vbmaxadultsdet .vbmaxnumberdet' );
+
+						if ( !maxEl ) {
+							return;
+						}
+
+						var maxMatch = maxEl.textContent.match( /(\d+)\s*$/ );
+
+						if ( !maxMatch ) {
+							return;
+						}
+
+						var maxAdults = parseInt( maxMatch[ 1 ], 10 );
+
+						if ( isNaN( vboBookedAdults ) || isNaN( maxAdults ) || vboBookedAdults >= maxAdults ) {
+							return;
+						}
+
+						var extraBedEntry = vboExtraBedSelect.closest( '.vbo-showprc-option-entry' );
+
+						vboExtraBedSelect.disabled = true;
+						vboExtraBedSelect.value = '0';
+						vboExtraBedSelect.dispatchEvent( new Event( 'change', { bubbles: true } ) );
+
+						if ( extraBedEntry ) {
+							extraBedEntry.style.display = 'none';
+						}
+
+						vboUpdateBreakfastState();
+					})
+					.catch( function() {
+						// If the capacity check fails for any reason, leave Extra
+						// Bed purchasable rather than silently breaking the option.
+					});
+			}
+		}
+
 });
 
 $j(document).on('wpcf7mailsent', function () {

@@ -119,12 +119,6 @@ body:not(.wp-admin) {
   font-family: "Gazpacho";
   font-size: 28px;
   line-height: 1.8;
-  color: #333333;
-  background-color: #ece5d5;
-  -ms-touch-action: none;
-      touch-action: none;
-  -ms-scroll-chaining: none;
-      overscroll-behavior: none;
 }
 @media (max-width: 1365px) {
   body:not(.wp-admin) {
@@ -143,6 +137,14 @@ body:not(.wp-admin) {
     font-size: 22px;
     line-height: 38px;
   }
+}
+body:not(.wp-admin) {
+  color: #333333;
+  background-color: #ece5d5;
+  -ms-touch-action: none;
+      touch-action: none;
+  -ms-scroll-chaining: none;
+      overscroll-behavior: none;
 }
 body:not(.wp-admin).is-popup-open {
   overflow: hidden;
@@ -372,7 +374,6 @@ p,
 .has-paragraph-font-size {
   font-size: 28px;
   line-height: 1.8;
-  margin-bottom: 25px;
 }
 @media (max-width: 1365px) {
   p,
@@ -395,6 +396,10 @@ p,
     line-height: 38px;
   }
 }
+p,
+.has-paragraph-font-size {
+  margin-bottom: 25px;
+}
 @media (max-width: 767px) {
   p,
   .has-paragraph-font-size {
@@ -405,7 +410,6 @@ p,
 .has-body-big-font-size {
   font-size: 38px;
   line-height: 1.6;
-  margin-bottom: 25px;
 }
 @media (max-width: 1365px) {
   .has-body-big-font-size {
@@ -425,6 +429,9 @@ p,
     line-height: 40px;
   }
 }
+.has-body-big-font-size {
+  margin-bottom: 25px;
+}
 @media (max-width: 767px) {
   .has-body-big-font-size {
     margin-bottom: 8px;
@@ -434,7 +441,6 @@ p,
 .has-body-jumbo-font-size {
   font-size: 48px;
   line-height: 1.6;
-  margin-bottom: 25px;
 }
 @media (max-width: 1365px) {
   .has-body-jumbo-font-size {
@@ -454,6 +460,9 @@ p,
     line-height: 44px;
   }
 }
+.has-body-jumbo-font-size {
+  margin-bottom: 25px;
+}
 @media (max-width: 767px) {
   .has-body-jumbo-font-size {
     margin-bottom: 8px;
@@ -463,7 +472,6 @@ p,
 .has-body-small-font-size {
   font-size: 20px;
   line-height: 1.8;
-  margin-bottom: 25px;
 }
 @media (max-width: 1365px) {
   .has-body-small-font-size {
@@ -482,6 +490,9 @@ p,
     font-size: 18px;
     line-height: 28px;
   }
+}
+.has-body-small-font-size {
+  margin-bottom: 25px;
 }
 @media (max-width: 767px) {
   .has-body-small-font-size {
@@ -969,7 +980,6 @@ table {
   max-width: min(var(--vw) - 50px, 1440px);
   margin-left: auto;
   margin-right: auto;
-  width: 100%;
 }
 @media (max-width: 767px) {
   .container,
@@ -978,41 +988,52 @@ table {
     max-width: min(var(--vw) - 32px, 1440px);
   }
 }
+.container,
+.grid-container,
+.entry-container > * {
+  width: 100%;
+}
 
 .wide-container {
   max-width: calc(var(--vw) - 60px);
   margin-left: auto;
   margin-right: auto;
-  width: 100%;
 }
 @media (max-width: 767px) {
   .wide-container {
     max-width: calc(var(--vw) - 32px);
   }
 }
+.wide-container {
+  width: 100%;
+}
 
 .slim-container {
   max-width: min(var(--vw) - 50px, 900px);
   margin-left: auto;
   margin-right: auto;
-  width: 100%;
 }
 @media (max-width: 767px) {
   .slim-container {
     max-width: min(var(--vw) - 32px, 900px);
   }
 }
+.slim-container {
+  width: 100%;
+}
 
 .slimmer-container {
   max-width: min(var(--vw) - 50px, 620px);
   margin-left: auto;
   margin-right: auto;
-  width: 100%;
 }
 @media (max-width: 767px) {
   .slimmer-container {
     max-width: min(var(--vw) - 32px, 620px);
   }
+}
+.slimmer-container {
+  width: 100%;
 }
 
 /* Gutenberg Colors */
@@ -1493,15 +1514,17 @@ body.transparent-header .site-header {
 }
 .site-header .inside-header .floating-header .site-logo {
   max-width: 400px;
-  /*@media( max-width:$md ) {
-      margin:0;
-      flex:1;
-  }*/
 }
 @media (max-width: 1024px) {
   .site-header .inside-header .floating-header .site-logo {
     display: none;
   }
+}
+.site-header .inside-header .floating-header .site-logo {
+  /*@media( max-width:$md ) {
+      margin:0;
+      flex:1;
+  }*/
 }
 .site-header .inside-header .floating-header #mobile-menu-control-wrapper {
   background-color: transparent;
@@ -1560,15 +1583,6 @@ body.transparent-header .site-header {
       -ms-flex-pack: center;
           justify-content: center;
   cursor: pointer;
-  /* Stylized Burger Icon */
-  background-color: transparent;
-  line-height: 21px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  padding: 15px;
-  border: none;
-  border-radius: 0;
 }
 @media (max-width: 1024px) {
   .site-header .inside-header .floating-header #mobile-menu-control-wrapper .menu-toggle {
@@ -1603,6 +1617,17 @@ body.transparent-header .site-header {
 }
 .site-header .inside-header .floating-header #mobile-menu-control-wrapper .menu-toggle:hover .gp-icon svg {
   fill: #bb4d09;
+}
+.site-header .inside-header .floating-header #mobile-menu-control-wrapper .menu-toggle {
+  /* Stylized Burger Icon */
+  background-color: transparent;
+  line-height: 21px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 15px;
+  border: none;
+  border-radius: 0;
 }
 @media (max-width: 1024px) {
   .site-header .inside-header .floating-header #mobile-menu-control-wrapper .menu-toggle {
@@ -1666,8 +1691,6 @@ body.transparent-header .site-header {
 .site-header .inside-header .floating-header > a {
   font-size: 20px;
   line-height: 1.8;
-  font-weight: bold;
-  text-align: center;
 }
 @media (max-width: 1365px) {
   .site-header .inside-header .floating-header > a {
@@ -1686,6 +1709,10 @@ body.transparent-header .site-header {
     font-size: 18px;
     line-height: 28px;
   }
+}
+.site-header .inside-header .floating-header > a {
+  font-weight: bold;
+  text-align: center;
 }
 @media (max-width: 1024px) {
   .site-header .inside-header .floating-header > a {
@@ -1714,6 +1741,16 @@ body.transparent-header .site-header {
   -webkit-box-shadow: 0 5px 10px rgba(102, 59, 32, 0.9);
           box-shadow: 0 5px 10px rgba(102, 59, 32, 0.9);
   opacity: 1; /* 0 */
+}
+@media (max-width: 1024px) {
+  .site-header .inside-header #site-navigation.main-navigation {
+    position: fixed;
+    left: calc((100vw + 50px) * -1);
+    width: 100vw;
+    padding: 25px;
+  }
+}
+.site-header .inside-header #site-navigation.main-navigation {
   /*&:not(.toggled) {
 
       .main-nav {
@@ -1737,14 +1774,6 @@ body.transparent-header .site-header {
   @media( max-width:$md ) {
       flex-basis: 100%;
   }*/
-}
-@media (max-width: 1024px) {
-  .site-header .inside-header #site-navigation.main-navigation {
-    position: fixed;
-    left: calc((100vw + 50px) * -1);
-    width: 100vw;
-    padding: 25px;
-  }
 }
 .site-header .inside-header #site-navigation.main-navigation .inside-navigation {
   max-width: 100%;
@@ -1819,8 +1848,6 @@ body.transparent-header .site-header {
   padding: 0;
   font-size: 24px;
   line-height: 34px;
-  font-weight: bold;
-  text-align: center;
 }
 @media (max-width: 1365px) {
   .site-header .inside-header #site-navigation.main-navigation .inside-navigation #primary-menu.main-nav ul li a {
@@ -1839,6 +1866,10 @@ body.transparent-header .site-header {
     font-size: 20px;
     line-height: 30px;
   }
+}
+.site-header .inside-header #site-navigation.main-navigation .inside-navigation #primary-menu.main-nav ul li a {
+  font-weight: bold;
+  text-align: center;
 }
 .site-header .inside-header #site-navigation.main-navigation .inside-navigation #primary-menu.main-nav ul li a:hover, .site-header .inside-header #site-navigation.main-navigation .inside-navigation #primary-menu.main-nav ul li a:focus {
   color: #bb4d09;
@@ -1906,16 +1937,6 @@ body.transparent-header .site-header {
   content: "";
   font-size: 18px;
   line-height: 28px;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
-  -webkit-mask-size: 30px 30px;
-  mask-size: 30px 30px;
-  width: 30px;
-  height: 30px;
-  display: block;
-  background-color: #222222;
 }
 @media (max-width: 1365px) {
   .site-header .inside-header #site-navigation.main-navigation .inside-navigation #primary-menu.main-nav ul li.menu-cart a:after, .site-header .inside-header #site-navigation.main-navigation .inside-navigation #primary-menu.main-nav ul li.menu-myaccount a:after {
@@ -1934,6 +1955,18 @@ body.transparent-header .site-header {
     font-size: 16px;
     line-height: 26px;
   }
+}
+.site-header .inside-header #site-navigation.main-navigation .inside-navigation #primary-menu.main-nav ul li.menu-cart a:after, .site-header .inside-header #site-navigation.main-navigation .inside-navigation #primary-menu.main-nav ul li.menu-myaccount a:after {
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: 30px 30px;
+  mask-size: 30px 30px;
+  width: 30px;
+  height: 30px;
+  display: block;
+  background-color: #222222;
 }
 .site-header .inside-header #site-navigation.main-navigation .inside-navigation #primary-menu.main-nav ul li.menu-cart a:after {
   -webkit-mask-image: url(../../assets/img/cart.svg);
@@ -2203,7 +2236,6 @@ body.transparent-header .site-header {
 .popinfo-overlay .popinfo-wrapper .popinfo-inner {
   font-size: 14px;
   line-height: 24px;
-  line-height: 1.4;
 }
 @media (max-width: 1365px) {
   .popinfo-overlay .popinfo-wrapper .popinfo-inner {
@@ -2222,6 +2254,9 @@ body.transparent-header .site-header {
     font-size: 14px;
     line-height: 24px;
   }
+}
+.popinfo-overlay .popinfo-wrapper .popinfo-inner {
+  line-height: 1.4;
 }
 .popinfo-overlay .popinfo-wrapper .popinfo-inner > *:last-child {
   margin: 0;
@@ -2326,6 +2361,7 @@ body.transparent-header .site-header {
   border: 1px solid #dddddd;
 }
 
+/* Popup chooser (WhatsApp / Email) */
 .popup-chooser {
   padding: 50px 25px;
   text-align: center;
@@ -2357,24 +2393,44 @@ body.transparent-header .site-header {
 }
 
 .popup-chooser-options {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: stretch;
-  justify-content: center;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   gap: 50px;
 }
 @media (max-width: 767px) {
   .popup-chooser-options {
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     gap: 25px;
   }
 }
 
 .popup-chooser-option {
-  flex: 1 1 0;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 0px;
+          flex: 1 1 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   gap: 25px;
   padding: 25px 16px;
   text-decoration: none;
@@ -2396,29 +2452,40 @@ body.transparent-header .site-header {
   }
 }
 .popup-chooser-option:hover .popup-chooser-icon svg {
-  transform: scale(1.08);
+  -webkit-transform: scale(1.08);
+          transform: scale(1.08);
 }
 .popup-chooser-option:hover .popup-chooser-label {
   color: #bb4d09;
 }
 
 .popup-chooser-icon {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   height: 70px;
 }
 .popup-chooser-icon svg {
   width: auto;
   height: 100%;
   max-width: 100%;
+  -webkit-transition: -webkit-transform 0.3s ease;
+  transition: -webkit-transform 0.3s ease;
   transition: transform 0.3s ease;
+  transition: transform 0.3s ease, -webkit-transform 0.3s ease;
 }
 
 .popup-chooser-label {
   font-family: "Gazpacho";
   font-size: 16px;
   color: #222222;
+  -webkit-transition: color 0.3s ease;
   transition: color 0.3s ease;
 }
 
@@ -2452,7 +2519,6 @@ blockquote {
 blockquote p {
   font-size: 24px;
   line-height: 34px;
-  font-family: "Playwrite DE SAS";
 }
 @media (max-width: 1365px) {
   blockquote p {
@@ -2472,11 +2538,13 @@ blockquote p {
     line-height: 30px;
   }
 }
+blockquote p {
+  font-family: "Playwrite DE SAS";
+}
 blockquote cite {
   color: #222222;
   font-size: 18px;
   line-height: 28px;
-  font-weight: 700;
 }
 @media (max-width: 1365px) {
   blockquote cite {
@@ -2495,6 +2563,9 @@ blockquote cite {
     font-size: 16px;
     line-height: 26px;
   }
+}
+blockquote cite {
+  font-weight: 700;
 }
 blockquote cite:before {
   content: "~ ";
@@ -2559,7 +2630,6 @@ blockquote cite:before {
 /* Columns */
 .wp-block-columns {
   gap: 50px;
-  /* Vertical Center */
 }
 @media (max-width: 991px) {
   .wp-block-columns {
@@ -2570,6 +2640,9 @@ blockquote cite:before {
   .wp-block-columns {
     gap: 16px;
   }
+}
+.wp-block-columns {
+  /* Vertical Center */
 }
 .wp-block-columns.vertical-center .wp-block-column > * {
   display: -webkit-box;
@@ -2913,14 +2986,16 @@ blockquote cite:before {
   max-width: min(var(--vw) - 50px, 1440px);
   margin-left: auto;
   margin-right: auto;
-  position: relative;
-  margin-bottom: 75px;
-  padding: 0 40px;
 }
 @media (max-width: 767px) {
   .testimonial-block-wrapper .swiper-outer {
     max-width: min(var(--vw) - 32px, 1440px);
   }
+}
+.testimonial-block-wrapper .swiper-outer {
+  position: relative;
+  margin-bottom: 75px;
+  padding: 0 40px;
 }
 @media (max-width: 767px) {
   .testimonial-block-wrapper .swiper-outer {
@@ -2954,8 +3029,6 @@ blockquote cite:before {
   text-align: center;
   font-size: 24px;
   line-height: 34px;
-  padding: 30px 50px;
-  border-radius: 20px;
 }
 @media (max-width: 1365px) {
   .testimonial-block-wrapper .swiper-outer .swiper-container .swiper-wrapper .swiper-slide .testimonial-item-wrapper {
@@ -2974,6 +3047,10 @@ blockquote cite:before {
     font-size: 20px;
     line-height: 30px;
   }
+}
+.testimonial-block-wrapper .swiper-outer .swiper-container .swiper-wrapper .swiper-slide .testimonial-item-wrapper {
+  padding: 30px 50px;
+  border-radius: 20px;
 }
 @media (max-width: 767px) {
   .testimonial-block-wrapper .swiper-outer .swiper-container .swiper-wrapper .swiper-slide .testimonial-item-wrapper {
@@ -3110,23 +3187,6 @@ blockquote cite:before {
   background-color: #dddddd;
   font-size: 80px;
   line-height: 1.3;
-  font-family: "Playwrite DE SAS";
-  border-radius: 100px;
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  color: #53301B;
-  -webkit-transition: all 0.6s ease 0s;
-  transition: all 0.6s ease 0s;
 }
 @media (max-width: 1365px) {
   .testimonial-block-wrapper .thumbswiper-container .swiper-wrapper .swiper-slide .thumbswiper-icon .thumbswiper-icon-inner {
@@ -3145,6 +3205,25 @@ blockquote cite:before {
     font-size: 32px;
     line-height: 42px;
   }
+}
+.testimonial-block-wrapper .thumbswiper-container .swiper-wrapper .swiper-slide .thumbswiper-icon .thumbswiper-icon-inner {
+  font-family: "Playwrite DE SAS";
+  border-radius: 100px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #53301B;
+  -webkit-transition: all 0.6s ease 0s;
+  transition: all 0.6s ease 0s;
 }
 
 /* Tab */
@@ -3190,11 +3269,12 @@ blockquote cite:before {
 /* Slider */
 .slider-block-wrapper {
   /* Slider / Carousel Type */
-  /* Navigation Position */
-  /* Main */
 }
 .slider-block-wrapper.slider-style-slider .swiper-container .swiper-wrapper .swiper-slide {
   width: 100% !important;
+}
+.slider-block-wrapper {
+  /* Navigation Position */
 }
 .slider-block-wrapper.slider-navigation-top .navigation-wrapper .swiper-button-prev,
 .slider-block-wrapper.slider-navigation-top .navigation-wrapper .swiper-button-next, .slider-block-wrapper.slider-navigation-bottom .navigation-wrapper .swiper-button-prev,
@@ -3373,6 +3453,9 @@ blockquote cite:before {
     left: 76px;
   }
 }
+.slider-block-wrapper {
+  /* Main */
+}
 .slider-block-wrapper .swiper-container {
   position: relative;
 }
@@ -3404,6 +3487,13 @@ blockquote cite:before {
   max-width: min(var(--vw) - 50px, 1440px);
   margin-left: auto;
   margin-right: auto;
+}
+@media (max-width: 767px) {
+  .slider-block-wrapper .swiper-container .navigation-wrapper .swiper-pagination {
+    max-width: min(var(--vw) - 32px, 1440px);
+  }
+}
+.slider-block-wrapper .swiper-container .navigation-wrapper .swiper-pagination {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -3414,11 +3504,6 @@ blockquote cite:before {
       -ms-flex-align: center;
           align-items: center;
   top: 0;
-}
-@media (max-width: 767px) {
-  .slider-block-wrapper .swiper-container .navigation-wrapper .swiper-pagination {
-    max-width: min(var(--vw) - 32px, 1440px);
-  }
 }
 .slider-block-wrapper .swiper-container .navigation-wrapper .swiper-pagination.swiper-pagination-bullets {
   padding: 15px 0;
@@ -3676,8 +3761,6 @@ address {
   color: #bb4d09;
   border: 1px solid #bb4d09;
   padding: 8px 24px;
-  font-size: 16px;
-  line-height: 26px;
 }
 @media (max-width: 767px) {
   .wc-block-components-totals-coupon a.wc-block-components-totals-coupon-link {
@@ -3688,6 +3771,10 @@ address {
   background-color: #c2a390;
   color: #ffffff;
   border-color: #c2a390;
+}
+.wc-block-components-totals-coupon a.wc-block-components-totals-coupon-link {
+  font-size: 16px;
+  line-height: 26px;
 }
 @media (max-width: 1365px) {
   .wc-block-components-totals-coupon a.wc-block-components-totals-coupon-link {
@@ -4094,20 +4181,6 @@ address {
   color: #ffffff;
   font-size: 16px;
   line-height: 26px;
-  font-weight: 400;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  letter-spacing: 0.5px;
-  border-radius: 50px;
-  border: none;
-  text-transform: none;
 }
 @media (max-width: 1365px) {
   .wc-block-grid .wc-block-grid__product-onsale,
@@ -4129,6 +4202,23 @@ address {
     font-size: 14px;
     line-height: 24px;
   }
+}
+.wc-block-grid .wc-block-grid__product-onsale,
+.wc-block-grid__product-image .wc-block-grid__product-onsale {
+  font-weight: 400;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  letter-spacing: 0.5px;
+  border-radius: 50px;
+  border: none;
+  text-transform: none;
 }
 @media (max-width: 767px) {
   .wc-block-grid .wc-block-grid__product-onsale,
@@ -4525,17 +4615,6 @@ address {
   color: #ffffff;
   font-size: 16px;
   line-height: 26px;
-  font-weight: 400;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  letter-spacing: 0.5px;
 }
 @media (max-width: 1365px) {
   .woocommerce ul.products li.product .product-wrapper a.woocommerce-LoopProduct-link .onsale {
@@ -4554,6 +4633,19 @@ address {
     font-size: 14px;
     line-height: 24px;
   }
+}
+.woocommerce ul.products li.product .product-wrapper a.woocommerce-LoopProduct-link .onsale {
+  font-weight: 400;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  letter-spacing: 0.5px;
 }
 @media (max-width: 767px) {
   .woocommerce ul.products li.product .product-wrapper a.woocommerce-LoopProduct-link .onsale {
@@ -4661,7 +4753,6 @@ address {
   text-align: center;
   font-size: 16px;
   line-height: 26px;
-  padding: 4px 8px;
 }
 @media (max-width: 1365px) {
   .wc-block-components-price-slider--is-input-inline .wc-block-components-price-slider__controls .wc-block-components-price-slider__amount {
@@ -4680,13 +4771,14 @@ address {
     font-size: 14px;
     line-height: 24px;
   }
+}
+.wc-block-components-price-slider--is-input-inline .wc-block-components-price-slider__controls .wc-block-components-price-slider__amount {
+  padding: 4px 8px;
 }
 
 .wc-block-components-filter-reset-button {
   font-size: 16px;
   line-height: 26px;
-  padding: 4px 16px !important;
-  text-decoration: none;
 }
 @media (max-width: 1365px) {
   .wc-block-components-filter-reset-button {
@@ -4705,6 +4797,10 @@ address {
     font-size: 14px;
     line-height: 24px;
   }
+}
+.wc-block-components-filter-reset-button {
+  padding: 4px 16px !important;
+  text-decoration: none;
 }
 
 /* Filter By Rating */
@@ -4722,39 +4818,6 @@ address {
   font-size: 16px;
 }
 
-.single-product {
-  /*.woocommerce-Tabs-panel {
-
-      &#tab-description {
-
-          & > ul {
-              list-style-type: none;
-
-              li {
-                  margin-bottom: 10px;
-                  position: relative;      
-                  padding-left:20px;              
-
-                  &:before {
-                      content:'';
-                      position:absolute;
-                      width:8px;
-                      height:8px;
-                      top:8px;
-                      left:0;
-                      background-color: $secondary;
-                  }
-              }
-
-              ul {
-                  padding-top:10px;
-                  list-style-type: none;
-                  margin-left:10px;
-              }
-          }
-      }
-  }*/
-}
 .single-product .woocommerce-breadcrumb {
   padding: 50px 0 0 0;
 }
@@ -4855,7 +4918,6 @@ address {
   color: #000000;
   font-size: 18px;
   line-height: 28px;
-  margin-top: 0 !important;
 }
 @media (max-width: 1365px) {
   .single-product .singleproduct-top .summary .price {
@@ -4874,6 +4936,9 @@ address {
     font-size: 16px;
     line-height: 26px;
   }
+}
+.single-product .singleproduct-top .summary .price {
+  margin-top: 0 !important;
 }
 .single-product .singleproduct-top .summary .price ins {
   color: #7fb34d;
@@ -4923,6 +4988,39 @@ address {
 .single-product .singleproduct-top .summary .product_meta .posted_in a,
 .single-product .singleproduct-top .summary .product_meta .tagged_as a {
   font-weight: 400;
+}
+.single-product {
+  /*.woocommerce-Tabs-panel {
+
+      &#tab-description {
+
+          & > ul {
+              list-style-type: none;
+
+              li {
+                  margin-bottom: 10px;
+                  position: relative;      
+                  padding-left:20px;              
+
+                  &:before {
+                      content:'';
+                      position:absolute;
+                      width:8px;
+                      height:8px;
+                      top:8px;
+                      left:0;
+                      background-color: $secondary;
+                  }
+              }
+
+              ul {
+                  padding-top:10px;
+                  list-style-type: none;
+                  margin-left:10px;
+              }
+          }
+      }
+  }*/
 }
 .single-product .wc-bookings-date-picker {
   padding: 0;
@@ -5043,10 +5141,6 @@ address {
 #review_form_wrapper #reply-title {
   font-size: 16px;
   line-height: 26px;
-  display: block;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: #000000;
 }
 @media (max-width: 1365px) {
   #review_form_wrapper .comments-title,
@@ -5065,36 +5159,46 @@ address {
 @media (max-width: 767px) {
   #review_form_wrapper .comments-title,
   #review_form_wrapper #reply-title {
+    font-size: 14px;
+    line-height: 24px;
+  }
+}
+#review_form_wrapper .comments-title,
+#review_form_wrapper #reply-title {
+  display: block;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #000000;
+}
+#review_form_wrapper .comment-form-rating label,
+#review_form_wrapper .comment-form-comment label {
+  font-size: 16px;
+  line-height: 26px;
+}
+@media (max-width: 1365px) {
+  #review_form_wrapper .comment-form-rating label,
+  #review_form_wrapper .comment-form-comment label {
+    font-size: 16px;
+    line-height: 26px;
+  }
+}
+@media (max-width: 1024px) {
+  #review_form_wrapper .comment-form-rating label,
+  #review_form_wrapper .comment-form-comment label {
+    font-size: 16px;
+    line-height: 26px;
+  }
+}
+@media (max-width: 767px) {
+  #review_form_wrapper .comment-form-rating label,
+  #review_form_wrapper .comment-form-comment label {
     font-size: 14px;
     line-height: 24px;
   }
 }
 #review_form_wrapper .comment-form-rating label,
 #review_form_wrapper .comment-form-comment label {
-  font-size: 16px;
-  line-height: 26px;
   color: #000000;
-}
-@media (max-width: 1365px) {
-  #review_form_wrapper .comment-form-rating label,
-  #review_form_wrapper .comment-form-comment label {
-    font-size: 16px;
-    line-height: 26px;
-  }
-}
-@media (max-width: 1024px) {
-  #review_form_wrapper .comment-form-rating label,
-  #review_form_wrapper .comment-form-comment label {
-    font-size: 16px;
-    line-height: 26px;
-  }
-}
-@media (max-width: 767px) {
-  #review_form_wrapper .comment-form-rating label,
-  #review_form_wrapper .comment-form-comment label {
-    font-size: 14px;
-    line-height: 24px;
-  }
 }
 
 .woocommerce .star-rating {
@@ -5582,6 +5686,829 @@ address {
 }
 #photo-attachment-remove svg {
   fill: #ffffff;
+}
+
+/*
+ * VikBooking plugin overrides
+ *
+ * VikBooking ships its own default component styling (blue buttons/badges,
+ * a jQuery-UI-blue calendar, plain cards, etc.) that doesn't know about this
+ * theme's brand palette or button treatment. Two layers of fixes here:
+ *
+ * 1. Re-theme via VikBooking's own CSS custom properties. Its stylesheet
+ *    already themes almost everything (buttons, price text, capacity
+ *    badges, the availability calendar's selected/hover states) off a
+ *    small set of --vbo-* variables defined at :root. Overriding just
+ *    those variables re-skins the plugin globally and consistently,
+ *    instead of chasing every individual selector by hand - and it keeps
+ *    working for parts of the UI we haven't manually inspected. !important
+ *    is used because VikBooking sets these itself in an inline <style>
+ *    block per page (its admin-configurable "preferred color"), and
+ *    there's no reliable guarantee our stylesheet loads after it.
+ * 2. Manual selector overrides for shape/spacing/layout (border-radius,
+ *    padding, card treatment) that VikBooking's variables don't cover, plus
+ *    a proper card redesign for the room listing and booking-details price
+ *    widget so they read as part of this site rather than default plugin
+ *    output.
+ */
+:root {
+  --vbo-pref-bgcolor: #bb4d09 !important;
+  --vbo-pref-bgcolorhov: #c2a390 !important;
+  --vbo-pref-fontcolor: #ffffff !important;
+  --vbo-pref-fontcolorhov: #ffffff !important;
+  --vbo-pref-textcolor: #bb4d09 !important;
+  --vbo-base-color: #bb4d09 !important;
+  --vbo-base-color-hover: #53301B !important;
+  --vbo-darkblue-color: #53301B !important;
+  --vbo-blue-color: #bb4d09 !important;
+  --vbo-blue-color-hover: #53301B !important;
+  --vbo-lightblue-color: #c2a390 !important;
+  --vbo-lightblue-color-hover: #53301B !important;
+}
+
+.vbo-pref-color-btn {
+  border-radius: 0 !important;
+  padding: 8px 24px !important;
+  font-family: "Gazpacho" !important;
+  -webkit-transition: all 0.6s ease 0s !important;
+  transition: all 0.6s ease 0s !important;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+}
+
+@media (max-width: 1024px) {
+  .plugin-container {
+    padding: 0 25px;
+  }
+}
+@media (max-width: 767px) {
+  .plugin-container {
+    padding: 0 16px;
+  }
+}
+
+/*
+ * Room listing cards (/our-rooms/)
+ *
+ * Kept as a simple wrapping grid so every room is visible at once, rather
+ * than a horizontal-scroll carousel - that was tried and reverted (visual
+ * clipping against the 1000px .plugin-container, and scroll interaction
+ * issues), so back to the plain, always-fully-visible card grid.
+ */
+ul.vblist {
+  row-gap: 50px;
+}
+
+li.room_result {
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  -webkit-transition: -webkit-box-shadow 0.3s ease, -webkit-transform 0.3s ease;
+  transition: -webkit-box-shadow 0.3s ease, -webkit-transform 0.3s ease;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  transition: box-shadow 0.3s ease, transform 0.3s ease, -webkit-box-shadow 0.3s ease, -webkit-transform 0.3s ease;
+}
+li.room_result:hover {
+  -webkit-box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+  -webkit-transform: translateY(-4px);
+          transform: translateY(-4px);
+}
+
+.vbimglistdiv {
+  -webkit-box-flex: 0 !important;
+      -ms-flex: 0 0 auto !important;
+          flex: 0 0 auto !important;
+  position: relative;
+  overflow: hidden;
+}
+.vbimglistdiv .vblistimg {
+  -webkit-transition: -webkit-transform 0.6s ease;
+  transition: -webkit-transform 0.6s ease;
+  transition: transform 0.6s ease;
+  transition: transform 0.6s ease, -webkit-transform 0.6s ease;
+}
+
+li.room_result:hover .vblistimg {
+  -webkit-transform: scale(1.06);
+          transform: scale(1.06);
+}
+
+.vbo-info-room {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-orient: vertical !important;
+  -webkit-box-direction: normal !important;
+      -ms-flex-direction: column !important;
+          flex-direction: column !important;
+  -webkit-box-flex: 1 !important;
+      -ms-flex: 1 1 auto !important;
+          flex: 1 1 auto !important;
+  padding: 16px 25px !important;
+}
+
+.vbdescrlistdiv {
+  margin-bottom: 16px;
+}
+
+.vbrowcname {
+  margin-bottom: 8px !important;
+}
+
+.vbrowcdescr {
+  color: #333333;
+}
+
+.roomlist_carats {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.vbo-room-carat {
+  opacity: 0.8;
+}
+
+.vbcontdivtot {
+  margin-top: auto;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.vbdivtot {
+  height: auto !important;
+  -webkit-box-align: center !important;
+      -ms-flex-align: center !important;
+          align-items: center !important;
+}
+
+.vbdivtotinline {
+  -webkit-box-orient: horizontal !important;
+  -webkit-box-direction: normal !important;
+      -ms-flex-direction: row !important;
+          flex-direction: row !important;
+  -webkit-box-flex: 0 !important;
+      -ms-flex-positive: 0 !important;
+          flex-grow: 0 !important;
+  -webkit-box-align: center !important;
+      -ms-flex-align: center !important;
+          align-items: center !important;
+  -webkit-box-pack: justify !important;
+      -ms-flex-pack: justify !important;
+          justify-content: space-between !important;
+  padding: 16px 25px !important;
+  gap: 16px;
+}
+
+.vbsrowpricediv {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-orient: horizontal !important;
+  -webkit-box-direction: normal !important;
+      -ms-flex-direction: row !important;
+          flex-direction: row !important;
+  -ms-flex-wrap: nowrap !important;
+      flex-wrap: nowrap !important;
+  -webkit-box-align: baseline !important;
+      -ms-flex-align: baseline !important;
+          align-items: baseline !important;
+  gap: 6px;
+}
+
+.room_cost {
+  display: -webkit-inline-box !important;
+  display: -ms-inline-flexbox !important;
+  display: inline-flex !important;
+  width: auto !important;
+  white-space: nowrap !important;
+}
+
+.vbliststartfrom {
+  font-size: 16px !important;
+  color: #888888 !important;
+  white-space: nowrap;
+}
+
+.vbselectordiv {
+  display: block !important;
+}
+
+/*
+ * Booking-details gallery
+ *
+ * The inline gallery only shows a compact thumbnail grid (no large hero
+ * image), but VikBooking still renders a prev/next control absolutely
+ * positioned as if flanking a wide hero - so the arrows float in empty
+ * space well to the left of the actual thumbnails. The full-photo lightbox
+ * (opened via a thumbnail or "All photos") has its own separate, correctly
+ * positioned prev/next/close controls, so this inline pair is redundant -
+ * hide it rather than try to reposition floating controls that serve no
+ * real purpose here.
+ */
+.vikfx-roomdetails-gallery-container .vikfx-gallery-navigation-controls-prevnext {
+  display: none;
+}
+
+.vikfx-gallery-navigation-controls {
+  pointer-events: none;
+}
+
+.vikfx-gallery-image {
+  cursor: pointer;
+}
+
+.vikfxg-prev,
+.vikfxg-next,
+.vikfxg-close {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 0 !important;
+}
+
+.vblistroomnamediv {
+  padding-top: 50px;
+  border-bottom-color: rgba(0, 0, 0, 0.1) !important;
+}
+@media (max-width: 767px) {
+  .vblistroomnamediv {
+    padding-top: 25px;
+  }
+}
+
+.vbo-listing-amenities-wrap {
+  border-top-color: rgba(0, 0, 0, 0.1) !important;
+  border-bottom-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+/*
+ * Booking-details price / availability widget
+ */
+.vbo-listing-details-costroomdet-inner {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  -webkit-box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.vbo-roomdet-calscontainer-inner {
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  -webkit-box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  padding: 25px;
+}
+
+.vbo-rdet-avcal-nav {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 0 !important;
+}
+
+.vbo-search-inpblock .input-group {
+  border: 1px solid #dddddd !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  background-color: #ffffff;
+}
+.vbo-search-inpblock .input-group:focus-within {
+  border-color: #bb4d09 !important;
+}
+
+input#checkindate,
+input#checkoutdate {
+  border: none !important;
+  border-radius: 0 !important;
+  height: 46px !important;
+  padding: 0 16px !important;
+  font-family: "Gazpacho";
+}
+input#checkindate:focus,
+input#checkoutdate:focus {
+  outline: none;
+}
+
+.vbo-search-inpblock .vbo-caltrigger {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0 16px;
+}
+
+.vbmaxnumberdet {
+  white-space: nowrap !important;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+}
+
+.vbmaxlabeldet {
+  white-space: nowrap;
+}
+
+.vbo-extrabed-note {
+  margin: 16px 0 0 0;
+  font-size: 14px;
+  color: #888888;
+}
+
+/*
+ * Booking price/options confirmation page
+ * (/booking-details/?task=showprc... - reached after picking dates and
+ * clicking "Book" on a room). Same treatment as the rest of the plugin:
+ * darken the near-invisible default borders, flatten the rounded corners
+ * to match the site's flat card language, and fix the controls that were
+ * still using unstyled browser defaults.
+ */
+.vbo-showprc-head-wrapper {
+  padding-top: 50px;
+}
+@media (max-width: 767px) {
+  .vbo-showprc-head-wrapper {
+    padding-top: 25px;
+  }
+}
+
+.vbo-showprc-room-block {
+  border: none !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+  padding: 25px;
+}
+@media (max-width: 767px) {
+  .vbo-showprc-room-block {
+    padding: 16px;
+  }
+}
+
+.vbstepsbarcont {
+  display: none;
+}
+
+.vbo-showprc-title {
+  font-size: 40px;
+  line-height: 1.3;
+}
+@media (max-width: 1365px) {
+  .vbo-showprc-title {
+    font-size: 40px;
+    line-height: 1.3;
+  }
+}
+@media (max-width: 1024px) {
+  .vbo-showprc-title {
+    font-size: 30px;
+    line-height: 1.3;
+  }
+}
+@media (max-width: 767px) {
+  .vbo-showprc-title {
+    font-size: 24px;
+    line-height: 34px;
+  }
+}
+.vbo-showprc-title {
+  color: #222222;
+  font-weight: 700;
+  font-family: "Gazpacho";
+  margin: 0;
+  padding: 50px 0 25px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+@media (max-width: 767px) {
+  .vbo-showprc-title {
+    padding-top: 25px;
+  }
+}
+
+.vbo-showprc-roomname h3 {
+  font-size: 24px;
+  line-height: 34px;
+}
+@media (max-width: 1365px) {
+  .vbo-showprc-roomname h3 {
+    font-size: 24px;
+    line-height: 34px;
+  }
+}
+@media (max-width: 1024px) {
+  .vbo-showprc-roomname h3 {
+    font-size: 20px;
+    line-height: 34px;
+  }
+}
+@media (max-width: 767px) {
+  .vbo-showprc-roomname h3 {
+    font-size: 20px;
+    line-height: 30px;
+  }
+}
+
+.vbo-results-head-showprc {
+  background-color: transparent;
+  border: none !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+  -webkit-box-pack: justify !important;
+      -ms-flex-pack: justify !important;
+          justify-content: space-between !important;
+  padding: 0 0 25px 0 !important;
+  margin-bottom: 25px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.vbo-results-nights,
+.vbo-results-numadults,
+.vbcheckinroom,
+.vbcheckoutroom {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+.vbo-results-nights:last-child,
+.vbo-results-numadults:last-child,
+.vbcheckinroom:last-child,
+.vbcheckoutroom:last-child {
+  border-right: none;
+}
+@media (max-width: 767px) {
+  .vbo-results-nights,
+  .vbo-results-numadults,
+  .vbcheckinroom,
+  .vbcheckoutroom {
+    -webkit-box-flex: 1;
+        -ms-flex: 1 1 50%;
+            flex: 1 1 50%;
+    border-right: none;
+    margin-bottom: 16px;
+  }
+}
+
+.vbo-results-head-det {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: column-reverse;
+          flex-direction: column-reverse;
+  gap: 2px;
+}
+
+.vbo-results-head-det-lbl {
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  color: #888888 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.vbo-results-head-det-val {
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  color: #222222 !important;
+}
+
+.vbo-showprc-room-head {
+  display: inline-block;
+  border: none !important;
+  margin: 0 0 16px 0 !important;
+}
+
+.vbo-showprc-staydetails {
+  padding: 4px 0 !important;
+}
+
+.vbo-showprc-price-entry {
+  border-color: rgba(0, 0, 0, 0.1) !important;
+  border-radius: 0 !important;
+  padding-left: 25px !important;
+  padding-right: 25px !important;
+}
+@media (max-width: 767px) {
+  .vbo-showprc-price-entry {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+}
+
+input.vbo-radio {
+  accent-color: #bb4d09;
+  width: 18px;
+  height: 18px;
+}
+
+.vbo-pref-color-btn-secondary {
+  border-radius: 0 !important;
+  border-color: #dddddd !important;
+  color: #333333 !important;
+  font-family: "Gazpacho" !important;
+  -webkit-transition: all 0.3s ease !important;
+  transition: all 0.3s ease !important;
+}
+.vbo-pref-color-btn-secondary:hover, .vbo-pref-color-btn-secondary:focus {
+  border-color: #bb4d09 !important;
+  color: #ffffff !important;
+}
+
+.vikfx-gallery-previous-image,
+.vikfx-gallery-next-image {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 0 !important;
+  width: 44px !important;
+  height: 44px !important;
+  pointer-events: auto !important;
+}
+
+/*
+ * Booking confirmation / checkout page
+ * (/booking-details/?task=oconfirm - reached after clicking "Book Now" on
+ * the summary step). Same treatment as the rest of the plugin: a plain
+ * title in place of the (already hidden) step tracker, the same spread-out
+ * summary row as the showprc page, flattened corners, and a couple of
+ * near-invisible/leftover borders cleaned up.
+ */
+.vbo-oconfirm-title {
+  font-size: 40px;
+  line-height: 1.3;
+}
+@media (max-width: 1365px) {
+  .vbo-oconfirm-title {
+    font-size: 40px;
+    line-height: 1.3;
+  }
+}
+@media (max-width: 1024px) {
+  .vbo-oconfirm-title {
+    font-size: 30px;
+    line-height: 1.3;
+  }
+}
+@media (max-width: 767px) {
+  .vbo-oconfirm-title {
+    font-size: 24px;
+    line-height: 34px;
+  }
+}
+.vbo-oconfirm-title {
+  color: #222222;
+  font-weight: 700;
+  font-family: "Gazpacho";
+  margin: 0;
+  padding: 50px 0 25px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+@media (max-width: 767px) {
+  .vbo-oconfirm-title {
+    padding-top: 25px;
+  }
+}
+
+.vbo-oconfirm-wrapper {
+  padding-top: 25px;
+}
+
+.vbo-results-head-oconfirm {
+  background-color: transparent;
+  border: none !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+  -webkit-box-pack: justify !important;
+      -ms-flex-pack: justify !important;
+          justify-content: space-between !important;
+  padding: 0 0 25px 0 !important;
+  margin-bottom: 25px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.vbo-summary-date {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+.vbo-summary-date:last-child {
+  border-right: none;
+}
+@media (max-width: 767px) {
+  .vbo-summary-date {
+    -webkit-box-flex: 1;
+        -ms-flex: 1 1 50%;
+            flex: 1 1 50%;
+    border-right: none;
+    margin-bottom: 16px;
+  }
+}
+
+.vbo-oconfirm-summary-total-wrapper {
+  border-bottom: none !important;
+}
+
+.vbo-oconfirm-paymethod-item {
+  border-radius: 0 !important;
+}
+
+.vbo-oconfirm-paymentopts {
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+.vbo-oconfirm-cfield-input input[type=checkbox] {
+  accent-color: #bb4d09;
+}
+
+.vbo-oconfirm-cfield-label,
+.vbo-oconfirm-cfield-entry-checkbox .vbo-oconfirm-cfield-label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+}
+.vbo-oconfirm-cfield-label label,
+.vbo-oconfirm-cfield-entry-checkbox .vbo-oconfirm-cfield-label label {
+  -webkit-box-ordinal-group: 2;
+      -ms-flex-order: 1;
+          order: 1;
+}
+.vbo-oconfirm-cfield-label .vbrequired,
+.vbo-oconfirm-cfield-entry-checkbox .vbo-oconfirm-cfield-label .vbrequired {
+  -webkit-box-ordinal-group: 3;
+      -ms-flex-order: 2;
+          order: 2;
+  margin-left: 4px;
+}
+.vbo-oconfirm-cfield-label .vbrequired sup,
+.vbo-oconfirm-cfield-entry-checkbox .vbo-oconfirm-cfield-label .vbrequired sup {
+  top: -6px;
+}
+
+/*
+ * Booking Summary - Extra Bed / Additional Breakfast add-ons
+ * (see script.js for the gating and mutual-exclusion logic these classes
+ * support)
+ */
+.vbo-breakfast-combined-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+  text-align: left !important;
+  font-size: 16px !important;
+  padding-top: 10px !important;
+}
+
+.vbo-breakfast-combined-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.vbo-breakfast-combined-label {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.vbo-breakfast-combined-price {
+  color: #888888;
+  font-size: 14px;
+}
+
+.vbo-breakfast-radio {
+  -moz-appearance: none !important;
+       appearance: none !important;
+  -webkit-appearance: none !important;
+  width: 18px !important;
+  height: 18px !important;
+  border: 1px solid #dddddd !important;
+  border-radius: 50% !important;
+  position: relative;
+  cursor: pointer;
+  margin: 0;
+  background-color: #ffffff;
+  -webkit-transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease;
+}
+.vbo-breakfast-radio:checked {
+  border-color: #bb4d09 !important;
+}
+.vbo-breakfast-radio:checked::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #bb4d09;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+.vbo-breakfast-radio:disabled {
+  cursor: not-allowed;
+}
+
+/*
+ * "Your Booking Detail" page (/your-booking-detail/?sid=...&ts=...)
+ */
+.vbo-booking-upsell-container {
+  display: none;
+}
+
+.vbo-booking-details-head {
+  margin-top: 50px !important;
+  width: 100%;
+  text-align: center;
+}
+.vbo-booking-details-head h4 {
+  margin-bottom: 0px !important;
+}
+
+.vbvordpaybutton {
+  border: 0px;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.xendit__payment__form__wrapper .btn.btn-primary {
+  background-color: #bb4d09;
+  color: #ffffff;
+  border: 1px solid #bb4d09;
+  padding: 8px 24px;
+}
+@media (max-width: 767px) {
+  .xendit__payment__form__wrapper .btn.btn-primary {
+    padding: 4px 12px;
+  }
+}
+.xendit__payment__form__wrapper .btn.btn-primary:hover, .xendit__payment__form__wrapper .btn.btn-primary:focus {
+  background-color: #c2a390;
+  color: #ffffff;
+  border-color: #c2a390;
+}
+.xendit__payment__form__wrapper .btn.btn-primary {
+  display: inline-block;
+  font-size: 20px;
+  font-weight: 600;
+  padding: 18px 56px;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  border-radius: 0;
+  -webkit-box-shadow: 0 10px 24px rgba(187, 77, 9, 0.35);
+          box-shadow: 0 10px 24px rgba(187, 77, 9, 0.35);
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.xendit__payment__form__wrapper .btn.btn-primary:hover, .xendit__payment__form__wrapper .btn.btn-primary:focus {
+  -webkit-box-shadow: 0 12px 28px rgba(187, 77, 9, 0.45);
+          box-shadow: 0 12px 28px rgba(187, 77, 9, 0.45);
+  -webkit-transform: translateY(-2px);
+          transform: translateY(-2px);
+}
+
+.vbo-booking-costs-list {
+  margin-bottom: 50px !important;
 }
 
 /*@use "abstracts" as a;*/
@@ -7195,6 +8122,7 @@ body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group
 .progress-bar-wrapper {
   display: none;
 }
+
 body:has([class*=home-section]) .progress-bar-wrapper {
   display: block;
   position: fixed;
@@ -7208,7 +8136,7 @@ body:has([class*=home-section]) .progress-bar-wrapper {
     width: 100%;
   }
 }
-.progress-bar-wrapper .progress-bar {
+body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   height: 10px;
   background-color: #bb4d09;
   width: 0;
@@ -7606,6 +8534,24 @@ body:has([class*=home-section]) .progress-bar-wrapper {
   gap: 50px;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+}
+@media (max-width: 1439px) {
+  .blog-wrapper {
+    -webkit-column-gap: 25px;
+       -moz-column-gap: 25px;
+            column-gap: 25px;
+    row-gap: 50px;
+  }
+}
+@media (max-width: 767px) {
+  .blog-wrapper {
+    -webkit-column-gap: 16px;
+       -moz-column-gap: 16px;
+            column-gap: 16px;
+    row-gap: 50px;
+  }
+}
+.blog-wrapper {
   /*.blog-highlight {
       flex:1;
 
@@ -7634,24 +8580,20 @@ body:has([class*=home-section]) .progress-bar-wrapper {
       }
   }*/
 }
-@media (max-width: 1439px) {
-  .blog-wrapper {
-    -webkit-column-gap: 25px;
-       -moz-column-gap: 25px;
-            column-gap: 25px;
-    row-gap: 50px;
+.blog-wrapper .blog-post {
+  width: calc((100% - 100px) / 3);
+}
+@media (max-width: 991px) {
+  .blog-wrapper .blog-post {
+    width: calc((100% - 25px) / 2);
   }
 }
 @media (max-width: 767px) {
-  .blog-wrapper {
-    -webkit-column-gap: 16px;
-       -moz-column-gap: 16px;
-            column-gap: 16px;
-    row-gap: 50px;
+  .blog-wrapper .blog-post {
+    width: 100%;
   }
 }
 .blog-wrapper .blog-post {
-  width: calc((100% - 100px) / 3);
   /*&.blog-highlight {
       flex-direction: column;
       gap:15px;
@@ -7714,16 +8656,6 @@ body:has([class*=home-section]) .progress-bar-wrapper {
       }        
   }*/
 }
-@media (max-width: 991px) {
-  .blog-wrapper .blog-post {
-    width: calc((100% - 25px) / 2);
-  }
-}
-@media (max-width: 767px) {
-  .blog-wrapper .blog-post {
-    width: 100%;
-  }
-}
 .blog-wrapper .blog-post .blog-thumb {
   overflow: hidden;
   width: 100%;
@@ -7757,9 +8689,6 @@ body:has([class*=home-section]) .progress-bar-wrapper {
 .blog-wrapper .blog-post .blog-content .blog-title a h3 {
   font-size: 24px;
   line-height: 34px;
-  margin-bottom: 8px;
-  -webkit-transition: all 0.6s ease 0s;
-  transition: all 0.6s ease 0s;
 }
 @media (max-width: 1365px) {
   .blog-wrapper .blog-post .blog-content .blog-title a h3 {
@@ -7779,6 +8708,11 @@ body:has([class*=home-section]) .progress-bar-wrapper {
     line-height: 30px;
   }
 }
+.blog-wrapper .blog-post .blog-content .blog-title a h3 {
+  margin-bottom: 8px;
+  -webkit-transition: all 0.6s ease 0s;
+  transition: all 0.6s ease 0s;
+}
 .blog-wrapper .blog-post .blog-content .blog-meta {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -7792,7 +8726,6 @@ body:has([class*=home-section]) .progress-bar-wrapper {
           align-items: center;
   font-size: 14px;
   line-height: 24px;
-  margin-bottom: 16px;
 }
 @media (max-width: 1365px) {
   .blog-wrapper .blog-post .blog-content .blog-meta {
@@ -7811,6 +8744,9 @@ body:has([class*=home-section]) .progress-bar-wrapper {
     font-size: 14px;
     line-height: 24px;
   }
+}
+.blog-wrapper .blog-post .blog-content .blog-meta {
+  margin-bottom: 16px;
 }
 .blog-wrapper .blog-post .blog-content .blog-meta a {
   text-decoration: none;
@@ -7896,7 +8832,6 @@ body:has([class*=home-section]) .progress-bar-wrapper {
 .page-heading-wrapper .woocommerce-products-header__title {
   font-size: 80px;
   line-height: 1.3;
-  margin-bottom: 0;
 }
 @media (max-width: 1365px) {
   .page-heading-wrapper h1.page-title,
@@ -7918,6 +8853,10 @@ body:has([class*=home-section]) .progress-bar-wrapper {
     font-size: 32px;
     line-height: 42px;
   }
+}
+.page-heading-wrapper h1.page-title,
+.page-heading-wrapper .woocommerce-products-header__title {
+  margin-bottom: 0;
 }
 .page-heading-wrapper .yoast-breadcrumbs {
   margin-top: 10px;
@@ -7948,7 +8887,6 @@ body:has([class*=home-section]) .progress-bar-wrapper {
     line-height: 34px;
   }
 }
-
 .page-id-440 .page-heading-wrapper .container {
   width: 1000px;
   max-width: 100%;
@@ -7971,7 +8909,6 @@ body:has([class*=home-section]) .progress-bar-wrapper {
 .page-id-440 .page-heading-wrapper .yoast-breadcrumbs {
   display: none;
 }
-
 .page-id-440 .plugin-container {
   padding-top: 50px;
   padding-bottom: 50px;
@@ -8064,7 +9001,6 @@ body:has([class*=home-section]) .progress-bar-wrapper {
 .archive-type {
   font-size: 18px;
   line-height: 28px;
-  color: #222222;
 }
 @media (max-width: 1365px) {
   .archive-type {
@@ -8083,6 +9019,9 @@ body:has([class*=home-section]) .progress-bar-wrapper {
     font-size: 16px;
     line-height: 26px;
   }
+}
+.archive-type {
+  color: #222222;
 }
 
 .archive .page-title {
@@ -8195,12 +9134,14 @@ body:has([class*=home-section]) .progress-bar-wrapper {
   max-width: min(var(--vw) - 50px, 1440px);
   margin-left: auto;
   margin-right: auto;
-  text-align: center;
 }
 @media (max-width: 767px) {
   .single:not(.single-product) .entry-header > * {
     max-width: min(var(--vw) - 32px, 1440px);
   }
+}
+.single:not(.single-product) .entry-header > * {
+  text-align: center;
 }
 .single:not(.single-product) .entry-header .yoast-breadcrumbs > span {
   -webkit-box-pack: center;
@@ -8766,7 +9707,6 @@ body:has([class*=home-section]) .progress-bar-wrapper {
 .search-results .page-heading-wrapper .page-title span {
   font-size: 80px;
   line-height: 1.3;
-  color: #bb4d09;
 }
 @media (max-width: 1365px) {
   .search-results .page-heading-wrapper .page-title span {
@@ -8785,6 +9725,9 @@ body:has([class*=home-section]) .progress-bar-wrapper {
     font-size: 32px;
     line-height: 42px;
   }
+}
+.search-results .page-heading-wrapper .page-title span {
+  color: #bb4d09;
 }
 .search-results article {
   margin-bottom: 50px;
@@ -9560,9 +10503,6 @@ body:has([class*=home-section]) .progress-bar-wrapper {
 .symbol-of-stillness-slogan {
   font-size: 120px;
   line-height: 1.3;
-  position: absolute;
-  color: #c2a390;
-  margin: 0;
 }
 @media (max-width: 1365px) {
   .symbol-of-stillness-caption1,
@@ -9581,6 +10521,14 @@ body:has([class*=home-section]) .progress-bar-wrapper {
     font-size: 120px;
     line-height: 1.3;
   }
+}
+.symbol-of-stillness-caption1,
+.symbol-of-stillness-caption2,
+.symbol-of-stillness-caption3,
+.symbol-of-stillness-slogan {
+  position: absolute;
+  color: #c2a390;
+  margin: 0;
 }
 @media (max-width: 1024px) {
   .symbol-of-stillness-caption1,
@@ -9664,9 +10612,6 @@ body:has([class*=home-section]) .progress-bar-wrapper {
   color: #bb4d09;
   font-size: 20px;
   line-height: 1.8;
-  width: 352px;
-  text-align: right;
-  margin: 0;
 }
 @media (max-width: 1365px) {
   .symbol-of-stillness-slogan {
@@ -9685,6 +10630,11 @@ body:has([class*=home-section]) .progress-bar-wrapper {
     font-size: 18px;
     line-height: 28px;
   }
+}
+.symbol-of-stillness-slogan {
+  width: 352px;
+  text-align: right;
+  margin: 0;
 }
 @media (max-width: 1024px) {
   .symbol-of-stillness-slogan {
@@ -10186,580 +11136,4 @@ body:has([class*=home-section]) .progress-bar-wrapper {
 .unit-bookyourstay .wp-block-buttons .wp-block-button .wp-block-button__link:hover, .unit-bookyourstay .wp-block-buttons .wp-block-button .wp-block-button__link:focus {
   background-color: #c2a390;
   color: #ffffff;
-}
-/*
- * VikBooking plugin overrides
- *
- * VikBooking ships its own default component styling (blue buttons/badges,
- * a jQuery-UI-blue calendar, plain cards, etc.) that doesn't know about this
- * theme's brand palette or button treatment. Two layers of fixes here:
- *
- * 1. Re-theme via VikBooking's own CSS custom properties. Its stylesheet
- *    already themes almost everything (buttons, price text, capacity
- *    badges, the availability calendar's selected/hover states) off a
- *    small set of --vbo-* variables defined at :root. Overriding just
- *    those variables re-skins the plugin globally and consistently,
- *    instead of chasing every individual selector by hand - and it keeps
- *    working for parts of the UI we haven't manually inspected. !important
- *    is used because VikBooking sets these itself in an inline <style>
- *    block per page (its admin-configurable "preferred color"), and
- *    there's no reliable guarantee our stylesheet loads after it.
- * 2. Manual selector overrides for shape/spacing/layout (border-radius,
- *    padding, card treatment) that VikBooking's variables don't cover, plus
- *    a proper card redesign for the room listing and booking-details price
- *    widget so they read as part of this site rather than default plugin
- *    output.
- */
-:root {
-  --vbo-pref-bgcolor: #bb4d09 !important;
-  --vbo-pref-bgcolorhov: #c2a390 !important;
-  --vbo-pref-fontcolor: #ffffff !important;
-  --vbo-pref-fontcolorhov: #ffffff !important;
-  --vbo-pref-textcolor: #bb4d09 !important;
-  --vbo-base-color: #bb4d09 !important;
-  --vbo-base-color-hover: #53301B !important;
-  --vbo-darkblue-color: #53301B !important;
-  --vbo-blue-color: #bb4d09 !important;
-  --vbo-blue-color-hover: #53301B !important;
-  --vbo-lightblue-color: #c2a390 !important;
-  --vbo-lightblue-color-hover: #53301B !important;
-}
-
-.vbo-pref-color-btn {
-  border-radius: 0 !important;
-  padding: 8px 24px !important;
-  font-family: "Gazpacho" !important;
-  transition: all 0.6s ease 0s !important;
-  -webkit-appearance: none;
-  appearance: none;
-}
-
-@media (max-width: 1024px) {
-  .plugin-container {
-    padding: 0 25px;
-  }
-}
-@media (max-width: 767px) {
-  .plugin-container {
-    padding: 0 16px;
-  }
-}
-
-/*
- * Room listing cards (/our-rooms/)
- *
- * Kept as a card grid rather than folding into the site's horizontal-scroll
- * home-sectionN layout - that pattern is built for one immersive, full-bleed
- * section at a time (right for a homepage/story page), whereas a room list
- * is a comparison task where guests want to scan and compare several rooms
- * quickly. VikBooking also renders its own responsive grid here; fighting
- * that to force it into home-sectionN sections would be fragile. Instead
- * the existing 2-up grid gets a proper card treatment to match the rest of
- * the site.
- */
-ul.vblist {
-  row-gap: 50px;
-}
-
-li.room_result {
-  background-color: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
-li.room_result:hover {
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
-  transform: translateY(-4px);
-}
-
-.vbimglistdiv {
-  flex: 0 0 auto !important;
-  position: relative;
-  overflow: hidden;
-}
-.vbimglistdiv .vblistimg {
-  transition: transform 0.6s ease;
-}
-
-li.room_result:hover .vblistimg {
-  transform: scale(1.06);
-}
-
-.vbo-info-room {
-  display: flex !important;
-  flex-direction: column !important;
-  flex: 1 1 auto !important;
-  padding: 16px 25px !important;
-}
-
-.vbdescrlistdiv {
-  margin-bottom: 16px;
-}
-
-.vbrowcname {
-  margin-bottom: 8px !important;
-}
-
-.vbrowcdescr {
-  color: #333333;
-}
-
-.roomlist_carats {
-  margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
-}
-
-.vbo-room-carat {
-  opacity: 0.8;
-}
-
-.vbcontdivtot {
-  margin-top: auto;
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
-}
-
-.vbdivtot {
-  height: auto !important;
-  align-items: center !important;
-}
-
-.vbdivtotinline {
-  flex-direction: row !important;
-  flex-grow: 0 !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  padding: 16px 25px !important;
-  gap: 16px;
-}
-
-.vbsrowpricediv {
-  display: flex !important;
-  flex-direction: row !important;
-  flex-wrap: nowrap !important;
-  align-items: baseline !important;
-  gap: 6px;
-}
-
-.room_cost {
-  display: inline-flex !important;
-  width: auto !important;
-  white-space: nowrap !important;
-}
-
-.vbliststartfrom {
-  font-size: 16px !important;
-  color: #888888 !important;
-  white-space: nowrap;
-}
-
-.vbselectordiv {
-  display: block !important;
-}
-
-.vikfx-roomdetails-gallery-container .vikfx-gallery-navigation-controls-prevnext {
-  display: none;
-}
-
-.vikfx-gallery-navigation-controls {
-  pointer-events: none;
-}
-
-.vikfx-gallery-image {
-  cursor: pointer;
-}
-
-.vikfxg-prev,
-.vikfxg-next,
-.vikfxg-close {
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  padding: 0 !important;
-}
-
-.vbo-rdet-avcal-nav {
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  padding: 0 !important;
-}
-
-/*
- * Booking-details price / availability widget
- */
-.vbo-listing-details-costroomdet-inner {
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
-}
-
-.vbo-roomdet-calscontainer-inner {
-  background-color: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
-  padding: 25px;
-}
-
-.vbo-search-inpblock .input-group {
-  border: 1px solid #dddddd !important;
-  border-radius: 0 !important;
-  padding: 0 !important;
-  background-color: #ffffff;
-}
-.vbo-search-inpblock .input-group:focus-within {
-  border-color: #bb4d09 !important;
-}
-
-input#checkindate,
-input#checkoutdate {
-  border: none !important;
-  border-radius: 0 !important;
-  height: 46px !important;
-  padding: 0 16px !important;
-  font-family: "Gazpacho";
-}
-input#checkindate:focus,
-input#checkoutdate:focus {
-  outline: none;
-}
-
-.vbo-search-inpblock .vbo-caltrigger {
-  display: flex;
-  align-items: center;
-  padding: 0 16px;
-}
-
-.vbmaxnumberdet {
-  white-space: nowrap !important;
-  flex-shrink: 0;
-}
-
-.vbmaxlabeldet {
-  white-space: nowrap;
-}
-
-.vblistroomnamediv {
-  padding-top: 50px;
-  border-bottom-color: rgba(0, 0, 0, 0.1) !important;
-}
-@media (max-width: 767px) {
-  .vblistroomnamediv {
-    padding-top: 25px;
-  }
-}
-
-.vbo-listing-amenities-wrap {
-  border-top-color: rgba(0, 0, 0, 0.1) !important;
-  border-bottom-color: rgba(0, 0, 0, 0.1) !important;
-}
-
-/*
- * Booking price/options confirmation page
- * (/booking-details/?task=showprc... - reached after picking dates and
- * clicking "Book" on a room). Same treatment as the rest of the plugin:
- * darken the near-invisible default borders, flatten the rounded corners
- * to match the site's flat card language, and fix the controls that were
- * still using unstyled browser defaults.
- */
-/*
- * Booking price/options confirmation page
- * (/booking-details/?task=showprc... - reached after picking dates and
- * clicking "Book" on a room). Same treatment as the rest of the plugin:
- * darken the near-invisible default borders, flatten the rounded corners
- * to match the site's flat card language, and fix the controls that were
- * still using unstyled browser defaults.
- */
-/*
- * Booking price/options confirmation page
- * (/booking-details/?task=showprc... - reached after picking dates and
- * clicking "Book" on a room). Same treatment as the rest of the plugin:
- * darken the near-invisible default borders, flatten the rounded corners
- * to match the site's flat card language, and fix the controls that were
- * still using unstyled browser defaults.
- */
-/*
- * Booking price/options confirmation page
- * (/booking-details/?task=showprc... - reached after picking dates and
- * clicking "Book" on a room). Same treatment as the rest of the plugin:
- * darken the near-invisible default borders, flatten the rounded corners
- * to match the site's flat card language, and fix the controls that were
- * still using unstyled browser defaults.
- */
-.vbo-showprc-head-wrapper {
-  padding-top: 50px;
-}
-@media (max-width: 767px) {
-  .vbo-showprc-head-wrapper {
-    padding-top: 25px;
-  }
-}
-
-.vbo-showprc-room-block {
-  border: none !important;
-  box-shadow: none !important;
-  padding: 25px;
-}
-@media (max-width: 767px) {
-  .vbo-showprc-room-block {
-    padding: 16px;
-  }
-}
-
-.vbstepsbarcont {
-  display: none;
-}
-
-.vbo-showprc-title {
-  font-size: 40px;
-  line-height: 1.3;
-}
-@media (max-width: 1365px) {
-  .vbo-showprc-title {
-    font-size: 40px;
-    line-height: 1.3;
-  }
-}
-@media (max-width: 1024px) {
-  .vbo-showprc-title {
-    font-size: 30px;
-    line-height: 1.3;
-  }
-}
-@media (max-width: 767px) {
-  .vbo-showprc-title {
-    font-size: 24px;
-    line-height: 34px;
-  }
-}
-.vbo-showprc-title {
-  color: #222222;
-  font-weight: 700;
-  font-family: "Gazpacho";
-  margin: 0;
-  padding: 50px 0 25px 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-@media (max-width: 767px) {
-  .vbo-showprc-title {
-    padding-top: 25px;
-  }
-}
-
-.vbo-showprc-roomname h3 {
-  font-size: 24px;
-  line-height: 34px;
-}
-@media (max-width: 1365px) {
-  .vbo-showprc-roomname h3 {
-    font-size: 24px;
-    line-height: 34px;
-  }
-}
-@media (max-width: 1024px) {
-  .vbo-showprc-roomname h3 {
-    font-size: 20px;
-    line-height: 34px;
-  }
-}
-@media (max-width: 767px) {
-  .vbo-showprc-roomname h3 {
-    font-size: 20px;
-    line-height: 30px;
-  }
-}
-
-.vbo-results-head-showprc {
-  background-color: transparent;
-  border: none !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
-  justify-content: space-between !important;
-  padding: 0 0 25px 0 !important;
-  margin-bottom: 25px;
-  flex-wrap: wrap;
-}
-
-.vbo-results-nights,
-.vbo-results-numadults,
-.vbcheckinroom,
-.vbcheckoutroom {
-  display: flex !important;
-  align-items: center;
-  border-right: 1px solid rgba(0, 0, 0, 0.1);
-}
-.vbo-results-nights:last-child,
-.vbo-results-numadults:last-child,
-.vbcheckinroom:last-child,
-.vbcheckoutroom:last-child {
-  border-right: none;
-}
-@media (max-width: 767px) {
-  .vbo-results-nights,
-  .vbo-results-numadults,
-  .vbcheckinroom,
-  .vbcheckoutroom {
-    flex: 1 1 50%;
-    border-right: none;
-    margin-bottom: 16px;
-  }
-}
-
-.vbo-results-head-det {
-  display: flex;
-  flex-direction: column-reverse;
-  gap: 2px;
-}
-
-.vbo-results-head-det-lbl {
-  font-size: 12px !important;
-  font-weight: 400 !important;
-  color: #888888 !important;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.vbo-results-head-det-val {
-  font-size: 18px !important;
-  font-weight: 700 !important;
-  color: #222222 !important;
-}
-
-.vbo-showprc-room-head {
-  display: inline-block;
-  border: none !important;
-  margin: 0 0 16px 0 !important;
-}
-
-.vbo-showprc-staydetails {
-  padding: 4px 0 !important;
-}
-
-.vbo-showprc-price-entry {
-  border-color: rgba(0, 0, 0, 0.1) !important;
-  border-radius: 0 !important;
-  padding-left: 25px !important;
-  padding-right: 25px !important;
-}
-@media (max-width: 767px) {
-  .vbo-showprc-price-entry {
-    padding-left: 16px !important;
-    padding-right: 16px !important;
-  }
-}
-
-input.vbo-radio {
-  accent-color: #bb4d09;
-  width: 18px;
-  height: 18px;
-}
-
-.vbo-pref-color-btn-secondary {
-  border-radius: 0 !important;
-  border-color: #dddddd !important;
-  color: #333333 !important;
-  font-family: "Gazpacho" !important;
-  transition: all 0.3s ease !important;
-}
-.vbo-pref-color-btn-secondary:hover, .vbo-pref-color-btn-secondary:focus {
-  border-color: #bb4d09 !important;
-  color: #ffffff !important;
-}
-
-.vikfx-gallery-previous-image,
-.vikfx-gallery-next-image {
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  padding: 0 !important;
-  width: 44px !important;
-  height: 44px !important;
-  pointer-events: auto !important;
-}
-
-/*
- * Booking confirmation / checkout page
- * (/booking-details/?task=oconfirm - reached after clicking "Book Now" on
- * the summary step). Same treatment as the rest of the plugin: a plain
- * title in place of the (already hidden) step tracker, the same spread-out
- * summary row as the showprc page, flattened corners, and a couple of
- * near-invisible/leftover borders cleaned up.
- */
-.vbo-oconfirm-title {
-  font-size: 40px;
-  line-height: 1.3;
-}
-@media (max-width: 1365px) {
-  .vbo-oconfirm-title {
-    font-size: 40px;
-    line-height: 1.3;
-  }
-}
-@media (max-width: 1024px) {
-  .vbo-oconfirm-title {
-    font-size: 30px;
-    line-height: 1.3;
-  }
-}
-@media (max-width: 767px) {
-  .vbo-oconfirm-title {
-    font-size: 24px;
-    line-height: 34px;
-  }
-}
-.vbo-oconfirm-title {
-  color: #222222;
-  font-weight: 700;
-  font-family: "Gazpacho";
-  margin: 0;
-  padding: 50px 0 25px 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-@media (max-width: 767px) {
-  .vbo-oconfirm-title {
-    padding-top: 25px;
-  }
-}
-
-.vbo-oconfirm-wrapper {
-  padding-top: 25px;
-}
-
-.vbo-results-head-oconfirm {
-  background-color: transparent;
-  border: none !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
-  justify-content: space-between !important;
-  padding: 0 0 25px 0 !important;
-  margin-bottom: 25px;
-  flex-wrap: wrap;
-}
-
-.vbo-summary-date {
-  display: flex !important;
-  align-items: center;
-  border-right: 1px solid rgba(0, 0, 0, 0.1);
-}
-.vbo-summary-date:last-child {
-  border-right: none;
-}
-@media (max-width: 767px) {
-  .vbo-summary-date {
-    flex: 1 1 50%;
-    border-right: none;
-    margin-bottom: 16px;
-  }
-}
-
-.vbo-oconfirm-summary-total-wrapper {
-  border-bottom: none !important;
-}
-
-.vbo-oconfirm-paymethod-item {
-  border-radius: 0 !important;
-}
-
-.vbo-oconfirm-paymentopts {
-  border-color: rgba(0, 0, 0, 0.1) !important;
-}
-
-.vbo-oconfirm-cfield-input input[type=checkbox] {
-  accent-color: #bb4d09;
-}
+}/*# sourceMappingURL=style.css.map */

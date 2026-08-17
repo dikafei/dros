@@ -356,6 +356,15 @@ input#checkoutdate {
     white-space: nowrap;
 }
 
+// Note under the Adults/Total People badges (see script.js) letting guests
+// know an extra bed can be added at checkout, before they even start a
+// booking.
+.vbo-extrabed-note {
+    margin: $half-spacing 0 0 0;
+    font-size: 14px;
+    color: $dark;
+}
+
 /*
  * Booking price/options confirmation page
  * (/booking-details/?task=showprc... - reached after picking dates and
@@ -644,4 +653,167 @@ input.vbo-radio {
 // step.
 .vbo-oconfirm-cfield-input input[type="checkbox"] {
     accent-color: $primary;
+}
+
+// Move the "*" required-field marker (.vbrequired) after its label instead
+// of before it, without touching the markup VikBooking renders. The
+// checkbox field ("I agree to the terms and conditions") gets its own
+// higher-specificity display:block from VikBooking, so it needs a matching
+// override here too.
+.vbo-oconfirm-cfield-label,
+.vbo-oconfirm-cfield-entry-checkbox .vbo-oconfirm-cfield-label {
+    display: flex;
+    align-items: baseline;
+
+    label {
+        order: 1;
+    }
+
+    .vbrequired {
+        order: 2;
+        margin-left: 4px;
+
+        // The theme's default <sup> styling lifts it quite high above the
+        // baseline - bring it down slightly so it reads as a marker rather
+        // than a footnote.
+        sup {
+            top: -6px;
+        }
+    }
+}
+
+/*
+ * Booking Summary - Extra Bed / Additional Breakfast add-ons
+ * (see script.js for the gating and mutual-exclusion logic these classes
+ * support)
+ */
+
+// Additional Breakfast is now a single combined entry (see script.js) with
+// a real radio group - "No Breakfast" plus the three age tiers - styled as
+// a plain vertical list inside the same white "option entry" card used by
+// Extra Bed.
+.vbo-breakfast-combined-list {
+    display: flex;
+    flex-direction: column;
+    gap: $half-spacing;
+    margin-top: $half-spacing;
+    text-align: left !important;
+    font-size: 16px !important;
+    padding-top: 10px !important;
+}
+
+.vbo-breakfast-combined-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.vbo-breakfast-combined-label {
+    flex: 1;
+}
+
+.vbo-breakfast-combined-price {
+    color: $dark;
+    font-size: 14px;
+}
+
+// Native appearance reset first since border-radius alone doesn't reliably
+// round a checkbox/radio's own checked-state rendering.
+.vbo-breakfast-radio {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    width: 18px !important;
+    height: 18px !important;
+    border: 1px solid $border !important;
+    border-radius: 50% !important;
+    position: relative;
+    cursor: pointer;
+    margin: 0;
+    background-color: $white;
+    transition: border-color 0.2s ease;
+
+    &:checked {
+        border-color: $primary !important;
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: $primary;
+            transform: translate(-50%, -50%);
+        }
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+    }
+}
+
+/*
+ * "Your Booking Detail" page (/your-booking-detail/?sid=...&ts=...)
+ */
+
+// Guests can no longer add extra services from their booking confirmation
+// page - hide the whole upsell prompt and form.
+.vbo-booking-upsell-container {
+    display: none;
+}
+
+// "Booking waiting for the payment" banner - was a shrink-to-fit inline
+// block sitting flush against the page title above it. VikBooking's own
+// preference-color stylesheet (injected inline, so it always loads last)
+// sets a same-specificity `margin: 0 0 20px` on the shared
+// .vbo-booking-details-head class, which otherwise wins over margin-top
+// here - bump specificity and use !important to guarantee this wins.
+.vbo-booking-details-head {
+    margin-top: $double-spacing !important;
+    width: 100%;
+    text-align: center;
+
+    h4 {
+        margin-bottom: 0px !important;
+    }
+}
+
+.vbvordpaybutton {
+    border: 0px;
+    box-shadow: none;
+}
+
+// The Xendit "Pay Now" link only carries Bootstrap's .btn.btn-primary
+// classes, which this theme doesn't style, so it was rendering as plain
+// text. It's the single most important action on the page, so size and
+// weight it accordingly rather than matching the site's default button
+// size.
+.xendit__payment__form__wrapper .btn.btn-primary {
+    @include button;
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 18px 56px;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    border-radius: 0;
+    box-shadow: 0 10px 24px rgba($primary, 0.35);
+    transition: all 0.3s ease;
+
+    &:hover,
+    &:focus {
+        box-shadow: 0 12px 28px rgba($primary, 0.45);
+        transform: translateY(-2px);
+    }
+}
+
+// The costs breakdown box (ending in the Total row) is the last thing on
+// the page before the page's own closing script tag, so it was sitting
+// flush against the bottom of the viewport. Same inline-stylesheet
+// specificity fight as the banner above - VikBooking's preference-color
+// styles reset this box's margin to 0 and load after ours.
+.vbo-booking-costs-list {
+    margin-bottom: $double-spacing !important;
 }
