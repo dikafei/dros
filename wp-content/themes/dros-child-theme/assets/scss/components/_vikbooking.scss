@@ -172,6 +172,7 @@ li.room_result:hover .vblistimg {
 .vbdivtot {
     height: auto !important;
     align-items: center !important;
+    flex-wrap: wrap !important;
 }
 
 .vbdivtotinline {
@@ -193,7 +194,7 @@ li.room_result:hover .vblistimg {
     display: flex !important;
     flex-direction: row !important;
     flex-wrap: nowrap !important;
-    align-items: baseline !important;
+    align-items: center !important;
     gap: 6px;
 }
 
@@ -207,6 +208,69 @@ li.room_result:hover .vblistimg {
     font-size: 16px !important;
     color: $dark !important;
     white-space: nowrap;
+}
+
+// Approximate USD conversion note (see script.js) - sits below both the
+// price and the Details button (script.js inserts it after .vbdivtotinline,
+// which wraps them both), set off with its own divider so it reads as a
+// footnote rather than part of the room's actual price.
+.vbo-usd-approx {
+    flex: 0 0 100%;
+    width: 100%;
+    margin-top: $half-spacing;
+    padding: $half-spacing $spacing;
+    text-align: left;
+    background-color: #fafafa;
+}
+
+.vbo-usd-approx-main {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    color: $foreground;
+}
+
+.vbo-usd-approx-disclaimer {
+    display: block;
+    margin-top: 2px;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: normal;
+    color: $dark;
+    font-weight: bold;
+}
+
+// Simplified single-line USD approximation (see script.js "Options Step -
+// Approximate USD (simplified)") - the showprc step shows several Rupiah
+// figures at once (rate plan, Extra Bed, each breakfast tier), so each just
+// gets one small line underneath rather than the fuller note/disclaimer
+// treatment above.
+.vbo-usd-approx-simple {
+    display: block;
+    margin-top: 4px;
+    font-size: 12px;
+    font-weight: normal;
+    color: $dark;
+}
+
+// Rate plan price is right-aligned in its own column; Extra Bed's price
+// sits centered inside its own card - match each context.
+.vbo-showprc-price-entry-cost .vbo-usd-approx-simple {
+    text-align: right;
+}
+
+.vbo-showprc-option-entry-cost .vbo-usd-approx-simple {
+    text-align: center;
+}
+
+// Inline "(approx. US$23)" aside (see script.js "Confirm / Your Booking
+// Detail - Approximate USD (bracket)") - stays on the same line as the
+// price it follows, sized relative to it so it scales with the large bold
+// TOTAL figure as well as smaller line items.
+.vbo-usd-approx-bracket {
+    font-size: 0.8em;
+    font-weight: normal;
+    color: $dark;
 }
 
 .vbselectordiv {
@@ -362,6 +426,36 @@ input#checkoutdate {
 .vbo-extrabed-note {
     margin: $half-spacing 0 0 0;
     font-size: 14px;
+    color: $dark;
+}
+
+/*
+ * Availability calendar - thousands price display (see script.js "Room
+ * Details - Availability Calendar")
+ */
+
+// A day priced above the cheapest day shown that month (weekend/high-season
+// rate). Every day's price already renders in the brand primary color by
+// default (VikBooking's own preference-color theming), so a high day needs
+// its own distinct color rather than reusing that - the darker tertiary
+// brand shade, bolder weight, and a filled pill instead of just a border.
+.vbcalpricedaycost.vbo-cal-price-high > div {
+    border-color: $tertiary !important;
+    background-color: rgba($tertiary, 0.08);
+}
+
+.vbo-cal-price-high .vbo_price {
+    color: $tertiary !important;
+    font-weight: 700;
+}
+
+// Both notes at the end of the calendar - the thousands explainer script.js
+// adds, and the "prices may change" disclaimer script.js relocates here -
+// share the same quiet, small-print treatment.
+.vbo-cal-thousands-note,
+.vbpricecalwarning {
+    margin: 5px 0 0 16px;
+    font-size: 13px;
     color: $dark;
 }
 
@@ -713,7 +807,13 @@ input.vbo-radio {
     flex: 1;
 }
 
+// Stacks the Rupiah price above its own simplified USD approximation
+// (.vbo-usd-approx-simple, appended by script.js), right-aligned to match
+// where the plain Rp text used to sit.
 .vbo-breakfast-combined-price {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
     color: $dark;
     font-size: 14px;
 }
@@ -816,4 +916,18 @@ input.vbo-radio {
 // styles reset this box's margin to 0 and load after ours.
 .vbo-booking-costs-list {
     margin-bottom: $double-spacing !important;
+}
+
+.vbo-listing-details-wrap .vbo-roomdet-calscontainer-inner .vbo-availcalendars-cont .vbcalsblock {
+    grid-template-columns: repeat(1, 1fr);
+}
+
+.plugin-container .vbo-listing-details-wrap .vbo-listing-details-desc-cont p {
+    font-size: 13px !important;
+    font-style: italic;
+    line-height: 1.8 !important;
+}
+
+.vbo-listing-details-wrap .vbo-listing-details-desc-cont .vbo-listing-amenities .vbo-listing-amenity {
+    margin: 0 0 10px;
 }

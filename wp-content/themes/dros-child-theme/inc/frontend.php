@@ -62,7 +62,8 @@
 					wp_add_inline_script('default-js', 'const HC =' . json_encode(array(
 						'ajaxurl' => admin_url('admin-ajax.php'),
 						'nonce' => wp_create_nonce('ajax-search-nonce'),
-					)), 'before');	
+						'usdIdrRate' => function_exists( 'dros_get_usd_idr_rate' ) ? dros_get_usd_idr_rate() : 0,
+					)), 'before');
 			}		
 	
 		// Backend

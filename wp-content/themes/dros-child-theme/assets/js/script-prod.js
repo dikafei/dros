@@ -1511,6 +1511,213 @@ $j(function(){
 			vboOconfirmWrapper.parentNode.insertBefore( vboOconfirmTitle, vboOconfirmWrapper );
 		}
 
+	// Our Rooms / Room Details - Approximate USD Price
+		// Indonesian regulations require checkout to run in Rupiah
+		// (VikBooking's configured currency), but many guests think in USD.
+		// HC.usdIdrRate is a daily-cached USD->IDR rate (see inc/currency.php)
+		// exposed for exactly this - show a rough estimate next to each
+		// room's nightly rate, paired with a disclaimer that the real charge
+		// is computed in IDR by our payment processor (Xendit) at checkout,
+		// since a live card-network conversion can land a little differently
+		// than this reference rate. Scoped to the room listing and each
+		// room's own details page - not the showprc/oconfirm/your-booking-
+		// detail pages, which also live under /booking-details/ but carry a
+		// task= query param.
+		var vboIsOurRooms = location.pathname.indexOf( '/our-rooms' ) !== -1;
+		var vboIsRoomDetails = location.pathname.indexOf( '/booking-details' ) !== -1 && location.search.indexOf( 'task=' ) === -1;
+
+		if ( ( vboIsOurRooms || vboIsRoomDetails ) && typeof HC !== 'undefined' && HC.usdIdrRate ) {
+			document.querySelectorAll( '.room_cost' ).forEach( function( costEl ) {
+				// .vbdivtotinline (room listing cards) holds both the price
+				// block and the Details button side by side - insert after
+				// that whole row so the note spans the full width below both.
+				// .vb_detcostroom (a room's own details page) only wraps the
+				// price itself, so falling back to it keeps the same
+				// afterend-insertion approach there.
+				var priceRow = costEl.closest( '.vbdivtotinline' ) || costEl.closest( '.vb_detcostroom' ) || costEl.closest( '.vbsrowpricediv' ) || costEl;
+
+				if ( priceRow.nextElementSibling && priceRow.nextElementSibling.classList.contains( 'vbo-usd-approx' ) ) {
+					return;
+				}
+
+				var currencyEl = costEl.querySelector( '.vbo_currency' );
+				var priceEl = costEl.querySelector( '.vbo_price' );
+
+				if ( !currencyEl || !priceEl || currencyEl.textContent.trim() !== 'Rp' ) {
+					return;
+				}
+
+				var idrValue = parseFloat( priceEl.textContent.trim().replace( /\./g, '' ).replace( ',', '.' ) );
+
+				if ( isNaN( idrValue ) ) {
+					return;
+				}
+
+				var usdValue = Math.round( idrValue / HC.usdIdrRate );
+				var usdFormatted = usdValue.toLocaleString( 'en-US' );
+
+				var note = document.createElement( 'div' );
+				note.className = 'vbo-usd-approx';
+
+				var mainLine = document.createElement( 'span' );
+				mainLine.className = 'vbo-usd-approx-main';
+				mainLine.textContent = 'Approximately $' + usdFormatted + ' USD';
+
+				var disclaimerLine = document.createElement( 'span' );
+				disclaimerLine.className = 'vbo-usd-approx-disclaimer';
+				disclaimerLine.textContent = 'Final amount is calculated in IDR at checkout';
+
+				note.appendChild( mainLine );
+				note.appendChild( disclaimerLine );
+
+				priceRow.insertAdjacentElement( 'afterend', note );
+			});
+		}
+
+	// VikBooking Options Step - Approximate USD (simplified)
+		// Same idea as the note above, but this page (task=showprc) shows
+		// several Rupiah figures at once - the room rate, Extra Bed, and
+		// each Additional Breakfast tier - so a lighter single "~$X USD"
+		// line directly under each number reads better here than repeating
+		// the full two-line note/disclaimer everywhere. Builds on
+		// HC.usdIdrRate from inc/currency.php, same as the note above.
+		var vboIsShowprc = location.pathname.indexOf( '/booking-details' ) !== -1 && location.search.indexOf( 'task=showprc' ) !== -1;
+
+		var vboMakeUsdApproxSpan = function( idrValue ) {
+			if ( typeof HC === 'undefined' || !HC.usdIdrRate || isNaN( idrValue ) || idrValue <= 0 ) {
+				return null;
+			}
+
+			var usdValue = Math.round( idrValue / HC.usdIdrRate );
+			var usdSpan = document.createElement( 'span' );
+			usdSpan.className = 'vbo-usd-approx-simple';
+			usdSpan.textContent = '(approx. US$' + usdValue.toLocaleString( 'en-US' ) + ')';
+
+			return usdSpan;
+		};
+
+		if ( vboIsShowprc ) {
+			// .room_cost (rate plan price) is an inline-flex row itself, so
+			// the note goes after it as a sibling rather than inside it -
+			// appending inside would just become another flex item on the
+			// same line instead of wrapping to its own line below.
+			var vboAppendUsdAfterRoomCost = function( costEl ) {
+				var currencyEl = costEl.querySelector( '.vbo_currency' );
+				var priceEl = costEl.querySelector( '.vbo_price' );
+
+				if ( !currencyEl || !priceEl || currencyEl.textContent.trim() !== 'Rp' ) {
+					return;
+				}
+
+				if ( costEl.nextElementSibling && costEl.nextElementSibling.classList.contains( 'vbo-usd-approx-simple' ) ) {
+					return;
+				}
+
+				var idrValue = parseFloat( priceEl.textContent.trim().replace( /\./g, '' ).replace( ',', '.' ) );
+				var usdSpan = vboMakeUsdApproxSpan( idrValue );
+
+				if ( usdSpan ) {
+					costEl.insertAdjacentElement( 'afterend', usdSpan );
+				}
+			};
+
+			document.querySelectorAll( '.vbo-showprc-price-entry-cost .room_cost' ).forEach( vboAppendUsdAfterRoomCost );
+
+			// Extra Bed's own cost box (.vbo-showprc-option-entry-cost) is a
+			// plain block, not flex, so appending inside it works directly -
+			// it just wraps onto its own line below the existing price text.
+			var vboShowprcExtraBedSelect = document.querySelector( 'select[name="optid11"]' );
+			var vboShowprcExtraBedEntry = vboShowprcExtraBedSelect ? vboShowprcExtraBedSelect.closest( '.vbo-showprc-option-entry' ) : null;
+			var vboShowprcExtraBedCost = vboShowprcExtraBedEntry ? vboShowprcExtraBedEntry.querySelector( '.vbo-showprc-option-entry-cost' ) : null;
+
+			if ( vboShowprcExtraBedCost && !vboShowprcExtraBedCost.querySelector( '.vbo-usd-approx-simple' ) ) {
+				var vboExtraBedPriceEl = vboShowprcExtraBedCost.querySelector( '.vbo_price' );
+				var vboExtraBedIdrValue = vboExtraBedPriceEl ? parseFloat( vboExtraBedPriceEl.textContent.trim().replace( /\./g, '' ).replace( ',', '.' ) ) : NaN;
+				var vboExtraBedUsdSpan = vboMakeUsdApproxSpan( vboExtraBedIdrValue );
+
+				if ( vboExtraBedUsdSpan ) {
+					vboShowprcExtraBedCost.appendChild( vboExtraBedUsdSpan );
+				}
+			}
+		}
+
+	// VikBooking Confirm / Your Booking Detail - Approximate USD (bracket)
+		// Same idea as the notes above, but formatted as a short inline
+		// "(approx. US$23)" right after each Rupiah figure rather than its
+		// own line - these two pages (the final confirm-and-pay step, and
+		// the read-only booking-detail page reached from the confirmation
+		// email) show fewer numbers at once than the Options step, so an
+		// inline aside fits without crowding the layout.
+		var vboMakeUsdApproxBracket = function( idrValue ) {
+			if ( typeof HC === 'undefined' || !HC.usdIdrRate || isNaN( idrValue ) || idrValue <= 0 ) {
+				return null;
+			}
+
+			var usdValue = Math.round( idrValue / HC.usdIdrRate );
+			var span = document.createElement( 'span' );
+			span.className = 'vbo-usd-approx-bracket';
+			span.textContent = ' (approx. US$' + usdValue.toLocaleString( 'en-US' ) + ')';
+
+			return span;
+		};
+
+		var vboIsOconfirm = location.pathname.indexOf( '/booking-details' ) !== -1 && location.search.indexOf( 'task=oconfirm' ) !== -1;
+		var vboIsYourBookingDetail = location.pathname.indexOf( '/your-booking-detail' ) !== -1;
+
+		if ( vboIsOconfirm ) {
+			// Both the per-room "Total Price" cell and the grand TOTAL row
+			// reuse this same class - net/tax cells only exist (hidden) when
+			// there's no separate tax to show, so this only ever touches the
+			// one visible price per row.
+			document.querySelectorAll( '.vbo-oconfirm-summary-room-cell-tot' ).forEach( function( cell ) {
+				if ( getComputedStyle( cell ).display === 'none' ) {
+					return;
+				}
+
+				var currencyEl = cell.querySelector( '.vbo_currency' );
+				var priceEl = cell.querySelector( '.vbo_price' );
+				var priceWrap = cell.querySelector( '.vbprice' );
+
+				if ( !currencyEl || !priceEl || !priceWrap || currencyEl.textContent.trim() !== 'Rp' || cell.querySelector( '.vbo-usd-approx-bracket' ) ) {
+					return;
+				}
+
+				var idrValue = parseFloat( priceEl.textContent.trim().replace( /\./g, '' ).replace( ',', '.' ) );
+				var bracket = vboMakeUsdApproxBracket( idrValue );
+
+				if ( bracket ) {
+					priceWrap.insertAdjacentElement( 'afterend', bracket );
+				}
+			});
+		}
+
+		if ( vboIsYourBookingDetail ) {
+			// Skip discount/coupon rows - a "(approx. US$-8)" next to a
+			// negative adjustment reads as a mistake, not useful info - and
+			// only touch rows with a real positive Rupiah figure (Room Rate,
+			// any paid add-ons, Total).
+			document.querySelectorAll( '.vbo-booking-costs-list .vbo-booking-cost-detail' ).forEach( function( row ) {
+				if ( row.classList.contains( 'vbo-booking-cost-detail-discount' ) ) {
+					return;
+				}
+
+				var currencyEl = row.querySelector( '.vbo_currency' );
+				var priceEl = row.querySelector( '.vbo_price' );
+				var valNumber = row.querySelector( '.vbo-booking-cost-val-number' );
+
+				if ( !currencyEl || !priceEl || !valNumber || currencyEl.textContent.trim() !== 'Rp' || valNumber.querySelector( '.vbo-usd-approx-bracket' ) ) {
+					return;
+				}
+
+				var idrValue = parseFloat( priceEl.textContent.trim().replace( /\./g, '' ).replace( ',', '.' ) );
+				var bracket = vboMakeUsdApproxBracket( idrValue );
+
+				if ( bracket ) {
+					valNumber.appendChild( bracket );
+				}
+			});
+		}
+
 	// VikBooking Room Details - Extra Bed Note
 		// Let guests know upfront (before they even start a booking) that an
 		// extra bed is available as a checkout add-on, since the max-people
@@ -1522,6 +1729,147 @@ $j(function(){
 			vboExtraBedNote.className = 'vbo-extrabed-note';
 			vboExtraBedNote.textContent = 'Up to one extra bed may be added during checkout once the maximum room occupancy has been selected.';
 			vboMaxPeopleBlock.insertAdjacentElement( 'afterend', vboExtraBedNote );
+		}
+
+	// VikBooking Room Details - Availability Calendar (thousands display,
+	// notes reorder, higher-than-normal flag)
+		// The per-day price calendar renders each day's rate in full Rupiah
+		// with a "Rp" prefix ("Rp 2,500,000") - too many digits to scan at a
+		// glance. Show it in thousands instead ("2.500", dot as the
+		// Indonesian thousands separator), with a note explaining the unit,
+		// and flag any day priced above the cheapest day shown that month so
+		// it can be styled differently (see _vikbooking.scss).
+		// VikBooking replaces this whole section's HTML via AJAX on every
+		// month change (confirmed live - a fresh .vbpricecalwarning node
+		// appears back in its original position each time), so all of this
+		// needs to re-run after every swap, not just once on page load -
+		// hence the MutationObserver below rather than a single pass.
+		if ( vboIsRoomDetails ) {
+			var vboCalProcessing = false;
+
+			var vboProcessCalendarPrices = function( contEl ) {
+				var priceCells = contEl.querySelectorAll( '.vbcalpricedaycost' );
+				var idrValues = [];
+
+				priceCells.forEach( function( cell ) {
+					var idrValue;
+
+					// Already seen this exact cell before (re-run triggered
+					// by our own DOM changes, not a fresh AJAX swap) - reuse
+					// the raw value stashed the first time, since by now the
+					// visible text has already been rewritten to thousands.
+					if ( cell.dataset.vboIdrValue ) {
+						idrValue = parseInt( cell.dataset.vboIdrValue, 10 );
+					} else {
+						var priceEl = cell.querySelector( '.vbo_price' );
+
+						if ( !priceEl ) {
+							return;
+						}
+
+						idrValue = parseInt( priceEl.textContent.trim().replace( /[^0-9]/g, '' ), 10 );
+					}
+
+					if ( !isNaN( idrValue ) && idrValue > 0 ) {
+						cell.dataset.vboIdrValue = idrValue;
+						idrValues.push( idrValue );
+					}
+				});
+
+				if ( !idrValues.length ) {
+					return;
+				}
+
+				// "Normal" for this visible month = its own cheapest day -
+				// simplest stand-in for the room's base rate without
+				// depending on the separate "Starting From" price widget.
+				var baselinePrice = Math.min.apply( null, idrValues );
+
+				priceCells.forEach( function( cell ) {
+					var idrValue = parseInt( cell.dataset.vboIdrValue, 10 );
+
+					if ( isNaN( idrValue ) ) {
+						return;
+					}
+
+					if ( cell.dataset.vboProcessed !== '1' ) {
+						var currencyEl = cell.querySelector( '.vbo_currency' );
+
+						if ( currencyEl ) {
+							currencyEl.remove();
+						}
+
+						var priceEl = cell.querySelector( '.vbo_price' );
+
+						if ( priceEl ) {
+							priceEl.textContent = Math.round( idrValue / 1000 ).toLocaleString( 'id-ID' );
+						}
+
+						cell.dataset.vboProcessed = '1';
+					}
+
+					cell.classList.toggle( 'vbo-cal-price-high', idrValue > baselinePrice );
+				});
+			};
+
+			// VikBooking always renders the price table (.vbcalsblock-price)
+			// after the disclaimer (.vbpricecalwarning) - move the
+			// disclaimer after the table instead, and add a second note
+			// explaining the thousands display, both at the very end.
+			var vboReorderCalendarNotes = function( contEl ) {
+				var calBlock = contEl.querySelector( ':scope > .vbcalsblock-price' );
+				var warning = contEl.querySelector( ':scope > .vbpricecalwarning' );
+
+				if ( !calBlock ) {
+					return;
+				}
+
+				var thousandsNote = contEl.querySelector( ':scope > .vbo-cal-thousands-note' );
+
+				if ( !thousandsNote ) {
+					thousandsNote = document.createElement( 'p' );
+					thousandsNote.className = 'vbo-cal-thousands-note';
+					thousandsNote.innerHTML = '<sup>**</sup>Prices shown are in thousand Rupiah.';
+				}
+
+				// appendChild relocates existing nodes rather than
+				// duplicating them, so calling this on an already-correct
+				// order is a harmless no-op.
+				contEl.appendChild( thousandsNote );
+
+				if ( warning ) {
+					contEl.appendChild( warning );
+				}
+			};
+
+			var vboProcessCalendarContainer = function() {
+				if ( vboCalProcessing ) {
+					return;
+				}
+
+				var contEl = document.querySelector( '.vbo-availcalendars-cont' );
+
+				if ( !contEl ) {
+					return;
+				}
+
+				vboCalProcessing = true;
+
+				try {
+					vboProcessCalendarPrices( contEl );
+					vboReorderCalendarNotes( contEl );
+				} finally {
+					vboCalProcessing = false;
+				}
+			};
+
+			vboProcessCalendarContainer();
+
+			var vboCalsContainer = document.querySelector( '.vbo-roomdet-calscontainer' );
+
+			if ( vboCalsContainer ) {
+				new MutationObserver( vboProcessCalendarContainer ).observe( vboCalsContainer, { childList: true, subtree: true } );
+			}
 		}
 
 	// VikBooking Booking Summary - Extra Bed / Breakfast Add-ons
@@ -1586,7 +1934,23 @@ $j(function(){
 				if ( cost ) {
 					var priceText = document.createElement( 'span' );
 					priceText.className = 'vbo-breakfast-combined-price';
-					priceText.textContent = cost;
+
+					var priceMain = document.createElement( 'span' );
+					priceMain.className = 'vbo-breakfast-combined-price-main';
+					priceMain.textContent = cost;
+					priceText.appendChild( priceMain );
+
+					// Same simplified "~$X USD" treatment as the rest of this
+					// page's prices (see "Options Step - Approximate USD"
+					// above) - cost here is already plain text ("Rp 600.000")
+					// copied from the real (now hidden) checkbox's price box.
+					var breakfastIdrValue = parseFloat( cost.replace( /[^0-9]/g, '' ) );
+					var breakfastUsdSpan = typeof vboMakeUsdApproxSpan === 'function' ? vboMakeUsdApproxSpan( breakfastIdrValue ) : null;
+
+					if ( breakfastUsdSpan ) {
+						priceText.appendChild( breakfastUsdSpan );
+					}
+
 					item.appendChild( priceText );
 				}
 

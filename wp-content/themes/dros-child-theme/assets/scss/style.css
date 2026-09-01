@@ -5840,6 +5840,8 @@ li.room_result:hover .vblistimg {
   -webkit-box-align: center !important;
       -ms-flex-align: center !important;
           align-items: center !important;
+  -ms-flex-wrap: wrap !important;
+      flex-wrap: wrap !important;
 }
 
 .vbdivtotinline {
@@ -5870,9 +5872,9 @@ li.room_result:hover .vblistimg {
           flex-direction: row !important;
   -ms-flex-wrap: nowrap !important;
       flex-wrap: nowrap !important;
-  -webkit-box-align: baseline !important;
-      -ms-flex-align: baseline !important;
-          align-items: baseline !important;
+  -webkit-box-align: center !important;
+      -ms-flex-align: center !important;
+          align-items: center !important;
   gap: 6px;
 }
 
@@ -5888,6 +5890,56 @@ li.room_result:hover .vblistimg {
   font-size: 16px !important;
   color: #888888 !important;
   white-space: nowrap;
+}
+
+.vbo-usd-approx {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
+  width: 100%;
+  margin-top: 16px;
+  padding: 16px 25px;
+  text-align: left;
+  background-color: #fafafa;
+}
+
+.vbo-usd-approx-main {
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333333;
+}
+
+.vbo-usd-approx-disclaimer {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  font-style: italic;
+  font-weight: normal;
+  color: #888888;
+  font-weight: bold;
+}
+
+.vbo-usd-approx-simple {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: normal;
+  color: #888888;
+}
+
+.vbo-showprc-price-entry-cost .vbo-usd-approx-simple {
+  text-align: right;
+}
+
+.vbo-showprc-option-entry-cost .vbo-usd-approx-simple {
+  text-align: center;
+}
+
+.vbo-usd-approx-bracket {
+  font-size: 0.8em;
+  font-weight: normal;
+  color: #888888;
 }
 
 .vbselectordiv {
@@ -6024,6 +6076,27 @@ input#checkoutdate:focus {
 .vbo-extrabed-note {
   margin: 16px 0 0 0;
   font-size: 14px;
+  color: #888888;
+}
+
+/*
+ * Availability calendar - thousands price display (see script.js "Room
+ * Details - Availability Calendar")
+ */
+.vbcalpricedaycost.vbo-cal-price-high > div {
+  border-color: #53301B !important;
+  background-color: rgba(83, 48, 27, 0.08);
+}
+
+.vbo-cal-price-high .vbo_price {
+  color: #53301B !important;
+  font-weight: 700;
+}
+
+.vbo-cal-thousands-note,
+.vbpricecalwarning {
+  margin: 5px 0 0 16px;
+  font-size: 13px;
   color: #888888;
 }
 
@@ -6411,6 +6484,16 @@ input.vbo-radio {
 }
 
 .vbo-breakfast-combined-price {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
   color: #888888;
   font-size: 14px;
 }
@@ -6509,6 +6592,20 @@ input.vbo-radio {
 
 .vbo-booking-costs-list {
   margin-bottom: 50px !important;
+}
+
+.vbo-listing-details-wrap .vbo-roomdet-calscontainer-inner .vbo-availcalendars-cont .vbcalsblock {
+  grid-template-columns: repeat(1, 1fr);
+}
+
+.plugin-container .vbo-listing-details-wrap .vbo-listing-details-desc-cont p {
+  font-size: 13px !important;
+  font-style: italic;
+  line-height: 1.8 !important;
+}
+
+.vbo-listing-details-wrap .vbo-listing-details-desc-cont .vbo-listing-amenities .vbo-listing-amenity {
+  margin: 0 0 10px;
 }
 
 /*@use "abstracts" as a;*/
@@ -8888,7 +8985,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   }
 }
 .page-id-440 .page-heading-wrapper .container {
-  width: 1000px;
+  width: 1100px;
   max-width: 100%;
   margin: 0 auto;
   padding-bottom: 25px;
