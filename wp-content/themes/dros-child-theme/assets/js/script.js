@@ -48,10 +48,14 @@ $j(function(){
 
 	// The CSS touch-action:none/overscroll-behavior:none that make the
 	// hijack above possible also switch off the browser's own touch
-	// scrolling, so they must only be active on these same pages - add a
-	// body class the stylesheet scopes those rules to, mirroring isHomePage
-	// exactly instead of applying them everywhere.
-		$j( 'body' ).toggleClass( 'has-scroll-hijack', isHomePage );
+	// scrolling, so they must only be active where the hijack is actually
+	// running - add a body class the stylesheet scopes those rules to. The
+	// touchstart/touchmove handlers below bail out on isMobile() too (real
+	// phone widths get plain vertical scroll, no hijack), so this has to
+	// mirror that same condition, not just isHomePage on its own, or real
+	// touch devices on the homepage get touch-action:none with no JS
+	// left to actually move the page.
+		$j( 'body' ).toggleClass( 'has-scroll-hijack', isHomePage && !isMobile() );
 
 	// Unit Head Texts - Make them same size
 		syncUnitHeadTextWidth();
@@ -1114,6 +1118,10 @@ $j(function(){
 				heroWidth = $j( '.hero' ).width() || 0;
 
 				mobileCheck();
+
+				// Keep has-scroll-hijack in sync if resizing/rotating crosses
+				// the mobile breakpoint (see the ready-handler comment above).
+				$j( 'body' ).toggleClass( 'has-scroll-hijack', isHomePage && !isMobile() );
 			});
 	
 	// Mobile Check		
