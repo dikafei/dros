@@ -88,6 +88,35 @@ ul.vblist {
     row-gap: $double-spacing;
 }
 
+// The grid's 2-column layout (grid-template-columns: repeat(2, 1fr)) lives
+// in WordPress's own Customizer "Additional CSS", outside this theme's
+// files, and has no responsive breakpoint at all - each card's content
+// won't shrink below ~456px, so below roughly 980px viewport width the two
+// columns no longer fit and the whole page scrolls horizontally instead of
+// the cards stacking. Force a single column below tablet width instead;
+// matching the Customizer rule's own specificity (.plugin-container
+// .vblist) plus !important to reliably win regardless of load order.
+@media( max-width:$ipad ) {
+    .plugin-container .vblist {
+        grid-template-columns: 1fr !important;
+    }
+
+    // ul.vblist's default grid align-items (stretch) is exactly what the
+    // 2-column desktop layout wants - it's what makes .vbo-info-room's
+    // flex:1 1 auto (above) fill a shorter card up to match its taller row
+    // sibling. With only one card per row now, that same stretch instead
+    // locks each li.room_result to an incorrectly-computed row height
+    // (a browser quirk from measuring a wrapping-flex subtree for grid
+    // auto-row sizing) that's too short for its own real content: the price
+    // row ends up overflowing outside the card's box (looks "out of
+    // bounds") while .vbo-info-room's flex-grow eats the resulting stretch
+    // shortfall as dead space above it. There's no row sibling to match
+    // anymore, so let each card size to its own content instead.
+    .plugin-container .vblist {
+        align-items: start !important;
+    }
+}
+
 li.room_result {
     background-color: $white;
     border: 1px solid rgba($black, 0.08);
@@ -202,6 +231,7 @@ li.room_result:hover .vblistimg {
     display: inline-flex !important;
     width: auto !important;
     white-space: nowrap !important;
+    color: #bb4d09;
 }
 
 .vbliststartfrom {
@@ -227,7 +257,7 @@ li.room_result:hover .vblistimg {
     display: block;
     font-size: 14px;
     font-weight: bold;
-    color: $foreground;
+    color: $primary;
 }
 
 .vbo-usd-approx-disclaimer {
@@ -248,15 +278,19 @@ li.room_result:hover .vblistimg {
 .vbo-usd-approx-simple {
     display: block;
     margin-top: 4px;
-    font-size: 12px;
-    font-weight: normal;
-    color: $dark;
+    font-size: 15px;
+    font-weight: bold;
+    color: $primary;
 }
 
 // Rate plan price is right-aligned in its own column; Extra Bed's price
 // sits centered inside its own card - match each context.
 .vbo-showprc-price-entry-cost .vbo-usd-approx-simple {
     text-align: right;
+}
+
+.vbo-showprc-option-entry-cost {
+    color:#bb4d09;
 }
 
 .vbo-showprc-option-entry-cost .vbo-usd-approx-simple {
@@ -268,9 +302,10 @@ li.room_result:hover .vblistimg {
 // price it follows, sized relative to it so it scales with the large bold
 // TOTAL figure as well as smaller line items.
 .vbo-usd-approx-bracket {
-    font-size: 0.8em;
-    font-weight: normal;
-    color: $dark;
+    font-size: 16px !important;
+    font-weight: bold;
+    color: $primary;
+    margin-top: -10px;
 }
 
 .vbselectordiv {
@@ -814,8 +849,13 @@ input.vbo-radio {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    color: $dark;
-    font-size: 14px;
+    color: #bb4d09;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.vbo-oconfirm-summary-room-cell-tot {
+    color: #bb4d09;
 }
 
 // Native appearance reset first since border-radius alone doesn't reliably
@@ -861,6 +901,17 @@ input.vbo-radio {
 // Guests can no longer add extra services from their booking confirmation
 // page - hide the whole upsell prompt and form.
 .vbo-booking-upsell-container {
+    display: none;
+}
+
+// "Reserve additional services" quick-action tile (separate from the upsell
+// form above, but points at it - its onclick just scroll-animates down to
+// .vbo-booking-upsell-container). With that section hidden, this button
+// scrolls toward a zero-height target and looks like it does nothing - hide
+// the now-dead-end button too rather than leave it live pointing at
+// nothing. Scoped to this specific tile so the other two quick actions
+// ("Pre Check-in", "Cancellation/Modification Request") are untouched.
+.vbo-booking-upselling-wrap {
     display: none;
 }
 
@@ -916,6 +967,37 @@ input.vbo-radio {
 // styles reset this box's margin to 0 and load after ours.
 .vbo-booking-costs-list {
     margin-bottom: $double-spacing !important;
+
+    // VikBooking sizes this box and its Total row in ems (1.1em / 1.2em)
+    // relative to the page's font-size. This site's base font is much
+    // larger than the ~14-16px VikBooking was designed around, so those
+    // ems compound into a Total row (~30px) that dwarfs the room title
+    // (24px) and room rate (22px) right above it. Pin both to fixed
+    // sizes instead so the box reads in scale with the rest of the page.
+    font-size: 16px !important;
+
+    .vbo-booking-cost-detail-total {
+        font-size: 20px !important;
+    }
+}
+
+// Same em-compounding problem as the costs box above, but on the "Options"
+// breakdown (Extra Bed / Additional Breakfast) sitting just above it -
+// VikBooking sizes the "Options" label and each row's name/price the same
+// way as the page's base font, so they render at ~24-25px, matching the
+// oversized Total row before it was pinned. Bring these back in line with
+// the room rate (22px) and the fixed-size costs box above.
+.vbo-booking-room-extras-options {
+    font-size: 16px !important;
+
+    .vbvordcoststitle {
+        font-size: 15px !important;
+    }
+
+    .vbo-booking-pricename,
+    .vbo-booking-pricedet {
+        font-size: 16px !important;
+    }
 }
 
 .vbo-listing-details-wrap .vbo-roomdet-calscontainer-inner .vbo-availcalendars-cont .vbcalsblock {

@@ -96,13 +96,24 @@
         font-family: $primary-font;
         @include font(p);
         color:$foreground;
-        background-color:$background;      
-        touch-action: none;
-	    overscroll-behavior: none;
+        background-color:$background;
 
         &.is-popup-open {
             overflow: hidden;
-        }  
+        }
+    }
+
+    // touch-action:none/overscroll-behavior:none disable the browser's own
+    // touch scrolling entirely, which is only correct on the pages whose
+    // wheel/touch/keyboard events script.js hijacks for the fake
+    // horizontal-scroll (home-sectionN pages - see the isHomePage flag in
+    // script.js, which adds this class to <body> on exactly those pages).
+    // Applying it unconditionally to every page left plain content pages
+    // like /our-rooms/ (no home-sectionN markup, no JS hijack to fall back
+    // on) with no way to scroll at all on a touch device.
+    body:not(.wp-admin).has-scroll-hijack {
+        touch-action: none;
+        overscroll-behavior: none;
     }
 
     body, button:not(.components-button):not(.wp-block-splide-carousel-add), input, select, textarea {

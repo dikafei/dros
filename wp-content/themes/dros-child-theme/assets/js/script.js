@@ -46,6 +46,13 @@ $j(function(){
 	// if more home-sectionN pages get added later.
 		const isHomePage = $j( '[class*="home-section"]' ).length > 0;
 
+	// The CSS touch-action:none/overscroll-behavior:none that make the
+	// hijack above possible also switch off the browser's own touch
+	// scrolling, so they must only be active on these same pages - add a
+	// body class the stylesheet scopes those rules to, mirroring isHomePage
+	// exactly instead of applying them everywhere.
+		$j( 'body' ).toggleClass( 'has-scroll-hijack', isHomePage );
+
 	// Unit Head Texts - Make them same size
 		syncUnitHeadTextWidth();
 
@@ -1561,7 +1568,7 @@ $j(function(){
 
 				var mainLine = document.createElement( 'span' );
 				mainLine.className = 'vbo-usd-approx-main';
-				mainLine.textContent = 'Approximately $' + usdFormatted + ' USD';
+				mainLine.textContent = 'Estimated $' + usdFormatted + ' USD';
 
 				var disclaimerLine = document.createElement( 'span' );
 				disclaimerLine.className = 'vbo-usd-approx-disclaimer';
@@ -1591,7 +1598,7 @@ $j(function(){
 			var usdValue = Math.round( idrValue / HC.usdIdrRate );
 			var usdSpan = document.createElement( 'span' );
 			usdSpan.className = 'vbo-usd-approx-simple';
-			usdSpan.textContent = '(approx. US$' + usdValue.toLocaleString( 'en-US' ) + ')';
+			usdSpan.textContent = '(est. US$' + usdValue.toLocaleString( 'en-US' ) + ')';
 
 			return usdSpan;
 		};
@@ -1643,7 +1650,7 @@ $j(function(){
 
 	// VikBooking Confirm / Your Booking Detail - Approximate USD (bracket)
 		// Same idea as the notes above, but formatted as a short inline
-		// "(approx. US$23)" right after each Rupiah figure rather than its
+		// "(est. US$23)" right after each Rupiah figure rather than its
 		// own line - these two pages (the final confirm-and-pay step, and
 		// the read-only booking-detail page reached from the confirmation
 		// email) show fewer numbers at once than the Options step, so an
@@ -1656,7 +1663,7 @@ $j(function(){
 			var usdValue = Math.round( idrValue / HC.usdIdrRate );
 			var span = document.createElement( 'span' );
 			span.className = 'vbo-usd-approx-bracket';
-			span.textContent = ' (approx. US$' + usdValue.toLocaleString( 'en-US' ) + ')';
+			span.textContent = ' (est. US$' + usdValue.toLocaleString( 'en-US' ) + ')';
 
 			return span;
 		};
@@ -1692,7 +1699,7 @@ $j(function(){
 		}
 
 		if ( vboIsYourBookingDetail ) {
-			// Skip discount/coupon rows - a "(approx. US$-8)" next to a
+			// Skip discount/coupon rows - a "(est. US$-8)" next to a
 			// negative adjustment reads as a mistake, not useful info - and
 			// only touch rows with a real positive Rupiah figure (Room Rate,
 			// any paid add-ons, Total).
