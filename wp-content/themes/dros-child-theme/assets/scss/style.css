@@ -1381,7 +1381,7 @@ body.transparent-header .site-header {
 .admin-bar .site-header .inside-header .floating-header {
   padding-top: 112px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .admin-bar .site-header .inside-header .floating-header {
     padding-top: 47px;
   }
@@ -1391,7 +1391,7 @@ body.transparent-header .site-header {
     padding-top: 61px;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .admin-bar .site-header .inside-header .floating-header.onWheel {
     -webkit-transition: all 0.2s ease 0s;
     transition: all 0.2s ease 0s;
@@ -1401,7 +1401,7 @@ body.transparent-header .site-header {
 .admin-bar .site-header .inside-header #site-navigation.main-navigation {
   top: 32px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .admin-bar .site-header .inside-header #site-navigation.main-navigation {
     top: 0;
   }
@@ -1425,7 +1425,7 @@ body.transparent-header .site-header {
   left: -200px;
   opacity: 1;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .mobile-menu-open .site-header .inside-header #site-navigation.main-navigation {
     left: 0px;
   }
@@ -1457,7 +1457,7 @@ body.transparent-header .site-header {
       left: calc( min( calc( 100vw - 40px  ), 600px ) * -1 );
   }*/
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .site-header {
     height: auto;
     left: initial;
@@ -1478,7 +1478,7 @@ body.transparent-header .site-header {
   background-repeat: repeat;
   padding: 0;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .site-header .inside-header {
     background: none;
     width: 60px;
@@ -1508,7 +1508,7 @@ body.transparent-header .site-header {
   background-image: url(../../assets/img/halftone.png);
   background-repeat: repeat;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .site-header .inside-header .floating-header {
     padding: 0;
     background: none;
@@ -1518,7 +1518,7 @@ body.transparent-header .site-header {
 .site-header .inside-header .floating-header .site-logo {
   max-width: 400px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .site-header .inside-header .floating-header .site-logo {
     display: none;
   }
@@ -1545,7 +1545,7 @@ body.transparent-header .site-header {
         flex-wrap: wrap;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .site-header .inside-header .floating-header #mobile-menu-control-wrapper.toggled .menu-toggle .burger-bar-wrapper .burger-bar {
     border-radius: 999px;
   }
@@ -1587,7 +1587,7 @@ body.transparent-header .site-header {
           justify-content: center;
   cursor: pointer;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .site-header .inside-header .floating-header #mobile-menu-control-wrapper .menu-toggle {
     width: 60px;
     height: 60px;
@@ -1613,7 +1613,7 @@ body.transparent-header .site-header {
   -webkit-transition: all 0.6s ease 0s;
   transition: all 0.6s ease 0s;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .site-header .inside-header .floating-header #mobile-menu-control-wrapper .menu-toggle:hover {
     background-color: #bb4d09;
   }
@@ -1632,7 +1632,7 @@ body.transparent-header .site-header {
   border: none;
   border-radius: 0;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .site-header .inside-header .floating-header #mobile-menu-control-wrapper .menu-toggle {
     width: 60px;
     height: 60px;
@@ -1657,7 +1657,7 @@ body.transparent-header .site-header {
 .site-header .inside-header .floating-header #mobile-menu-control-wrapper .menu-toggle:hover .burger-bar-wrapper .burger-bar {
   background-color: #bb4d09;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .site-header .inside-header .floating-header #mobile-menu-control-wrapper .menu-toggle:hover .burger-bar-wrapper .burger-bar {
     background-color: #ffffff;
   }
@@ -1686,7 +1686,7 @@ body.transparent-header .site-header {
 .site-header .inside-header .floating-header #mobile-menu-control-wrapper .menu-toggle .burger-bar-wrapper .burger-bar:nth-child(3) {
   bottom: 0;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .site-header .inside-header .floating-header #mobile-menu-control-wrapper .menu-toggle .burger-bar-wrapper .burger-bar {
     background-color: #bb4d09;
   }
@@ -1717,7 +1717,7 @@ body.transparent-header .site-header {
   font-weight: bold;
   text-align: center;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .site-header .inside-header .floating-header > a {
     display: none;
   }
@@ -1745,7 +1745,7 @@ body.transparent-header .site-header {
           box-shadow: 0 5px 10px rgba(102, 59, 32, 0.9);
   opacity: 1; /* 0 */
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .site-header .inside-header #site-navigation.main-navigation {
     position: fixed;
     left: calc((100vw + 50px) * -1);
@@ -1823,7 +1823,7 @@ body.transparent-header .site-header {
     height: 210px;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .site-header .inside-header #site-navigation.main-navigation .inside-navigation #primary-menu.main-nav > ul li a:before {
     margin-bottom: 10px;
     width: 200px;
@@ -5740,7 +5740,7 @@ address {
        appearance: none;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .plugin-container {
     padding: 0 25px;
   }
@@ -5763,7 +5763,7 @@ ul.vblist {
   row-gap: 50px;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .plugin-container .vblist {
     grid-template-columns: 1fr !important;
   }
@@ -9034,7 +9034,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   padding-bottom: 25px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .page-id-440 .page-heading-wrapper .container {
     padding-left: 25px;
     padding-right: 25px;

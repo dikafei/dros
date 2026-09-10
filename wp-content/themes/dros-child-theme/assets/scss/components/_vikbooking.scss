@@ -67,7 +67,7 @@
 // against the screen edges with no side padding at all.
 .plugin-container {
 
-    @media( max-width:$ipad ) {
+    @media #{$mobile-bp} {
         padding: 0 $spacing;
     }
 
@@ -96,7 +96,7 @@ ul.vblist {
 // the cards stacking. Force a single column below tablet width instead;
 // matching the Customizer rule's own specificity (.plugin-container
 // .vblist) plus !important to reliably win regardless of load order.
-@media( max-width:$ipad ) {
+@media #{$mobile-bp} {
     .plugin-container .vblist {
         grid-template-columns: 1fr !important;
     }

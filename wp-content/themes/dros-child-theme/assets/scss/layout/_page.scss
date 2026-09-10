@@ -50,7 +50,7 @@
                 padding-bottom: $spacing;
                 border-bottom: 1px solid rgba($black, 0.1);
 
-                @media( max-width:$ipad ) {
+                @media #{$mobile-bp} {
                     padding-left: $spacing;
                     padding-right: $spacing;
                 }
