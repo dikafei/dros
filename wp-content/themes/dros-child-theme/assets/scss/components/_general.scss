@@ -484,7 +484,7 @@
                 max-width: 100%;   
                 margin:0 !important;   
 
-                @media( max-width:$ipad ) {
+                @media #{$mobile-bp} {
                     flex-direction: column;
                     /*transform: none !important;*/
                     display: block;

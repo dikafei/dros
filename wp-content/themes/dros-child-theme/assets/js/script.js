@@ -1124,17 +1124,33 @@ $j(function(){
 				$j( 'body' ).toggleClass( 'has-scroll-hijack', isHomePage && !isMobile() );
 			});
 	
-	// Mobile Check		
+	// Mobile Check
+	// Mirrors the CSS $mobile-bp breakpoint (_global.scss): real phones
+	// under $ipad, plus landscape tablets up to $ipad-landscape-max that
+	// use a coarse (touch) pointer rather than a mouse/trackpad - so a
+	// desktop window resized into that same width range still gets the
+	// normal desktop horizontal-scroll layout/behavior.
 		function mobileCheck() {
 			let windowWidth = $j( window ).width();
 
-			if ( windowWidth <= 1024 ) {				
+			// iPadOS's "Request Desktop Website" (on by default) can make an
+			// iPad look like a Mac in ways that aren't always trustworthy, so
+			// don't rely on matchMedia('pointer: coarse') alone - maxTouchPoints
+			// is the standard, UA-spoofing-proof way real iPads still report
+			// their actual touch hardware even in that mode.
+			let isCoarsePointer = window.matchMedia( '(pointer: coarse)' ).matches
+				|| navigator.maxTouchPoints > 1;
+
+			let isTabletLandscape = windowWidth > 1024 && windowWidth <= 1366
+				&& isCoarsePointer;
+
+			if ( windowWidth <= 1024 || isTabletLandscape ) {
 				$j( 'body' ).addClass( 'mobile' );
 			}
 			else {
 				$j( 'body' ).removeClass( 'mobile' );
 			}
-		}		
+		}
 
 		function isMobile() {
 			return document.body.classList.contains('mobile');

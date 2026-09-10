@@ -51,6 +51,25 @@
     $sm: 767px;
     $xs: 576px;
 
+    // Landscape tablets (iPad 1024, Air 1180, Pro 11" 1194, Pro 12.9" 1366)
+    // fall outside $ipad but still need the same vertical/stacked mobile
+    // treatment as portrait - real phones already get it below $ipad, and
+    // script.js's isMobile()/has-scroll-hijack now agrees on both ends.
+    // Gated to pointer:coarse so a mouse/trackpad desktop window resized
+    // into this range keeps the normal desktop horizontal-scroll layout.
+    // Used by _frontpage.scss, _page_about.scss and _page_the_rooms.scss
+    // in place of "@media( max-width:$ipad )" so both ranges get the same
+    // rules from a single source instead of duplicating them.
+    $ipad-landscape-max: 1366px;
+    $mobile-bp: "(max-width: #{$ipad}), (max-width: #{$ipad-landscape-max}) and (pointer: coarse)";
+
+    // The exact inverse of the tablet-landscape half of $mobile-bp above,
+    // for the few rules (currently just .inside-article's position:fixed
+    // in _frontpage.scss) that are written as "@media(min-width:$ipad+1)"
+    // and need to explicitly NOT apply in that same touch range, rather
+    // than just being naturally excluded by a max-width check.
+    $desktop-only-above-ipad-bp: "(min-width: #{$ipad + 1px}) and (max-width: #{$ipad-landscape-max}) and (pointer: fine), (min-width: #{$ipad-landscape-max + 1px})";
+
     $default-container-width: 1440px;
 
     $slimmer-width: min( calc( var(--vw) - 2 * $spacing ), 620px );

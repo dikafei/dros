@@ -145,6 +145,7 @@ body:not(.wp-admin) {
 body:not(.wp-admin).is-popup-open {
   overflow: hidden;
 }
+
 body:not(.wp-admin).has-scroll-hijack {
   -ms-touch-action: none;
       touch-action: none;
@@ -854,7 +855,7 @@ table {
   max-width: 100%;
   margin: 0 !important;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   #page .site-content .entry-content,
   #page .site-content .entry-summary {
     -webkit-box-orient: vertical;
@@ -6684,7 +6685,7 @@ body:has([class*=home-section]) {
   background-image: url(../../assets/img/halftone.png);
   background-repeat: repeat;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) {
     overflow: initial;
   }
@@ -6692,7 +6693,7 @@ body:has([class*=home-section]) {
 body:has([class*=home-section]).admin-bar .entry-content > .wp-block-group {
   height: calc(100vh - 32px);
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]).admin-bar .entry-content > .wp-block-group {
     height: auto;
     min-height: 100vh;
@@ -6703,7 +6704,7 @@ body:has([class*=home-section]) #page {
   overflow-y: hidden;
   height: 100%;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) #page {
     height: initial;
     overflow-y: initial;
@@ -6727,7 +6728,7 @@ body:has([class*=home-section]) #page .site-content #primary #main article {
 body:has([class*=home-section]) #page .site-content #primary #main article .inside-article {
   height: 100%;
 }
-@media (min-width: 1025px) {
+@media (min-width: 1025px) and (max-width: 1366px) and (pointer: fine), (min-width: 1367px) {
   body:has([class*=home-section]) #page .site-content #primary #main article .inside-article { /* Fix calculation error on touchscreen - desktop mode/horizontal scrolling */
     width: 100vw;
     position: fixed;
@@ -6751,7 +6752,7 @@ body:has([class*=home-section]) .entry-content {
 body:has([class*=home-section]) .entry-content > .wp-block-group {
   height: 100vh;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content > .wp-block-group {
     height: auto;
     min-height: 100vh;
@@ -6769,7 +6770,7 @@ body:has([class*=home-section]) .entry-content > .wp-block-group .wp-block-group
   height: 100%;
   padding: 0;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content > .wp-block-group .wp-block-group__inner-container {
     -webkit-box-flex: 1;
         -ms-flex: 1;
@@ -6833,7 +6834,7 @@ body:has([class*=home-section]) .entry-content .home-section-rooms1 .wp-block-gr
   top: 80px;
   left: 150px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section1 .wp-block-group__inner-container .wp-block-image:not(.mobile-hero),
   body:has([class*=home-section]) .entry-content .home-section-about1 .wp-block-group__inner-container .wp-block-image:not(.mobile-hero),
   body:has([class*=home-section]) .entry-content .home-section-rooms1 .wp-block-group__inner-container .wp-block-image:not(.mobile-hero) {
@@ -6861,7 +6862,7 @@ body:has([class*=home-section]) .entry-content .home-section-rooms1 .wp-block-gr
   position: relative;
   z-index: 10;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section1 .wp-block-group__inner-container .wp-block-heading,
   body:has([class*=home-section]) .entry-content .home-section-about1 .wp-block-group__inner-container .wp-block-heading,
   body:has([class*=home-section]) .entry-content .home-section-rooms1 .wp-block-group__inner-container .wp-block-heading {
@@ -6927,7 +6928,7 @@ body:has([class*=home-section]) .entry-content .home-section3 {
           flex: 0 0 1920px;
   position: relative;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section3 {
     min-height: 0 !important;
   }
@@ -6944,7 +6945,7 @@ body:has([class*=home-section]) .entry-content .home-section3 .wp-block-group__i
       -ms-flex-pack: center;
           justify-content: center;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section3 .wp-block-group__inner-container {
     padding: 0 clamp(1.5625rem, -3.3203rem + 20.8333vw, 10rem) 200px; /* 25 - 160 */
   }
@@ -6991,7 +6992,7 @@ body:has([class*=home-section]) .entry-content .home-section5 {
   padding-left: 200px;
   padding-right: 200px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section5 {
     padding-left: 25px;
     padding-right: 25px;
@@ -7016,7 +7017,7 @@ body:has([class*=home-section]) .entry-content .home-section5 .wp-block-group__i
       -ms-flex-pack: justify;
           justify-content: space-between;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section5 .wp-block-group__inner-container .wp-block-columns {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -7031,7 +7032,7 @@ body:has([class*=home-section]) .entry-content .home-section5 .wp-block-group__i
       -ms-flex: initial;
           flex: initial;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section5 .wp-block-group__inner-container .wp-block-columns .wp-block-column {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -7052,7 +7053,7 @@ body:has([class*=home-section]) .entry-content .home-section5 .wp-block-group__i
 body:has([class*=home-section]) .entry-content .home-section5 .wp-block-group__inner-container .wp-block-columns .wp-block-column:first-child .wp-block-image {
   width: 600px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section5 .wp-block-group__inner-container .wp-block-columns .wp-block-column:first-child .wp-block-image {
     width: 100%;
     max-width: 600px;
@@ -7077,7 +7078,7 @@ body:has([class*=home-section]) .entry-content .home-section5 .wp-block-group__i
   left: -50px;
   top: calc(0% - 72px - 30px);
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section5 .wp-block-group__inner-container .wp-block-columns .wp-block-column:last-child p {
     width: 100%;
     max-width: 720px;
@@ -7086,7 +7087,7 @@ body:has([class*=home-section]) .entry-content .home-section5 .wp-block-group__i
 body:has([class*=home-section]) .entry-content .home-section5 .wp-block-group__inner-container .wp-block-columns .wp-block-column:last-child .wp-block-image {
   width: 720px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section5 .wp-block-group__inner-container .wp-block-columns .wp-block-column:last-child .wp-block-image {
     width: 100%;
     max-width: 720px;
@@ -7098,7 +7099,7 @@ body:has([class*=home-section]) .entry-content .home-section6 {
           flex: 0 0 1920px;
   position: relative;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section6 {
     padding: 120px 25px;
     min-height: 0 !important;
@@ -7122,7 +7123,7 @@ body:has([class*=home-section]) .entry-content .home-section7 {
           flex: 0 0 1920px;
   padding-left: 200px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section7 {
     padding: 0 25px 120px;
   }
@@ -7136,7 +7137,7 @@ body:has([class*=home-section]) .entry-content .home-section7 .wp-block-group__i
           align-items: center;
   gap: 200px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section7 .wp-block-group__inner-container {
     gap: 120px;
     -webkit-box-orient: vertical;
@@ -7150,7 +7151,7 @@ body:has([class*=home-section]) .entry-content .home-section7 .wp-block-group__i
   width: 100%;
   margin-bottom: 0;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section7 .wp-block-group__inner-container > p:last-child {
     margin-bottom: 0;
   }
@@ -7178,7 +7179,7 @@ body:has([class*=home-section]) .entry-content .home-section10 {
   font-size: 50px;
   line-height: 1.2;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section10 {
     padding-left: 25px;
     padding-right: 25px;
@@ -7204,7 +7205,7 @@ body:has([class*=home-section]) .entry-content .home-section10 .wp-block-group__
           justify-content: space-between;
   max-height: 100%;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section10 .wp-block-group__inner-container .wp-block-columns {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -7218,7 +7219,7 @@ body:has([class*=home-section]) .entry-content .home-section10 .wp-block-group__
       -ms-flex: initial;
           flex: initial;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section10 .wp-block-group__inner-container .wp-block-columns .wp-block-column {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -7248,7 +7249,7 @@ body:has([class*=home-section]) .entry-content .home-section10 .wp-block-group__
 body:has([class*=home-section]) .entry-content .home-section10 .wp-block-group__inner-container .wp-block-columns .wp-block-column:first-child .wp-block-image {
   width: 720px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section10 .wp-block-group__inner-container .wp-block-columns .wp-block-column:first-child .wp-block-image {
     width: 100%;
     max-width: 720px;
@@ -7258,7 +7259,7 @@ body:has([class*=home-section]) .entry-content .home-section10 .wp-block-group__
   top: calc(100% + 30px);
   left: 400px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section10 .wp-block-group__inner-container .wp-block-columns .wp-block-column:first-child p {
     width: 100%;
     max-width: 720px;
@@ -7269,7 +7270,7 @@ body:has([class*=home-section]) .entry-content .home-section10 .wp-block-group__
   width: 600px;
   margin-left: 50px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section10 .wp-block-group__inner-container .wp-block-columns .wp-block-column:last-child .wp-block-image {
     width: 100%;
     max-width: 600px;
@@ -7282,7 +7283,7 @@ body:has([class*=home-section]) .entry-content .home-section11 {
           flex: 0 0 1920px;
   position: relative;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section11 {
     padding: 120px 25px;
     min-height: 0 !important;
@@ -7306,7 +7307,7 @@ body:has([class*=home-section]) .entry-content .home-section12 {
           flex: 0 0 1920px;
   padding-left: 200px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section12 {
     padding: 0 25px 120px;
   }
@@ -7320,7 +7321,7 @@ body:has([class*=home-section]) .entry-content .home-section12 > .wp-block-group
           align-items: center;
   gap: 200px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section12 > .wp-block-group__inner-container {
     gap: 120px;
     -webkit-box-orient: vertical;
@@ -7348,7 +7349,7 @@ body:has([class*=home-section]) .entry-content .home-section12 > .wp-block-group
   display: flex;
   gap: 40px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section12 > .wp-block-group__inner-container > .wp-block-group:nth-child(2) .wp-block-group__inner-container {
     -webkit-box-align: center;
         -ms-flex-align: center;
@@ -7379,7 +7380,7 @@ body:has([class*=home-section]) .entry-content .home-section13 {
           flex: 0 0 1920px;
   padding-left: 200px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section13 {
     padding: 0 25px 120px;
   }
@@ -7393,7 +7394,7 @@ body:has([class*=home-section]) .entry-content .home-section13 > .wp-block-group
           align-items: center;
   gap: 200px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section13 > .wp-block-group__inner-container {
     gap: 120px;
     -webkit-box-orient: vertical;
@@ -7425,7 +7426,7 @@ body:has([class*=home-section]) .entry-content .home-section13 > .wp-block-group
           flex-direction: column;
   gap: 40px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section13 > .wp-block-group__inner-container > .wp-block-group:nth-child(2) .wp-block-group__inner-container {
     gap: 0;
   }
@@ -7441,7 +7442,7 @@ body:has([class*=home-section]) .entry-content .home-section13 > .wp-block-group
 body:has([class*=home-section]) .entry-content .home-section13 > .wp-block-group__inner-container > .wp-block-group:nth-child(2) .wp-block-group__inner-container .wp-block-image:nth-child(2) {
   padding-left: 140px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section13 > .wp-block-group__inner-container > .wp-block-group:nth-child(2) .wp-block-group__inner-container .wp-block-image:nth-child(2) {
     padding-left: 0;
     margin-left: 140px;
@@ -7481,7 +7482,7 @@ body:has([class*=home-section]) .entry-content .home-section16 {
   font-size: 50px;
   line-height: 1.2;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section16 {
     padding-left: 25px;
     padding-right: 25px;
@@ -7506,7 +7507,7 @@ body:has([class*=home-section]) .entry-content .home-section16 .wp-block-group__
           justify-content: space-between;
   gap: 200px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section16 .wp-block-group__inner-container .wp-block-columns {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -7520,7 +7521,7 @@ body:has([class*=home-section]) .entry-content .home-section16 .wp-block-group__
       -ms-flex: initial;
           flex: initial;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section16 .wp-block-group__inner-container .wp-block-columns .wp-block-column {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -7554,7 +7555,7 @@ body:has([class*=home-section]) .entry-content .home-section16 .wp-block-group__
 body:has([class*=home-section]) .entry-content .home-section16 .wp-block-group__inner-container .wp-block-columns .wp-block-column:first-child .wp-block-image {
   width: 600px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section16 .wp-block-group__inner-container .wp-block-columns .wp-block-column:first-child .wp-block-image {
     width: 100%;
     max-width: 600px;
@@ -7564,7 +7565,7 @@ body:has([class*=home-section]) .entry-content .home-section16 .wp-block-group__
   top: calc(0% - 72px - 30px);
   left: 97px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section16 .wp-block-group__inner-container .wp-block-columns .wp-block-column:first-child p {
     width: 100%;
     max-width: 600px;
@@ -7581,7 +7582,7 @@ body:has([class*=home-section]) .entry-content .home-section16 .wp-block-group__
 body:has([class*=home-section]) .entry-content .home-section16 .wp-block-group__inner-container .wp-block-columns .wp-block-column:last-child .wp-block-image {
   width: 720px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section16 .wp-block-group__inner-container .wp-block-columns .wp-block-column:last-child .wp-block-image {
     width: 100%;
     max-width: 720px;
@@ -7593,7 +7594,7 @@ body:has([class*=home-section]) .entry-content .home-section17 {
           flex: 0 0 1920px;
   text-align: center;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section17 {
     padding: 120px 25px;
   }
@@ -7606,7 +7607,7 @@ body:has([class*=home-section]) .entry-content .home-section17 .wp-block-group__
       -ms-flex-align: center;
           align-items: center;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section17 .wp-block-group__inner-container {
     -webkit-box-pack: center;
         -ms-flex-pack: center;
@@ -7618,7 +7619,7 @@ body:has([class*=home-section]) .entry-content .home-section17 .wp-block-group__
   gap: 40px;
   height: 100%;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section17 .wp-block-group__inner-container .wp-block-columns {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -7638,7 +7639,7 @@ body:has([class*=home-section]) .entry-content .home-section17 .wp-block-group__
       -ms-flex-pack: center;
           justify-content: center;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section17 .wp-block-group__inner-container .wp-block-columns .wp-block-column .wp-block-image {
     max-width: 720px;
     width: 100%;
@@ -7651,7 +7652,7 @@ body:has([class*=home-section]) .entry-content .home-section18 {
   padding-left: 200px;
   padding-right: 200px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section18 {
     padding-left: 25px;
     padding-right: 25px;
@@ -7668,7 +7669,7 @@ body:has([class*=home-section]) .entry-content .home-section18 .wp-block-group__
   gap: 200px;
   height: 100%;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section18 .wp-block-group__inner-container .wp-block-columns {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -7686,7 +7687,7 @@ body:has([class*=home-section]) .entry-content .home-section18 .wp-block-group__
       -ms-flex-align: center;
           align-items: center;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section18 .wp-block-group__inner-container .wp-block-columns .wp-block-column {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -7699,7 +7700,7 @@ body:has([class*=home-section]) .entry-content .home-section18 .wp-block-group__
 body:has([class*=home-section]) .entry-content .home-section18 .wp-block-group__inner-container .wp-block-columns .wp-block-column .wp-block-image {
   width: 660px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section18 .wp-block-group__inner-container .wp-block-columns .wp-block-column .wp-block-image {
     width: 100%;
     max-width: 660px;
@@ -7730,7 +7731,7 @@ body:has([class*=home-section]) .entry-content .home-section21 {
   padding-left: 200px;
   padding-right: 200px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section21 {
     padding-left: 25px;
     padding-right: 25px;
@@ -7756,7 +7757,7 @@ body:has([class*=home-section]) .entry-content .home-section21 .wp-block-group__
       -ms-flex-pack: justify;
           justify-content: space-between;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section21 .wp-block-group__inner-container .wp-block-columns {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -7780,7 +7781,7 @@ body:has([class*=home-section]) .entry-content .home-section21 .wp-block-group__
       -ms-flex-pack: center;
           justify-content: center;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section21 .wp-block-group__inner-container .wp-block-columns .wp-block-column {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -7805,7 +7806,7 @@ body:has([class*=home-section]) .entry-content .home-section21 .wp-block-group__
 body:has([class*=home-section]) .entry-content .home-section21 .wp-block-group__inner-container .wp-block-columns .wp-block-column:first-child .wp-block-image {
   width: 646px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section21 .wp-block-group__inner-container .wp-block-columns .wp-block-column:first-child .wp-block-image {
     width: 100%;
     max-width: 646px;
@@ -7815,7 +7816,7 @@ body:has([class*=home-section]) .entry-content .home-section21 .wp-block-group__
   left: -40px;
   top: calc(0% - 36px - 30px);
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section21 .wp-block-group__inner-container .wp-block-columns .wp-block-column:last-child p {
     width: 100%;
     max-width: 674px;
@@ -7825,7 +7826,7 @@ body:has([class*=home-section]) .entry-content .home-section21 .wp-block-group__
 body:has([class*=home-section]) .entry-content .home-section21 .wp-block-group__inner-container .wp-block-columns .wp-block-column:last-child .wp-block-image {
   width: 674px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section21 .wp-block-group__inner-container .wp-block-columns .wp-block-column:last-child .wp-block-image {
     width: 100%;
     max-width: 674px;
@@ -7837,7 +7838,7 @@ body:has([class*=home-section]) .entry-content .home-section22 {
           flex: 0 0 1920px;
   position: relative;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section22 {
     padding: 120px 25px;
     min-height: 0 !important;
@@ -7862,7 +7863,7 @@ body:has([class*=home-section]) .entry-content .home-section23 {
   padding-left: 200px;
   padding-right: 200px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section23 {
     padding-left: 25px;
     padding-right: 25px;
@@ -7889,7 +7890,7 @@ body:has([class*=home-section]) .entry-content .home-section23 .wp-block-group__
       -ms-flex-pack: justify;
           justify-content: space-between;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section23 .wp-block-group__inner-container .wp-block-columns {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -7913,7 +7914,7 @@ body:has([class*=home-section]) .entry-content .home-section23 .wp-block-group__
       -ms-flex-pack: center;
           justify-content: center;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section23 .wp-block-group__inner-container .wp-block-columns .wp-block-column {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -7943,7 +7944,7 @@ body:has([class*=home-section]) .entry-content .home-section23 .wp-block-group__
     padding-top: 0;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section23 .wp-block-group__inner-container .wp-block-columns .wp-block-column:first-child .wp-block-image {
     width: 100%;
     max-width: 420px;
@@ -7958,7 +7959,7 @@ body:has([class*=home-section]) .entry-content .home-section23 .wp-block-group__
     padding-bottom: 0;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section23 .wp-block-group__inner-container .wp-block-columns .wp-block-column:last-child .wp-block-image {
     width: 100%;
     max-width: 900px;
@@ -7970,7 +7971,7 @@ body:has([class*=home-section]) .entry-content .home-section24 {
           flex: 0 0 1920px;
   position: relative;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section24 {
     min-height: 0 !important;
   }
@@ -7988,7 +7989,7 @@ body:has([class*=home-section]) .entry-content .home-section24 .wp-block-cover .
   width: 620px;
   margin-right: 200px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section24 .wp-block-cover .wp-block-cover__inner-container {
     width: 300px;
     margin-right: 0;
@@ -8000,7 +8001,7 @@ body:has([class*=home-section]) .entry-content .home-section24 .wp-block-cover .
     text-align: left;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section24 .wp-block-cover .wp-block-cover__inner-container p {
     font-size: 18px;
     line-height: 1.6;
@@ -8012,7 +8013,7 @@ body:has([class*=home-section]) .entry-content .home-section25 {
           flex: 0 0 1920px;
   padding-left: 150px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section25 {
     padding-left: 0;
   }
@@ -8023,7 +8024,7 @@ body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group
   display: flex;
   gap: 50px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group__inner-container {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -8047,7 +8048,7 @@ body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group
   padding-top: clamp(4.375rem, -18.1245rem + 26.3538vw, 13.5rem); /* 70 - 216 */
   padding-bottom: 70px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group__inner-container > .wp-block-group {
     padding: 120px 25px;
     width: 100%;
@@ -8070,7 +8071,7 @@ body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group
 body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group__inner-container > .wp-block-group > .wp-block-group:nth-child(1) > .wp-block-group__inner-container > .wp-block-group:last-child {
   margin-bottom: 0;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group__inner-container > .wp-block-group > .wp-block-group:nth-child(1) > .wp-block-group__inner-container > .wp-block-group:last-child {
     margin-bottom: 50px;
   }
@@ -8083,7 +8084,7 @@ body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group
 body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group__inner-container > .wp-block-group > .wp-block-group:nth-child(1) > .wp-block-group__inner-container > .wp-block-group > *:last-child *:last-child {
   margin-bottom: 0;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group__inner-container > .wp-block-group > .wp-block-group:nth-child(1) > .wp-block-group__inner-container > .wp-block-group p {
     font-size: 16px;
     line-height: 26px;
@@ -8099,7 +8100,7 @@ body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group
           justify-content: flex-end;
   gap: 30px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group__inner-container > .wp-block-group > .wp-block-group:nth-child(2) .wp-block-social-links a {
     width: 30px !important;
     height: 30px !important;
@@ -8123,7 +8124,7 @@ body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group
 body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group__inner-container > .wp-block-group > .wp-block-group:nth-child(2) .wp-block-group .wp-block-group__inner-container p {
   margin-bottom: 0;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group__inner-container > .wp-block-group > .wp-block-group:nth-child(2) .wp-block-group .wp-block-group__inner-container p {
     font-size: 16px;
     line-height: 26px;
@@ -8135,7 +8136,7 @@ body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group
   padding: 80px 100px 80px 0px;
   background-color: #553924;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group__inner-container > .wp-block-cover {
     width: 100%;
     padding: 80px 25px;
@@ -8169,13 +8170,13 @@ body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group
   -ms-flex-wrap: nowrap;
       flex-wrap: nowrap;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group__inner-container > .wp-block-cover .wp-block-cover__inner-container > .wp-block-group {
     text-align: center;
     gap: 0;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group__inner-container > .wp-block-cover .wp-block-cover__inner-container > .wp-block-group .wp-block-image {
     text-align: center;
   }
@@ -8183,7 +8184,7 @@ body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group
 body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group__inner-container > .wp-block-cover .wp-block-cover__inner-container > .wp-block-group .wp-block-image img {
   max-height: 100%;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group__inner-container > .wp-block-cover .wp-block-cover__inner-container > .wp-block-group .wp-block-image img {
     width: 240px;
     margin-bottom: 80px;
@@ -8195,7 +8196,7 @@ body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group
           align-items: flex-end;
   gap: 0;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group__inner-container > .wp-block-cover .wp-block-cover__inner-container > .wp-block-group .wp-block-group {
     -webkit-box-align: center;
         -ms-flex-align: center;
@@ -8207,7 +8208,7 @@ body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group
   width: 396px;
   padding-left: 36px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group__inner-container > .wp-block-cover .wp-block-cover__inner-container > .wp-block-group .wp-block-group > * {
     max-width: 300px;
     width: 100%;
@@ -8217,7 +8218,7 @@ body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group
 body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group__inner-container > .wp-block-cover .wp-block-cover__inner-container > .wp-block-group .wp-block-group .wp-block-heading {
   margin-bottom: 50px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group__inner-container > .wp-block-cover .wp-block-cover__inner-container > .wp-block-group .wp-block-group .wp-block-heading {
     font-size: 24px;
     line-height: 34px;
@@ -8229,7 +8230,7 @@ body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group
           justify-content: flex-end;
   margin-bottom: 60px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group__inner-container > .wp-block-cover .wp-block-cover__inner-container > .wp-block-group .wp-block-group .wp-block-buttons {
     -webkit-box-pack: center;
         -ms-flex-pack: center;
@@ -8250,7 +8251,7 @@ body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group
 body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group__inner-container > .wp-block-cover .wp-block-cover__inner-container > .wp-block-group .wp-block-group .copyright {
   padding-left: 0;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .entry-content .home-section25 > .wp-block-group__inner-container > .wp-block-cover .wp-block-cover__inner-container > .wp-block-group .wp-block-group .copyright {
     font-size: 16px;
     line-height: 1.8;
@@ -8269,7 +8270,7 @@ body:has([class*=home-section]) .progress-bar-wrapper {
   left: 100px;
   width: calc(100% - 100px);
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   body:has([class*=home-section]) .progress-bar-wrapper {
     left: 0;
     width: 100%;
@@ -8309,7 +8310,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   -o-object-position: center;
      object-position: center;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .mobile-hero {
     display: block;
   }
@@ -8318,7 +8319,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   opacity: 0.3;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .hero {
     display: none !important;
   }
@@ -8330,7 +8331,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
      object-position: right center;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .unit-head {
     height: auto !important;
   }
@@ -8373,7 +8374,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   color: #c2a390;
   padding: 25px 30px 25px 210px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .unit-head .wp-block-cover {
     padding: 25px;
     -webkit-box-flex: initial;
@@ -8397,7 +8398,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
           flex-direction: column;
   width: 100%;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .unit-head .wp-block-cover .wp-block-cover__inner-container {
     max-width: 440px;
   }
@@ -8411,12 +8412,12 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   white-space: nowrap;
   opacity: 0;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .unit-head .wp-block-cover .wp-block-heading:not(.alignwide):not(.alignfull) {
     font-size: 80px;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .unit-head .wp-block-cover .wp-block-heading:not(.alignwide):not(.alignfull) {
     font-size: 70px;
   }
@@ -8443,7 +8444,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   display: -ms-flexbox;
   display: flex;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .unit-head > .wp-block-group__inner-container {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -8463,7 +8464,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
       -ms-flex-direction: column;
           flex-direction: column;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .unit-head .wp-block-group {
     padding: 120px 25px;
   }
@@ -8492,7 +8493,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   margin-bottom: 0;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .full-image {
     min-height: 0 !important;
   }
@@ -8508,13 +8509,13 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   -o-object-position: center;
      object-position: center;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .full-image .wp-block-image img {
     min-height: 440px;
   }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .full-center {
     padding: 120px 25px;
     min-height: 0 !important;
@@ -8535,7 +8536,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
 .has-caption .wp-block-group__inner-container {
   position: relative;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .has-caption .wp-block-group__inner-container {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -8560,7 +8561,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   white-space: nowrap;
   margin: 0;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .has-caption p {
     position: static;
     width: 100%;
@@ -8588,7 +8589,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
       -ms-flex: 1;
           flex: 1;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .has-description .wp-block-group__inner-container .wp-block-image {
     margin-bottom: 30px;
   }
@@ -9948,7 +9949,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   padding-left: 300px;
   padding-right: 300px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about3 {
     padding: 120px 25px;
     min-height: 0 !important;
@@ -9969,7 +9970,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   gap: 120px;
   margin: 0;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about3 .wp-block-group__inner-container > .wp-block-columns > .wp-block-column .wp-block-columns {
     gap: 25px;
     -webkit-box-orient: vertical;
@@ -9979,7 +9980,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
     max-width: 600px;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about3 .wp-block-group__inner-container > .wp-block-columns > .wp-block-column .wp-block-columns p {
     margin-bottom: 0;
   }
@@ -9998,7 +9999,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   font-size: 50px;
   line-height: 1.2;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about6 {
     padding-left: 25px;
     padding-right: 25px;
@@ -10024,7 +10025,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
           justify-content: space-between;
   gap: 200px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about6 .wp-block-group__inner-container .wp-block-columns {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -10038,7 +10039,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
       -ms-flex: initial;
           flex: initial;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about6 .wp-block-group__inner-container .wp-block-columns .wp-block-column {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -10068,7 +10069,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
 .home-section-about6 .wp-block-group__inner-container .wp-block-columns .wp-block-column:first-child .wp-block-image {
   width: 440px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about6 .wp-block-group__inner-container .wp-block-columns .wp-block-column:first-child .wp-block-image {
     width: 100%;
     max-width: 440px;
@@ -10079,7 +10080,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   right: -108px;
   white-space: nowrap;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about6 .wp-block-group__inner-container .wp-block-columns .wp-block-column:first-child p {
     width: 100%;
     max-width: 440px;
@@ -10089,7 +10090,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
 .home-section-about6 .wp-block-group__inner-container .wp-block-columns .wp-block-column:last-child .wp-block-image {
   width: 880px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about6 .wp-block-group__inner-container .wp-block-columns .wp-block-column:last-child .wp-block-image {
     width: 100%;
     max-width: 720px;
@@ -10099,7 +10100,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
 .home-section-about8 {
   padding-left: 200px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about8 {
     padding: 0 25px 120px;
   }
@@ -10113,7 +10114,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
           align-items: center;
   gap: 200px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about8 .wp-block-group__inner-container {
     gap: 120px;
     -webkit-box-orient: vertical;
@@ -10137,7 +10138,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   padding-left: 200px;
   padding-right: 200px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about9 {
     padding-left: 25px;
     padding-right: 25px;
@@ -10154,7 +10155,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   gap: 200px;
   height: 100%;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about9 .wp-block-group__inner-container .wp-block-columns {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -10172,7 +10173,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
       -ms-flex-align: center;
           align-items: center;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about9 .wp-block-group__inner-container .wp-block-columns .wp-block-column {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -10185,7 +10186,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
 .home-section-about9 .wp-block-group__inner-container .wp-block-columns .wp-block-column .wp-block-image {
   width: 720px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about9 .wp-block-group__inner-container .wp-block-columns .wp-block-column .wp-block-image {
     width: 100%;
     max-width: 720px;
@@ -10194,7 +10195,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
 .home-section-about9 .wp-block-group__inner-container .wp-block-columns .wp-block-column:nth-child(2) .wp-block-image {
   width: 600px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about9 .wp-block-group__inner-container .wp-block-columns .wp-block-column:nth-child(2) .wp-block-image {
     width: 100%;
     max-width: 600px;
@@ -10211,7 +10212,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   font-size: 50px;
   line-height: 1.2;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about12 {
     padding-left: 25px;
     padding-right: 25px;
@@ -10237,7 +10238,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
           justify-content: space-between;
   gap: 200px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about12 .wp-block-group__inner-container .wp-block-columns {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -10252,7 +10253,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
       -ms-flex: initial;
           flex: initial;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about12 .wp-block-group__inner-container .wp-block-columns .wp-block-column {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -10282,7 +10283,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
 .home-section-about12 .wp-block-group__inner-container .wp-block-columns .wp-block-column:first-child .wp-block-image {
   width: 700px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about12 .wp-block-group__inner-container .wp-block-columns .wp-block-column:first-child .wp-block-image {
     width: 100%;
     max-width: 720px;
@@ -10292,7 +10293,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   top: calc(100% + 30px);
   right: -76px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about12 .wp-block-group__inner-container .wp-block-columns .wp-block-column:first-child p {
     width: 100%;
     max-width: 720px;
@@ -10301,14 +10302,14 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
 .home-section-about12 .wp-block-group__inner-container .wp-block-columns .wp-block-column:last-child .wp-block-image {
   width: 620px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about12 .wp-block-group__inner-container .wp-block-columns .wp-block-column:last-child .wp-block-image {
     width: 100%;
     max-width: 440px;
   }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about13 {
     padding: 120px 25px;
   }
@@ -10322,7 +10323,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
           align-items: center;
   gap: 200px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about13 .wp-block-group__inner-container {
     gap: 120px;
     -webkit-box-orient: vertical;
@@ -10345,7 +10346,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
 .home-section-about13 .wp-block-group__inner-container .wp-block-image {
   width: 920px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about13 .wp-block-group__inner-container .wp-block-image {
     width: 100%;
     max-width: 600px;
@@ -10356,7 +10357,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   padding-left: 200px;
   padding-right: 200px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about16 {
     padding-left: 25px;
     padding-right: 25px;
@@ -10373,7 +10374,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   gap: 200px;
   height: 100%;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about16 .wp-block-group__inner-container .wp-block-columns {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -10391,7 +10392,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
       -ms-flex-align: center;
           align-items: center;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about16 .wp-block-group__inner-container .wp-block-columns .wp-block-column {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -10404,7 +10405,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
 .home-section-about16 .wp-block-group__inner-container .wp-block-columns .wp-block-column .wp-block-image {
   width: 860px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about16 .wp-block-group__inner-container .wp-block-columns .wp-block-column .wp-block-image {
     width: 100%;
     max-width: 720px;
@@ -10414,7 +10415,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
 .home-section-about16 .wp-block-group__inner-container .wp-block-columns .wp-block-column:nth-child(2) .wp-block-image {
   width: 460px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about16 .wp-block-group__inner-container .wp-block-columns .wp-block-column:nth-child(2) .wp-block-image {
     width: 100%;
     max-width: 600px;
@@ -10425,7 +10426,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   padding-left: 200px;
   padding-right: 200px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about18 {
     padding: 120px 25px;
   }
@@ -10440,7 +10441,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   gap: 200px;
   height: 100%;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about18 .wp-block-group__inner-container .wp-block-columns {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -10458,7 +10459,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
       -ms-flex-align: center;
           align-items: center;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about18 .wp-block-group__inner-container .wp-block-columns .wp-block-column {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -10471,7 +10472,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
 .home-section-about18 .wp-block-group__inner-container .wp-block-columns .wp-block-column .wp-block-image {
   width: 674px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about18 .wp-block-group__inner-container .wp-block-columns .wp-block-column .wp-block-image {
     width: 100%;
     max-width: 674px;
@@ -10480,7 +10481,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
 .home-section-about18 .wp-block-group__inner-container .wp-block-columns .wp-block-column:nth-child(2) .wp-block-image {
   width: 646px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-about18 .wp-block-group__inner-container .wp-block-columns .wp-block-column:nth-child(2) .wp-block-image {
     width: 100%;
     max-width: 646px;
@@ -10546,7 +10547,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   -webkit-transform: translateY(-49%);
           transform: translateY(-49%);
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-rooms5 .wp-block-group__inner-container {
     height: auto !important;
     position: relative;
@@ -10581,7 +10582,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   left: 296px;
   /*bottom: clamp(7.5rem, -14.0749rem + 25.2708vw, 16.25rem); /* 60 - 120 */
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .symbol-of-stillness1 {
     top: 50%;
     left: 25px;
@@ -10602,7 +10603,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   /*top: clamp(1.25rem, -7.9964rem + 10.8303vw, 5rem); /* 20 - 80 */
   left: 1136px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .symbol-of-stillness2 {
     right: 25px;
     left: initial;
@@ -10620,7 +10621,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   /*bottom: clamp(1.25rem, -14.1606rem + 18.0505vw, 7.5rem); /* 20 - 120 */
   left: 1024px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .symbol-of-stillness3 {
     bottom: 80px;
     right: 150px;
@@ -10669,7 +10670,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   color: #c2a390;
   margin: 0;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .symbol-of-stillness-caption1,
   .symbol-of-stillness-caption2,
   .symbol-of-stillness-caption3,
@@ -10693,7 +10694,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   left: 730px;
   /*bottom:667px*/
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .symbol-of-stillness-caption1 {
     top: 150px;
     left: 0;
@@ -10708,7 +10709,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   left: 1136px;
   /*bottom:453px;*/
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .symbol-of-stillness-caption2 {
     right: 100px;
     left: initial;
@@ -10729,7 +10730,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   left: 621px;
   /*bottom: clamp(8.75rem, -8.9722rem + 20.7581vw, 15.9375rem); /* 140 - 255 */
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .symbol-of-stillness-caption3 {
     width: 100%;
     left: 0;
@@ -10775,7 +10776,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   text-align: right;
   margin: 0;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .symbol-of-stillness-slogan {
     font-size: 20px;
     top: 50%;
@@ -10804,7 +10805,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   padding-left: 200px;
   padding-right: 200px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-rooms7,
   .home-section-rooms9,
   .home-section-rooms12,
@@ -10829,7 +10830,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   gap: 200px;
   height: 100%;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-rooms7 .wp-block-group__inner-container .wp-block-columns,
   .home-section-rooms9 .wp-block-group__inner-container .wp-block-columns,
   .home-section-rooms12 .wp-block-group__inner-container .wp-block-columns,
@@ -10860,7 +10861,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
       -ms-flex-pack: center;
           justify-content: center;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-rooms7 .wp-block-group__inner-container .wp-block-columns .wp-block-column,
   .home-section-rooms9 .wp-block-group__inner-container .wp-block-columns .wp-block-column,
   .home-section-rooms12 .wp-block-group__inner-container .wp-block-columns .wp-block-column,
@@ -10879,7 +10880,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
 .home-section-rooms14 .wp-block-group__inner-container .wp-block-columns .wp-block-column .wp-block-image {
   width: 660px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-rooms7 .wp-block-group__inner-container .wp-block-columns .wp-block-column .wp-block-image,
   .home-section-rooms9 .wp-block-group__inner-container .wp-block-columns .wp-block-column .wp-block-image,
   .home-section-rooms12 .wp-block-group__inner-container .wp-block-columns .wp-block-column .wp-block-image,
@@ -10889,7 +10890,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-rooms9,
   .home-section-rooms14 {
     padding-bottom: 120px;
@@ -10924,7 +10925,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   font-size: 50px;
   line-height: 1.2;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-rooms17 {
     padding-left: 25px;
     padding-right: 25px;
@@ -10950,7 +10951,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
           justify-content: space-between;
   gap: 200px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-rooms17 .wp-block-group__inner-container .wp-block-columns {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -10974,7 +10975,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
       -ms-flex-pack: center;
           justify-content: center;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-rooms17 .wp-block-group__inner-container .wp-block-columns .wp-block-column {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -10995,7 +10996,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
 .home-section-rooms17 .wp-block-group__inner-container .wp-block-columns .wp-block-column:first-child .wp-block-image {
   width: 680px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-rooms17 .wp-block-group__inner-container .wp-block-columns .wp-block-column:first-child .wp-block-image {
     width: 100%;
     max-width: 680px;
@@ -11007,13 +11008,13 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
 .home-section-rooms17 .wp-block-group__inner-container .wp-block-columns .wp-block-column:last-child .wp-block-image {
   width: 640px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-rooms17 .wp-block-group__inner-container .wp-block-columns .wp-block-column:last-child .wp-block-image {
     width: 100%;
     max-width: 640px;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-rooms17 .wp-block-group__inner-container .wp-block-columns .wp-block-column:last-child .wp-block-image img {
     -o-object-position: right top;
        object-position: right top;
@@ -11023,7 +11024,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   top: calc(100% + 30px);
   left: -51px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-rooms17 .wp-block-group__inner-container .wp-block-columns .wp-block-column:last-child p {
     width: 100%;
     max-width: 640px;
@@ -11031,7 +11032,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-rooms18 {
     padding: 120px 25px;
   }
@@ -11051,7 +11052,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   margin: 0;
   gap: 300px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-rooms18 > .wp-block-group__inner-container .wp-block-columns {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -11134,7 +11135,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   padding-left: 200px;
   padding-right: 200px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-rooms19 {
     padding-left: 25px;
     padding-right: 25px;
@@ -11151,7 +11152,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   gap: 200px;
   height: 100%;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-rooms19 .wp-block-group__inner-container .wp-block-columns {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -11169,7 +11170,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
       -ms-flex-align: center;
           align-items: center;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-rooms19 .wp-block-group__inner-container .wp-block-columns .wp-block-column {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -11184,7 +11185,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
       -ms-flex: 0 0 720px;
           flex: 0 0 720px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-rooms19 .wp-block-group__inner-container .wp-block-columns .wp-block-column:nth-child(1) {
     -webkit-box-flex: initial;
         -ms-flex: initial;
@@ -11194,7 +11195,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
 .home-section-rooms19 .wp-block-group__inner-container .wp-block-columns .wp-block-column:nth-child(1) .wp-block-image {
   width: 100%;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-rooms19 .wp-block-group__inner-container .wp-block-columns .wp-block-column:nth-child(1) .wp-block-image {
     width: 100%;
     max-width: 720px;
@@ -11205,7 +11206,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
       -ms-flex: 0 0 600px;
           flex: 0 0 600px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-rooms19 .wp-block-group__inner-container .wp-block-columns .wp-block-column:nth-child(2) {
     -webkit-box-flex: initial;
         -ms-flex: initial;
@@ -11215,7 +11216,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
 .home-section-rooms19 .wp-block-group__inner-container .wp-block-columns .wp-block-column:nth-child(2) .wp-block-image {
   width: 100%;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .home-section-rooms19 .wp-block-group__inner-container .wp-block-columns .wp-block-column:nth-child(2) .wp-block-image {
     width: 100%;
     max-width: 600px;
@@ -11225,19 +11226,19 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
 .unit-bookyourstay .wp-block-cover {
   height: 100%;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .unit-bookyourstay .wp-block-cover {
     padding: 120px 25px;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .unit-bookyourstay .wp-block-cover .wp-block-cover__inner-container {
     max-width: 560px;
     width: 100%;
     margin: 0 auto;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .unit-bookyourstay .wp-block-columns {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -11249,7 +11250,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
 .unit-bookyourstay .wp-block-buttons .wp-block-button {
   width: 100%;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .unit-bookyourstay .wp-block-buttons .wp-block-button {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -11266,7 +11267,7 @@ body:has([class*=home-section]) .progress-bar-wrapper .progress-bar {
   background-color: transparent;
   color: #c2a390;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-width: 1366px) and (pointer: coarse) {
   .unit-bookyourstay .wp-block-buttons .wp-block-button .wp-block-button__link {
     max-width: 440px;
     margin: 60px auto 0;

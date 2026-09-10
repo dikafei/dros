@@ -294,14 +294,17 @@ body {
 .block-editor .editor-styles-wrapper body:not(.wp-admin) {
   color: #333333;
   background-color: #ece5d5;
-  -ms-touch-action: none;
-      touch-action: none;
-  -ms-scroll-chaining: none;
-      overscroll-behavior: none;
 }
 .editor-styles-wrapper body:not(.wp-admin).is-popup-open,
 .block-editor .editor-styles-wrapper body:not(.wp-admin).is-popup-open {
   overflow: hidden;
+}
+.editor-styles-wrapper body:not(.wp-admin).has-scroll-hijack,
+.block-editor .editor-styles-wrapper body:not(.wp-admin).has-scroll-hijack {
+  -ms-touch-action: none;
+      touch-action: none;
+  -ms-scroll-chaining: none;
+      overscroll-behavior: none;
 }
 .editor-styles-wrapper body, .editor-styles-wrapper button:not(.components-button):not(.wp-block-splide-carousel-add), .editor-styles-wrapper input, .editor-styles-wrapper select, .editor-styles-wrapper textarea,
 .block-editor .editor-styles-wrapper body,

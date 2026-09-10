@@ -58,7 +58,7 @@
         top: 50%;
         transform: translateY(-49%);
 
-        @media( max-width:$ipad ) {
+        @media #{$mobile-bp} {
             height: auto !important;
             position: relative;
             transform: none;
@@ -84,7 +84,7 @@
     left:296px;
     /*bottom: clamp(7.5rem, -14.0749rem + 25.2708vw, 16.25rem); /* 60 - 120 */
 
-    @media( max-width:$ipad ) {
+    @media #{$mobile-bp} {
         top:50%;        
         left:25px;
         transform: translateY(-50%);
@@ -102,7 +102,7 @@
     /*top: clamp(1.25rem, -7.9964rem + 10.8303vw, 5rem); /* 20 - 80 */
     left:1136px;
 
-    @media( max-width:$ipad ) {
+    @media #{$mobile-bp} {
         right: 25px;
         left: initial;
         width: 300px;
@@ -118,7 +118,7 @@
     /*bottom: clamp(1.25rem, -14.1606rem + 18.0505vw, 7.5rem); /* 20 - 120 */
     left:1024px;
 
-    @media( max-width:$ipad ) {
+    @media #{$mobile-bp} {
         bottom:80px;
         right: 150px;
         top:initial;
@@ -141,7 +141,7 @@
     color:$secondary;
     margin:0;
 
-    @media( max-width:$ipad ) {
+    @media #{$mobile-bp} {
         font-size: 100px;
     }
 
@@ -157,7 +157,7 @@
     left:730px;
     /*bottom:667px*/
 
-    @media( max-width:$ipad ) {
+    @media #{$mobile-bp} {
         top:150px;
         left:0;
         width: 100%;
@@ -171,7 +171,7 @@
     left:1136px;
     /*bottom:453px;*/
 
-    @media( max-width:$ipad ) { 
+    @media #{$mobile-bp} { 
         right:100px;
         left:initial;
         top:50%;
@@ -190,7 +190,7 @@
     left:621px;
     /*bottom: clamp(8.75rem, -8.9722rem + 20.7581vw, 15.9375rem); /* 140 - 255 */
 
-    @media( max-width:$ipad ) {
+    @media #{$mobile-bp} {
         width:100%;
         left:0;
         top:initial;
@@ -213,7 +213,7 @@
     text-align: right;
     margin:0;
 
-    @media( max-width:$ipad ) {
+    @media #{$mobile-bp} {
         font-size: 20px;
         top:50%;
         left:50%;
@@ -249,7 +249,7 @@
     padding-left: 200px;
     padding-right: 200px;
 
-    @media( max-width:$ipad )      {
+    @media #{$mobile-bp} {
         padding-left: $spacing;
         padding-right: $spacing;
     }
@@ -262,7 +262,7 @@
             gap:200px;
             height: 100%;           
 
-            @media( max-width:$ipad ) {
+            @media #{$mobile-bp} {
                 flex-direction: column;
                 gap:120px;
                 width: 100%;
@@ -274,7 +274,7 @@
                 flex-direction: column;
                 justify-content: center;
 
-                @media( max-width:$ipad ) {
+                @media #{$mobile-bp} {
                     display: flex;
                     justify-content: center;
                 }
@@ -282,7 +282,7 @@
                 .wp-block-image {
                     width: 660px;
 
-                    @media( max-width:$ipad ) {
+                    @media #{$mobile-bp} {
                         width: 100%;   
                         max-width: 660px;
                     }
@@ -295,7 +295,7 @@
 .home-section-rooms9,
 .home-section-rooms14 {
 
-    @media( max-width:$ipad ) {
+    @media #{$mobile-bp} {
         padding-bottom: 120px;
     }
 }
@@ -322,7 +322,7 @@
     font-size: 50px;
     line-height: 1.2;
 
-    @media( max-width:$ipad )      {
+    @media #{$mobile-bp} {
         padding-left: $spacing;
         padding-right: $spacing;
     }
@@ -339,7 +339,7 @@
             justify-content: space-between;
             gap:200px;
 
-            @media( max-width:$ipad ) {
+            @media #{$mobile-bp} {
                 flex-direction: column;
                 gap:120px;
                 width: 100%;
@@ -351,7 +351,7 @@
                 align-items: center;
                 justify-content: center;
 
-                @media( max-width:$ipad ) {
+                @media #{$mobile-bp} {
                     display: flex;
                     justify-content: center;
                 }
@@ -369,7 +369,7 @@
                     .wp-block-image {
                         width: 680px;
 
-                        @media( max-width:$ipad ) {
+                        @media #{$mobile-bp} {
                             width: 100%;   
                             max-width: 680px;
                         }
@@ -383,14 +383,14 @@
                     .wp-block-image {
                         width: 640px;
 
-                        @media( max-width:$ipad ) {
+                        @media #{$mobile-bp} {
                             width: 100%;   
                             max-width: 640px;
                         }
 
                         img {
                         
-                            @media( max-width:$ipad ) {
+                            @media #{$mobile-bp} {
                                 object-position: right top;
                             }
                         }
@@ -400,7 +400,7 @@
                         top:calc(100% + 30px );
                         left:-51px; 
 
-                        @media( max-width:$ipad ) {
+                        @media #{$mobile-bp} {
                             width: 100%;   
                             max-width: 640px;
                             text-align: right;
@@ -414,7 +414,7 @@
 
 .home-section-rooms18 {
 
-    @media( max-width:$ipad ) {
+    @media #{$mobile-bp} {
         padding:120px 25px;
     }
 
@@ -427,7 +427,7 @@
             margin:0;
             gap:300px;
 
-            @media( max-width:$ipad ) {
+            @media #{$mobile-bp} {
                 flex-direction: column;
                 gap:120px;
             }
@@ -497,7 +497,7 @@
     padding-left: 200px;
     padding-right: 200px;
 
-    @media( max-width:$ipad )      {
+    @media #{$mobile-bp} {
         padding-left: $spacing;
         padding-right: $spacing;
         padding-bottom: 120px;
@@ -511,7 +511,7 @@
             gap:200px;
             height: 100%;     
 
-            @media( max-width:$ipad ) {
+            @media #{$mobile-bp} {
                 flex-direction: column;
                 gap:120px;
                 width: 100%;
@@ -521,7 +521,7 @@
                 display: flex;
                 align-items: center;
 
-                @media( max-width:$ipad ) {
+                @media #{$mobile-bp} {
                     display: flex;
                     justify-content: center;
                 }
@@ -529,14 +529,14 @@
                 &:nth-child(1) {
                     flex: 0 0 720px;
 
-                    @media( max-width:$ipad ) {
+                    @media #{$mobile-bp} {
                         flex: initial;
                     }
 
                     .wp-block-image {
                         width: 100%;
 
-                        @media( max-width:$ipad ) {
+                        @media #{$mobile-bp} {
                             width: 100%;   
                             max-width: 720px;
                         }
@@ -546,14 +546,14 @@
                 &:nth-child(2) {
                     flex:0 0 600px;
 
-                    @media( max-width:$ipad ) {
+                    @media #{$mobile-bp} {
                         flex: initial;
                     }
                 
                     .wp-block-image {
                         width: 100%;
 
-                        @media( max-width:$ipad ) {
+                        @media #{$mobile-bp} {
                             width: 100%;   
                             max-width: 600px;
                         }
@@ -569,13 +569,13 @@
     .wp-block-cover {
         height:100%;
 
-        @media( max-width:$ipad ) {
+        @media #{$mobile-bp} {
             padding:120px 25px;
         }
 
         .wp-block-cover__inner-container {
 
-            @media( max-width:$ipad ) {
+            @media #{$mobile-bp} {
                 max-width: 560px;
                 width: 100%;
                 margin:0 auto;
@@ -585,7 +585,7 @@
 
     .wp-block-columns {
     
-        @media( max-width:$ipad ) {
+        @media #{$mobile-bp} {
             flex-direction: column;
             gap:60px;
         }
@@ -596,7 +596,7 @@
         .wp-block-button {
             width: 100%;
 
-            @media( max-width:$ipad ) {
+            @media #{$mobile-bp} {
                 display: flex;
                 justify-content: center;
             }
@@ -608,7 +608,7 @@
                 background-color: transparent;
                 color:$secondary;
 
-                @media( max-width:$ipad ) {
+                @media #{$mobile-bp} {
                     max-width: 440px;
                     margin:60px auto 0;
                 }
