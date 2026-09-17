@@ -127,21 +127,22 @@ wp_footer();
 			<h3 class="popup-chooser-title">plan your stay at droshouse</h3>
 			<p class="popup-chooser-subtitle">Experience a refined getaway tailored to you. Reach out to check availability, rates, and exclusive options.</p>
 			<div class="popup-chooser-options">
-				<a href="/booking/" class="popup-chooser-option popup-choice-email">
+				<a href="/our-rooms/" class="popup-chooser-option popup-choice-website">
 					<span class="popup-chooser-icon">
-						<svg width="105" height="80" viewBox="0 0 105 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M54.8364 36.2165L67.2682 46.6348" stroke="#222222" stroke-width="2.4" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-							<path d="M2.74854 64.8511L36.7229 36.3793" stroke="#222222" stroke-width="2.4" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-							<path d="M2.74854 7.27742L28.5132 28.8677" stroke="#222222" stroke-width="2.4" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-							<path d="M77.8291 16.6436L89.0054 7.27808" stroke="#222222" stroke-width="2.4" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-							<path d="M34.0376 33.4971L44.3063 42.1021C45.2153 42.8638 46.5385 42.8638 47.4475 42.1021L72.3391 21.2434" stroke="#222222" stroke-width="2.4" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-							<path d="M89.7887 39.9058V9.07241C89.7887 8.36384 89.4877 7.72388 89.0055 7.27769C88.5698 6.86834 87.9849 6.62061 87.3411 6.62061H4.41311C3.76931 6.62061 3.18425 6.86834 2.74854 7.27769C2.2665 7.72388 1.96533 8.36384 1.96533 9.07241V63.0565C1.96533 63.7651 2.2665 64.405 2.74854 64.8512C3.18425 65.2606 3.76931 65.5083 4.41311 65.5083H64.2519" stroke="#222222" stroke-width="2.4" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-							<path d="M72.0141 75.1228C75.1985 77.3278 79.061 78.6206 83.2253 78.6206C94.1273 78.6206 102.965 69.7683 102.965 58.8483C102.965 47.9283 94.1273 39.0759 83.2253 39.0759C72.3232 39.0759 63.4854 47.9283 63.4854 58.8483C63.4854 62.9938 64.7602 66.8408 66.937 70.0193" stroke="#222222" stroke-width="2.4" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-							<path d="M88.1893 58.8481C88.1893 61.5943 85.9667 63.8203 83.2253 63.8203C80.4836 63.8203 78.2612 61.5943 78.2612 58.8481C78.2612 56.1022 80.4836 53.8759 83.2253 53.8759C85.9667 53.8759 88.1893 56.1022 88.1893 58.8481Z" stroke="#222222" stroke-width="2.4" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-							<path d="M88.1896 58.8481V59.6938C88.1896 61.4684 89.6258 62.9071 91.3976 62.9071C93.1695 62.9071 94.6059 61.4684 94.6059 59.6938V59.0345C94.6059 52.681 89.4977 47.41 83.1546 47.4489C76.731 47.4882 71.5699 52.8577 71.8566 59.3643C72.1149 65.2227 76.8711 69.982 82.7199 70.2356C85.5063 70.3563 88.0833 69.4731 90.1204 67.9172" stroke="#222222" stroke-width="2.4" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+						<svg width="90" height="80" viewBox="0 0 90 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<rect x="3" y="8" width="74" height="62" rx="6" stroke="#222222" stroke-width="2.4" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M3 25H77" stroke="#222222" stroke-width="2.4" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+							<circle cx="13.5" cy="16.5" r="2.3" fill="#222222"/>
+							<circle cx="22.5" cy="16.5" r="2.3" fill="#222222"/>
+							<circle cx="31.5" cy="16.5" r="2.3" fill="#222222"/>
+							<path d="M14 37H55" stroke="#222222" stroke-width="2.4" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M14 47H65" stroke="#222222" stroke-width="2.4" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M14 57H45" stroke="#222222" stroke-width="2.4" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+							<circle cx="66" cy="58" r="14.5" fill="none" stroke="#222222" stroke-width="2.4" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M59.5 58L64 62.5L73 51.5" stroke="#222222" stroke-width="2.4" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>
 					</span>
-					<span class="popup-chooser-label">book via email</span>
+					<span class="popup-chooser-label">book via the website</span>
 				</a>
 				<a href="https://wa.me/6285719271097?text=Hi%20there!%20I%20came%20across%20Droshouse%20and%20I%E2%80%99m%20interested%20in%20your%20accommodation.%20Could%20you%20please%20share%20more%20details%20about%20availability,%20rates,%20and%20the%20types%20of%20villas%20you%20offer?%20Thank%20you!" target="_blank" rel="noopener" class="popup-chooser-option popup-choice-whatsapp">
 					<span class="popup-chooser-icon">
